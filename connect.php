@@ -11,5 +11,7 @@
   {
   	echo "Connected to database server.\r\n";
   }
+
+  $mysqli->set_charset('utf8');
     
 ?>
