@@ -5,5 +5,6 @@
   </head>
   <body>
     <a href="index.php">Homepage</a>
+    <a href="login.php">Login</a>
   </body>
 </html>

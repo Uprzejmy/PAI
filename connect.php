@@ -5,13 +5,8 @@
 
   if($mysqli->connect_errno)
   {
-  	die("Failed to connect to database server.\r\n");
-  }
-  else
-  {
-  	echo "Connected to database server.\r\n";
+    die("Failed to connect to database server.\r\n");
   }
 
   $mysqli->set_charset('utf8');
-    
 ?>
