@@ -29,7 +29,6 @@
       id INT AUTO_INCREMENT NOT NULL,
       email VARCHAR(127) NOT NULL, 
       password VARCHAR(127) NOT NULL,
-      salt VARCHAR(127) NOT NULL,
       surname VARCHAR(127) NOT NULL,
       name VARCHAR(127) NOT NULL,
       session_key VARCHAR(127),
@@ -161,6 +160,18 @@
     {
       die("Failed to connect to database server.\r\n");
     }
+  }
+
+  //example data
+  $adminPassword = password_hash("admin",PASSWORD_DEFAULT);
+  $query = "INSERT INTO users (email, password, name, surname) VALUES ('admin', '".$adminPassword."', 'admin', 'admin')";
+
+  $result = $mysqli->query($query);
+
+  if($mysqli->connect_errno)
+  {
+    echo("Can't get user info\r\n");
+    die();
   }
   
 ?>

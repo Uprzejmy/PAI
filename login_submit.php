@@ -1,7 +1,7 @@
 <?php
 
   //if there is no data 
-  if(!isset($_POST["email"]) || !isset($_POST["password"]))
+  if(!isset($_POST['email']) || !isset($_POST['password']))
   {
     //redirect user to login page
     header('Location: ' . 'login.php');
@@ -11,7 +11,6 @@
   include("connect.php");
 
   $query = $mysqli->prepare("SELECT id, email, password, name, surname FROM users WHERE email = ?");
-
 
   $query->bind_param('s', $_POST['email']); //'s' means that database expects string
   $query->execute();
@@ -28,21 +27,29 @@
     die();
   }
 
+  if(!password_verify($_POST['password'],$user['password']))
+  {
+    setcookie('loginFormError','login and password mismatch',0);
+
+    //redirect user to login page
+    header('Location: ' . 'login.php');
+    die(); 
+  }
+
   echo("uzytkownik zalogowany");
+  var_dump($user);
 
-  // var_dump($result);
-  // $row = mysqli_fetch_array($result);
-  // var_dump($row);
-  // die();
-  //check if user with submitted email exists
-  // if(!isset($row['id']))
-  // {
-  //   header('Location: ' . 'login.php');
-  //   die();
-  // }
+  // echo("uzytkownik zalogowany");
+  // var_dump($user);
 
-  // header('Location: ' . 'index.php');
-  // die();
+  // $query = $mysqli->prepare("UPDATE users SET session_key = 'tarearegsrgsr' WHERE `users`.`id` = 4 ");
+
+  // $query->bind_param('s', $_POST['email']); //'s' means that database expects string
+  // $query->execute();
+
+  // password_hash($user->password);
+  // password_verify()
+
 
 
 ?>
