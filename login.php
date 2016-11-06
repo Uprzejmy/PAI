@@ -15,6 +15,14 @@
         <tr><td>email</td><td><input type="text" name="email" placeholder="email"/></td></tr>
         <tr><td>password</td><td><input type="text" name="password" placeholder="password"/></td></tr>
         <tr><td colspan=2><input type="submit" value="Login"/></td></tr>
+        <tr><td colspan=2>
+        <p>
+          <?php
+            if(isset($_COOKIE["loginFormError"]))
+              echo($_COOKIE["loginFormError"]);
+            setcookie("loginFormError", "", time() - 3600); //time in the past tells browser to remove the cookie
+          ?> 
+        </p></td></tr>
       </table>
     </form>  
     
