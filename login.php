@@ -9,6 +9,7 @@
   <body>
     <a href="index.php">Homepage</a>
     <a href="login.php">Login</a>
+    <a href="registration.php">Registration</a>
 
     <form action="login_submit.php" method="POST">
       <table>
