@@ -1,0 +1,81 @@
+<?php
+  //allows to use root variable instead of $_SERVER["DOCUMENT_ROOT"]
+  require($_SERVER["DOCUMENT_ROOT"]."/env.php");
+
+  //if there is any data 
+  if(isset($_POST['email']) && isset($_POST['password']))
+  {
+    include($root."/connect.php");
+
+    $query = $mysqli->prepare("SELECT id, email, password, name, surname FROM users WHERE email = ?");
+
+    $query->bind_param('s', $_POST['email']); //'s' means that database expects string
+    $query->execute();
+
+    $result = $query->get_result();
+    $user = $result->fetch_assoc();
+
+    if($user == false)
+    {
+      setcookie('loginFormError','login and password mismatch',0);
+
+      //redirect user to login page
+      header('Location: ' . '/login');
+      die();
+    }
+
+    if(!password_verify($_POST['password'],$user['password']))
+    {
+      setcookie('loginFormError','login and password mismatch',0);
+
+      //redirect user to login page
+      header('Location: ' . '/login');
+      die(); 
+    }
+
+    echo("uzytkownik zalogowany");
+    //var_dump($user);
+    header('Location: ' . '/homepage');
+    // echo("uzytkownik zalogowany");
+    // var_dump($user);
+
+    // $query = $mysqli->prepare("UPDATE users SET session_key = 'tarearegsrgsr' WHERE `users`.`id` = 4 ");
+
+    // $query->bind_param('s', $_POST['email']); //'s' means that database expects string
+    // $query->execute();
+
+    // password_hash($user->password);
+    // password_verify()
+  }
+
+?>
+
+<!doctype html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <meta charset="utf-8">
+    <title>Login</title>
+  </head>
+  <body>
+    <a href="index.php">Homepage</a>
+    <a href="/login">Login</a>
+    <a href="registration.php">Registration</a>
+
+    <div class="login">
+      <h1>Login</h1>
+      <?php
+        if(isset($_COOKIE["loginFormError"]))
+          echo("<p>".$_COOKIE["loginFormError"]."</p>");
+        setcookie("loginFormError", "", time() - 3600); //time in the past tells browser to remove the cookie
+      ?> 
+      <form action="login" method="POST">
+        <input type="text" name="email" placeholder="email"/>
+        <input type="password" name="password" placeholder="password"/>
+        <input class="button" type="submit" value="Login"/>
+      </form>
+      
+    </div>
+    
+  </body>
+</html>

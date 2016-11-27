@@ -5,7 +5,7 @@
   </head>
   <body>
     <a href="index.php">Homepage</a>
-    <a href="login.php">Login</a>
+    <a href="/login">Login</a>
     <a href="registration.php">Registration</a>
   </body>
 </html>
