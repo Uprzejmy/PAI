@@ -1,0 +1,11 @@
+DirectoryIndex front.php index.php
+Options -Indexes
+RewriteEngine On
+
+#RewriteRule . front.php [L]
+
+RewriteCond %{SCRIPT_FILENAME} !-d
+RewriteCond %{SCRIPT_FILENAME} !-f
+
+RewriteRule ^tescik ./user/test.php
+
