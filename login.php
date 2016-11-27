@@ -13,16 +13,17 @@
 
     <div class="login">
       <h1>Login</h1>
-      <form action="login_submit.php" method="POST">
-        <input type="text" name="email" placeholder="email"/>
-        <input type="password" name="password" placeholder="password"/>
-        <input class="button" type="submit" value="Login"/>
-      </form>
       <?php
         if(isset($_COOKIE["loginFormError"]))
           echo("<p>".$_COOKIE["loginFormError"]."</p>");
         setcookie("loginFormError", "", time() - 3600); //time in the past tells browser to remove the cookie
       ?> 
+      <form action="login_submit.php" method="POST">
+        <input type="text" name="email" placeholder="email"/>
+        <input type="password" name="password" placeholder="password"/>
+        <input class="button" type="submit" value="Login"/>
+      </form>
+      
     </div>
     
   </body>
