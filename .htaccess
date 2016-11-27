@@ -11,6 +11,7 @@ RewriteRule ^homepage$ index.php [L]
 
 #user actions
 RewriteRule ^login$ user/login.php [L]
+RewriteRule ^registration$ user/registration.php [L]
 
 
 #links in current directory

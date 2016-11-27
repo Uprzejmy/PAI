@@ -58,9 +58,8 @@
     <title>Login</title>
   </head>
   <body>
-    <a href="index.php">Homepage</a>
-    <a href="/login">Login</a>
-    <a href="registration.php">Registration</a>
+    <a href="/homepage">Homepage</a>
+    <a href="/registration">Registration</a>
 
     <div class="login">
       <h1>Login</h1>
@@ -69,7 +68,7 @@
           echo("<p>".$_COOKIE["loginFormError"]."</p>");
         setcookie("loginFormError", "", time() - 3600); //time in the past tells browser to remove the cookie
       ?> 
-      <form action="login" method="POST">
+      <form action="/login" method="POST">
         <input type="text" name="email" placeholder="email"/>
         <input type="password" name="password" placeholder="password"/>
         <input class="button" type="submit" value="Login"/>

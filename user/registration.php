@@ -1,15 +1,15 @@
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" type="text/css" href="/styles.css">
     <meta charset="utf-8">
     <title>Registration</title>
   </head>
   <body>
-    <a href="index.php">Homepage</a>
-    <a href="login.php">Login</a>
+    <a href="/homepage">Homepage</a>
+    <a href="/login">Login</a>
 
-    <form action="registration_submit.php" method="POST">
+    <form action="/registration" method="POST">
       <table>
         <tr><td>email</td><td><input type="text" name="email" placeholder="email"/></td></tr>
         <tr><td>password</td><td><input type="text" name="password" placeholder="password"/></td></tr>

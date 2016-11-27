@@ -6,7 +6,7 @@
   <body>
     <a href="/homepage">Homepage</a>
     <a href="/login">Login</a>
-    <a href="/registration.php">Registration</a>
+    <a href="/registration">Registration</a>
     <p>Nie odnaleziono strony!</p>
   </body>
 </html>

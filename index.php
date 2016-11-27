@@ -4,8 +4,8 @@
     <title>Homepage</title>
   </head>
   <body>
-    <a href="index.php">Homepage</a>
+    <a href="/homepage">Homepage</a>
     <a href="/login">Login</a>
-    <a href="registration.php">Registration</a>
+    <a href="/registration">Registration</a>
   </body>
 </html>
