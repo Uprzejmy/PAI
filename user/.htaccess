@@ -1,1 +1,3 @@
 RewriteRule ^test.php$ - [L]
+
+RewriteRule .* /pai.local/notfound.php [L]

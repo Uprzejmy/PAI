@@ -4,10 +4,7 @@ RewriteEngine On
 
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f
-#RewriteRule ^user/test.php$ - [L]
-#RewriteRule test - [L]
-
 
 RewriteRule ^test$ user/test.php [L]
 
-RewriteRule .* front.php [L]
+RewriteRule .* notfound.php [L]
