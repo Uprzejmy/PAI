@@ -15,6 +15,7 @@
     $result = $query->get_result();
     $user = $result->fetch_assoc();
 
+    //if user with such email doesn't exists
     if($user == false)
     {
       setcookie('loginFormError','login and password mismatch',0);
@@ -24,6 +25,7 @@
       die();
     }
 
+    //if password for such user doesn't match
     if(!password_verify($_POST['password'],$user['password']))
     {
       setcookie('loginFormError','login and password mismatch',0);
@@ -33,19 +35,8 @@
       die(); 
     }
 
-    echo("uzytkownik zalogowany");
-    //var_dump($user);
+    //if everything worked fine redirect user to homepage
     header('Location: ' . '/homepage');
-    // echo("uzytkownik zalogowany");
-    // var_dump($user);
-
-    // $query = $mysqli->prepare("UPDATE users SET session_key = 'tarearegsrgsr' WHERE `users`.`id` = 4 ");
-
-    // $query->bind_param('s', $_POST['email']); //'s' means that database expects string
-    // $query->execute();
-
-    // password_hash($user->password);
-    // password_verify()
   }
 
 ?>

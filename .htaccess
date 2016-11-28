@@ -8,6 +8,7 @@ RewriteCond %{SCRIPT_FILENAME} !-f
 #accesible links
 #homepage
 RewriteRule ^homepage$ index.php [L]
+RewriteRule ^index.php$ index.php [L]
 
 #user actions
 RewriteRule ^login$ user/login.php [L]
