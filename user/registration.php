@@ -1,3 +1,87 @@
+<?php
+  
+  $anyFieldError = 0;
+
+  if($_SERVER['REQUEST_METHOD'] === 'POST')
+  {
+    //allows to use root variable instead of $_SERVER["DOCUMENT_ROOT"]
+    require($_SERVER["DOCUMENT_ROOT"]."/env.php");
+
+    if(!isset($_POST['email']))
+    {
+      $emailFieldError = "Pole Email nie może być puste";
+      $anyFieldError = 1;
+    }
+
+    if(!isset($_POST['password']))
+    {
+      $passwordFieldError = "Pole Haslo nie może być puste";
+      $anyFieldError = 1;
+    }
+
+    if(!isset($_POST['password2']))
+    {
+      $password2FieldError = "Pole Powtórz hasło nie może być puste";
+      $anyFieldError = 1;
+    }
+
+    if(!isset($_POST['name']))
+    {
+      $nameFieldError = "Pole Imię nie może być puste";
+      $anyFieldError = 1;
+    }
+
+    if(!isset($_POST['surname']))
+    {
+      $surnameFieldError = "Pole Nazwisko nie może być puste";
+      $anyFieldError = 1;
+    }
+
+    //check if user with such email exists
+    if(!$anyFieldError)
+    {
+      include($root."/connect.php");
+
+      $query = $mysqli->prepare("SELECT id, email, password, name, surname FROM users WHERE email = ?");
+
+      $query->bind_param('s', $_POST['email']); //'s' means that database expects string
+      $query->execute();
+
+      $result = $query->get_result();
+      $user = $result->fetch_assoc();
+
+      if($user)
+      {
+        $emailFieldError = "Podany adres email jest zajęty";
+        $anyFieldError = 1;
+      }
+    }
+
+    //check if passwords match
+    if(!$anyFieldError)
+    {
+      if($_POST['password'] !== $_POST['password2'])
+      {
+        $passwordFieldError = "Podane hasła się nie zgadzają";
+        $anyFieldError = 1;
+      }
+    }
+
+    //at this point input data met desired conditions, so we register the user
+    if(!$anyFieldError)
+    {
+      $query = "INSERT INTO users (email, password, name, surname) VALUES ('admin', '".$adminPassword."', 'admin', 'admin')";
+      $query = $mysqli->prepare("INSERT INTO users (email, password, name, surname) VALUES (?, ?, ?, ?)");
+
+      $query->bind_param('ssss', $_POST['email'], $_POST['password'], $_POST['name'], $_POST['surname']); //'s' means that database expects string
+      $query->execute();
+
+      //redirect user to homepage after successful registration
+      header('Location: ' . '/homepage');
+    }
+  }
+?>
+
 <!doctype html>
 <html>
   <head>
@@ -12,16 +96,31 @@
     <div class="login">
       <h1>Registration</h1>
       <?php
-        if(isset($_COOKIE["registrationFormError"]))
-          echo("<p>".$_COOKIE["registrationFormError"]."</p>");
-        setcookie("registrationFormError", "", time() - 3600); //time in the past tells browser to remove the cookie
+        if($anyFieldError)
+          echo("<p>Błąd przetwarzania danych</p>");
       ?> 
       <form action="/registration" method="POST">
         <input type="text" name="email" placeholder="email"/>
+        <?php
+          if(isset($emailFieldError))
+            echo("<p>".$emailFieldError."</p>");
+        ?> 
         <input type="password" name="password" placeholder="password"/>
+        <?php
+          if(isset($passwordFieldError))
+            echo("<p>".$passwordFieldError."</p>");
+        ?> 
         <input type="password" name="password2" placeholder="password confirmation"/>
         <input type="text" name="name" placeholder="name"/>
+        <?php
+          if(isset($nameFieldError))
+            echo("<p>".$nameFieldError."</p>");
+        ?>
         <input type="text" name="surname" placeholder="surname"/>
+        <?php
+          if(isset($surnameFieldError))
+            echo("<p>".$surnameFieldError."</p>");
+        ?>
         <input class="button" type="submit" value="Create an account"/>
       </form>
       
