@@ -44,7 +44,8 @@
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" type="text/css" href="/styles.css">
+<!--     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+ -->    <link rel="stylesheet" type="text/css" href="/styles.css">
     <meta charset="utf-8">
     <title>Login</title>
   </head>

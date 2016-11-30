@@ -2,8 +2,17 @@ DirectoryIndex index.php
 Options -Indexes
 RewriteEngine On
 
+#enable css and js files before they're catched by last filter
+#RewriteCond %{SCRIPT_FILENAME} \.(css|js)$
 RewriteCond %{SCRIPT_FILENAME} !-d
 RewriteCond %{SCRIPT_FILENAME} !-f
+#RewriteRule ^ - [L]
+
+#send css as actual css type
+RewriteRule ^.+\.css$ - [T=text/css]
+
+#css
+RewriteRule styles.css$ styles.css [L]
 
 #accesible links
 #homepage
