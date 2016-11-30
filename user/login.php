@@ -45,7 +45,7 @@
       //if password for such user doesn't match
       if(!password_verify($_POST['password'],$user['password']))
       {
-        $emailFieldError = "Nie istnieje użytkownik o podanych adresie Email";
+        $emailFieldError = "Podane haslo jest nieprawidlowe";
         $anyFieldError = 1;
       }
     }
@@ -53,7 +53,15 @@
     //if everything worked fine redirect user to homepage and remember his email
     if(!$anyFieldError)
     {
+      //create session
+      $query = $mysqli->prepare("INSERT INTO sessions(user_id, ip, agent, session_key) VALUES (?, ?, ?, ?)");
+
+      $sessionKey = md5($user['email'].time());
+      $query->bind_param('dsss', $user['id'], $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $sessionKey); //'s' means that database expects string
+      $query->execute();
+
       setcookie("email", $user['email'], time()+3600);
+      setcookie("session_key", $sessionKey, time()+3600);
       header('Location: ' . '/homepage');
     }
   }

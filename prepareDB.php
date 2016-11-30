@@ -39,6 +39,20 @@
     ENGINE = InnoDB    
     ',
 
+    'CREATE TABLE sessions (
+      id INT AUTO_INCREMENT NOT NULL,
+      user_id INT NOT NULL,
+      ip VARCHAR(64) NOT NULL,
+      agent VARCHAR(128) NOT NULL,
+      created_at DATETIME,
+      session_key VARCHAR(128) NOT NULL,
+      PRIMARY KEY(id),
+      CONSTRAINT sessions_user_id FOREIGN KEY (user_id) REFERENCES users (id)
+    )
+    DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci 
+    ENGINE = InnoDB    
+    ',
+
     'CREATE TABLE teams (
       id INT AUTO_INCREMENT NOT NULL,
       leader_id INT NOT NULL,

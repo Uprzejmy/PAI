@@ -12,6 +12,7 @@
     <?php
       if(isset($_COOKIE['email']))
         echo("<p>Zalogowano jako: ".$_COOKIE['email']."</p>");
+        echo("<p>Sesja: ".$_COOKIE['session_key']."</p>");
     ?>
   </body>
 </html>
