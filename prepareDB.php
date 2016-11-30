@@ -31,7 +31,6 @@
       password VARCHAR(127) NOT NULL,
       surname VARCHAR(127) NOT NULL,
       name VARCHAR(127) NOT NULL,
-      session_key VARCHAR(127),
       registered_at DATETIME,
       PRIMARY KEY(id),
       UNIQUE KEY email (email)     

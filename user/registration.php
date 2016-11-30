@@ -70,14 +70,12 @@
     //at this point input data met desired conditions, so we register the user
     if(!$anyFieldError)
     {
-      $query = "INSERT INTO users (email, password, name, surname) VALUES ('admin', '".$adminPassword."', 'admin', 'admin')";
       $query = $mysqli->prepare("INSERT INTO users (email, password, name, surname) VALUES (?, ?, ?, ?)");
-
-      $query->bind_param('ssss', $_POST['email'], $_POST['password'], $_POST['name'], $_POST['surname']); //'s' means that database expects string
+      $query->bind_param('ssss', $_POST['email'], password_hash($_POST['password'],PASSWORD_BCRYPT), $_POST['name'], $_POST['surname']); //'s' means that database expects string
       $query->execute();
 
-      //redirect user to homepage after successful registration
-      header('Location: ' . '/homepage');
+      //redirect user to login after successful registration (make it homepage after automatic login)
+      header('Location: ' . '/login');
     }
   }
 ?>
@@ -97,7 +95,7 @@
       <h1>Registration</h1>
       <?php
         if($anyFieldError)
-          echo("<p>Błąd przetwarzania danych</p>");
+          echo("<p>Błąd rejestracji</p>");
       ?> 
       <form action="/registration" method="POST">
         <input type="text" name="email" placeholder="email"/>

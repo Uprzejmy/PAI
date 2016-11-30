@@ -1,44 +1,62 @@
 <?php
-  //allows to use root variable instead of $_SERVER["DOCUMENT_ROOT"]
-  require($_SERVER["DOCUMENT_ROOT"]."/env.php");
+  $anyFieldError = 0;
 
-  //if there is any data 
-  if(isset($_POST['email']) && isset($_POST['password']))
+  if($_SERVER['REQUEST_METHOD'] === 'POST')
   {
-    include($root."/connect.php");
+        //allows to use root variable instead of $_SERVER["DOCUMENT_ROOT"]
+    require($_SERVER["DOCUMENT_ROOT"]."/env.php");
 
-    $query = $mysqli->prepare("SELECT id, email, password, name, surname FROM users WHERE email = ?");
-
-    $query->bind_param('s', $_POST['email']); //'s' means that database expects string
-    $query->execute();
-
-    $result = $query->get_result();
-    $user = $result->fetch_assoc();
-
-    //if user with such email doesn't exists
-    if($user == false)
+    if(!isset($_POST['email']))
     {
-      setcookie('loginFormError','login and password mismatch',0);
-
-      //redirect user to login page
-      header('Location: ' . '/login');
-      die();
+      $emailFieldError = "Pole Email nie może być puste";
+      $anyFieldError = 1;
     }
 
-    //if password for such user doesn't match
-    if(!password_verify($_POST['password'],$user['password']))
+    if(!isset($_POST['password']))
     {
-      setcookie('loginFormError','login and password mismatch',0);
-
-      //redirect user to login page
-      header('Location: ' . '/login');
-      die(); 
+      $passwordFieldError = "Pole Haslo nie może być puste";
+      $anyFieldError = 1;
     }
 
-    //if everything worked fine redirect user to homepage
-    header('Location: ' . '/homepage');
+    //check if user with such email exists
+    if(!$anyFieldError)
+    {
+      include($root."/connect.php");
+
+      $query = $mysqli->prepare("SELECT id, email, password, name, surname FROM users WHERE email = ?");
+
+      $query->bind_param('s', $_POST['email']); //'s' means that database expects string
+      $query->execute();
+
+      $result = $query->get_result();
+      $user = $result->fetch_assoc();
+
+      //if user with such email doesn't exists
+      if(!$user)
+      {
+        $emailFieldError = "Nie istnieje użytkownik o podanych adresie Email";
+        $anyFieldError = 1;
+      }
+    }
+
+    //check if password is correct
+    if(!$anyFieldError)
+    {
+      //if password for such user doesn't match
+      if(!password_verify($_POST['password'],$user['password']))
+      {
+        $emailFieldError = "Nie istnieje użytkownik o podanych adresie Email";
+        $anyFieldError = 1;
+      }
+    }
+
+    //if everything worked fine redirect user to homepage and remember his email
+    if(!$anyFieldError)
+    {
+      setcookie("email", $user['email'], time()+3600);
+      header('Location: ' . '/homepage');
+    }
   }
-
 ?>
 
 <!doctype html>
@@ -55,13 +73,20 @@
     <div class="login">
       <h1>Login</h1>
       <?php
-        if(isset($_COOKIE["loginFormError"]))
-          echo("<p>".$_COOKIE["loginFormError"]."</p>");
-        setcookie("loginFormError", "", time() - 3600); //time in the past tells browser to remove the cookie
+        if($anyFieldError)
+          echo("<p>Błąd logowania</p>");
       ?> 
       <form action="/login" method="POST">
         <input type="text" name="email" placeholder="email"/>
+        <?php
+          if(isset($emailFieldError))
+            echo("<p>".$emailFieldError."</p>");
+        ?> 
         <input type="password" name="password" placeholder="password"/>
+        <?php
+          if(isset($passwordFieldError))
+            echo("<p>".$passwordFieldError."</p>");
+        ?> 
         <input class="button" type="submit" value="Login"/>
       </form>
       
