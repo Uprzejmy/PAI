@@ -1,9 +1,13 @@
 <?php
+  header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+  header("Cache-Control: post-check=0, pre-check=0", false);
+  header("Pragma: no-cache");
+
   $anyFieldError = 0;
 
   if($_SERVER['REQUEST_METHOD'] === 'POST')
   {
-        //allows to use root variable instead of $_SERVER["DOCUMENT_ROOT"]
+    //allows to use root variable instead of $_SERVER["DOCUMENT_ROOT"]
     require($_SERVER["DOCUMENT_ROOT"]."/env.php");
 
     if(!isset($_POST['email']))
@@ -60,8 +64,11 @@
       $query->bind_param('dsss', $user['id'], $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $sessionKey); //'s' means that database expects string
       $query->execute();
 
-      setcookie("email", $user['email'], time()+3600);
-      setcookie("session_key", $sessionKey, time()+3600);
+      $previous = rand(0,100);
+
+      setcookie("email", $user['email'], time()+3600, "/");
+      setcookie("session_key", $sessionKey, time()+3600, "/");
+      setcookie("previous", $previous, time()+3600, "/");
       header('Location: ' . '/homepage');
     }
   }
