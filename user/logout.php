@@ -27,6 +27,7 @@
 
     setcookie("email", "", time()-3600, "/");
     setcookie("session_key", "", time()-3600, "/");
+    setcookie("token", "", time()-3600, "/");
     header('Location: ' . '/homepage');
   }
 
