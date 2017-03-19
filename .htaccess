@@ -24,6 +24,8 @@ RewriteRule ^login$ user/login.php [L]
 RewriteRule ^logout$ user/logout.php [L]
 RewriteRule ^registration$ user/registration.php [L]
 
+RewriteRule ^createTournament$ tournament/createTournament.php [L]
+
 
 #links in current directory
 #index
