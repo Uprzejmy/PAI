@@ -23,6 +23,9 @@ RewriteRule ^index.php$ index.php [L]
 RewriteRule ^login$ user/login.php [L]
 RewriteRule ^registration$ user/registration.php [L]
 
+#tournament actions
+RewriteRule ^tournamentShow$ tournament/tournamentShow.php [L]
+
 
 #links in current directory
 #index

@@ -8,11 +8,14 @@
     <a href="/homepage">Homepage</a>
     <a href="/login">Login</a>
     <a href="/registration">Registration</a>
+    <a href="/tournamentShow">Tournament</a>
 
     <?php
       if(isset($_COOKIE['email']))
-        echo("<p>Zalogowano jako: ".$_COOKIE['email']."</p>");
-        echo("<p>Sesja: ".$_COOKIE['session_key']."</p>");
+      {
+          echo("<p>Zalogowano jako: ".$_COOKIE['email']."</p>");
+          echo("<p>Sesja: ".$_COOKIE['session_key']."</p>");
+      }
     ?>
   </body>
 </html>
