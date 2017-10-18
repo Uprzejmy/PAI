@@ -17,18 +17,22 @@
 
   if(isset($_COOKIE['email']))
   {
-    require($_SERVER["DOCUMENT_ROOT"]."/env.php");
-    include($root."/connect.php");
+    require_once($_SERVER["DOCUMENT_ROOT"]."/env.php");
+    require_once($ROOT."/user/utils.php");
+    require_once($ROOT."/connect.php");
 
     $query = $mysqli->prepare("delete from sessions WHERE session_key=?;");
 
     $query->bind_param('s', $_COOKIE['session_key']);
     $query->execute();
 
-    setcookie("email", "", time()-3600, "/");
-    setcookie("session_key", "", time()-3600, "/");
-    setcookie("token", "", time()-3600, "/");
-    header('Location: ' . '/homepage');
+
+    // setcookie("email", "", time()-3600, "/");
+    // setcookie("session_key", "", time()-3600, "/");
+    // setcookie("token", "", time()-3600, "/");
+    // header('Location: ' . '/homepage');
+
+    unvalidateUser("Logout successful");
   }
 
 ?>

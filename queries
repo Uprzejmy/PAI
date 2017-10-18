@@ -1,0 +1,9 @@
+SELECT count(users.id), teams.name
+FROM users
+LEFT JOIN teams_members on users.id = teams_members.user_id
+LEFT JOIN teams on teams_members.team_id = teams.id
+HAVING count(users.id) > 1
+
+SELECT * 
+FROM users
+LEFT JOIN teams_members on users.id = teams_members.user_id

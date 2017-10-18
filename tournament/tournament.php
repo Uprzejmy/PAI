@@ -3,8 +3,8 @@
   require_once($ROOT."/user/utils.php");
   require_once($ROOT."/connect.php");
 
-  validateUser($mysqli, $_COOKIE['email'], $_COOKIE['session_key'], $_COOKIE['token'], $userId);
-
+  // validateUser($mysqli, $_COOKIE['email'], $_COOKIE['session_key'], $_COOKIE['token'], $userId);
+/*
   if($_SERVER['REQUEST_METHOD'] === 'POST')
   {
     //var_dump($_POST);
@@ -33,11 +33,29 @@
       header('Location: ' . '/homepage'); //todo redirect to tournament show later
     }
   }
+  */
+  $tournamentNotFound = 1;
+
+  if(isset($_GET['id']) && !empty($_GET['id']))
+  {
+    $query = $mysqli->prepare("SELECT tournamens.name as tournamentName, tournaments.description as tournamentDescription, tournamens.admin_id as adminId FROM tournaments WHERE id = ?;");
+
+    $query->bind_param('d', $_GET['id']);
+    $query->execute();
+
+    $result = $query->get_result();
+    $tournament = $result->fetch_assoc();
+
+    if($tournament)
+    {
+      $tournamentNotFound = 0;
+    }
+  }
 ?>
 
 <?php include($ROOT."/templates/headStart.php"); ?>
 
-<title>Turniej - tworzenie</title>
+<title>Turniej</title>
 
 <?php include($ROOT."/templates/headEnd.php"); ?>
 
@@ -56,9 +74,13 @@
 
 <div class="tournament">
   <?php 
-    if(isset($anyFieldError))
+    if($tournamentNotFound)
     {
-      echo("<p>Błąd przetwarzania formularza</p>");
+      echo("<p>Nie odnaleziono turnieju</p>");
+    }
+    else
+    {
+      
     }
   ?>
   <form action="/createTournament" method="POST">
