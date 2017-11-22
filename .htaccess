@@ -26,6 +26,8 @@ RewriteRule ^registration$ user/registration.php [L]
 
 #tournament actions
 RewriteRule ^tournamentShow$ tournament/tournamentShow.php [L]
+RewriteRule ^createTournament$ tournament/createTournament.php [L]
+RewriteRule ^tournament$ tournament/tournament.php [L]
 
 
 #links in current directory

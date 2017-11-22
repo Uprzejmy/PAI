@@ -57,18 +57,18 @@
     //if everything worked fine redirect user to homepage and remember his email
     if(!$anyFieldError)
     {
+      $token = rand(0,1000);
+
       //create session
-      $query = $mysqli->prepare("INSERT INTO sessions(user_id, ip, agent, session_key) VALUES (?, ?, ?, ?)");
+      $query = $mysqli->prepare("INSERT INTO sessions(user_id, ip, agent, session_key, token) VALUES (?, ?, ?, ?, ?)");
 
       $sessionKey = md5($user['email'].time());
-      $query->bind_param('dsss', $user['id'], $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $sessionKey); //'s' means that database expects string
+      $query->bind_param('dsssd', $user['id'], $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $sessionKey, $token); //'s' means that database expects string
       $query->execute();
-
-      $previous = rand(0,100);
 
       setcookie("email", $user['email'], time()+3600, "/");
       setcookie("session_key", $sessionKey, time()+3600, "/");
-      setcookie("previous", $previous, time()+3600, "/");
+      setcookie("token", $token, time()+3600, "/");
       header('Location: ' . '/homepage');
     }
   }
