@@ -163,6 +163,12 @@
       FOR EACH ROW
         SET NEW.registered_at = NOW();
     ',
+
+    'CREATE TRIGGER session_creation
+      BEFORE INSERT ON sessions 
+      FOR EACH ROW
+        SET NEW.created_at = NOW();
+    ',
   );
 
   foreach($triggersCreationQueries as $key => $query)

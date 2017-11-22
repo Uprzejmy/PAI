@@ -21,6 +21,7 @@ RewriteRule ^index.php$ index.php [L]
 
 #user actions
 RewriteRule ^login$ user/login.php [L]
+RewriteRule ^logout$ user/logout.php [L]
 RewriteRule ^registration$ user/registration.php [L]
 
 #tournament actions

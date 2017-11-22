@@ -1,4 +1,5 @@
 RewriteRule ^login.php$ - [L]
 RewriteRule ^registration.php$ - [L]
+RewriteRule ^logout.php$ - [L]
 
 RewriteRule .* /pai.local/notfound.php [L]
