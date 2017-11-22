@@ -1,3 +1,3 @@
 <?php
-  $root = $_SERVER["DOCUMENT_ROOT"];
+  $ROOT = $_SERVER["DOCUMENT_ROOT"];
 ?>

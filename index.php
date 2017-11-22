@@ -8,7 +8,7 @@
   if(isset($_COOKIE['email']) && isset($_COOKIE['session_key']) && isset($_COOKIE['token']))
   {
     require($_SERVER["DOCUMENT_ROOT"]."/env.php");
-    include($root."/connect.php");
+    include($ROOT."/connect.php");
 
     $query = $mysqli->prepare("SELECT id, token FROM sessions WHERE session_key=?");
 
@@ -69,6 +69,6 @@
       //if(isset($_COOKIE['session_key']))
       //  echo("<p>Sesja: ".$_COOKIE['session_key']."</p>");
     ?>
-    </p>
+    </div>
   </body>
 </html>

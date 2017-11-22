@@ -1,5 +1,5 @@
 RewriteRule ^tournamentShow.php$ - [L]
 RewriteRule ^createTournament.php$ - [L]
-RewriteRule ^tournament.php$ - [L]
+RewriteRule ^tournamentCreate.php$ - [L]
 
 RewriteRule .* /pai.local/notfound.php [L]

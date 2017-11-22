@@ -193,7 +193,6 @@ CREATE TABLE `users` (
   `id` int(11) NOT NULL,
   `email` varchar(127) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(127) COLLATE utf8_unicode_ci NOT NULL,
-  `salt` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `surname` varchar(127) COLLATE utf8_unicode_ci NOT NULL,
   `name` varchar(127) COLLATE utf8_unicode_ci NOT NULL,
   `registered_at` datetime DEFAULT NULL

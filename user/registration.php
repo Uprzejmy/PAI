@@ -40,7 +40,7 @@
     //check if user with such email exists
     if(!$anyFieldError)
     {
-      include($root."/connect.php");
+      include($ROOT."/connect.php");
 
       $query = $mysqli->prepare("SELECT id, email, password, name, surname FROM users WHERE email = ?");
 
