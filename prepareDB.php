@@ -1,4 +1,8 @@
 <?php
+/**
+ * Created by Uprzejmy
+ */
+
   //check if script has been run using console
   include("isConsole.php");
 

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Created by Uprzejmy
+ */
 
 class Tournament
 {

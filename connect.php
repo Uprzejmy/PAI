@@ -1,4 +1,8 @@
 <?php
+/**
+ * Created by Uprzejmy
+ */
+
   include("parameters.php");
   
   $mysqli = new mysqli($dbHost, $dbUser, $dbPassword, $dbName);
@@ -9,4 +13,3 @@
   }
 
   $mysqli->set_charset('utf8');
-?>

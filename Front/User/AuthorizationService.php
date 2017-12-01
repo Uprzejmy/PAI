@@ -3,4 +3,8 @@
  * Created by Uprzejmy
  */
 
-  $ROOT = $_SERVER["DOCUMENT_ROOT"];
+class AuthorizationService
+{
+
+
+}

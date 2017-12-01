@@ -1,4 +1,8 @@
 <?php
+/**
+ * Created by Uprzejmy
+ */
+
   $dbHost = "127.0.0.1";
   $dbName = "pai";
   $dbUser = "pai";
