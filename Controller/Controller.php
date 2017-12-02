@@ -13,9 +13,9 @@ class Controller
   public function action()
   {
     $model = new Model();
-    $view = new MainView();
+    $mainView = new MainView();
     $userView = new UserView();
 
-    $view->render($userView);
+    $mainView->render($userView);
   }
 }
