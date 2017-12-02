@@ -3,7 +3,7 @@
  * Created by Uprzejmy
  */
 
-class Router
+class Model
 {
 
 }

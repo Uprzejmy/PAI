@@ -5,7 +5,8 @@
 
 class AuthenticationService
 {
-  public static function authenticate()
+  //TODO
+  public static function authenticate($cookie)
   {
     return true;
   }

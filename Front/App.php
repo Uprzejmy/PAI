@@ -4,26 +4,40 @@
  */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Front/UrlValidatorService.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Front/User/AuthenticationService.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Front/User/AuthorizationService.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Front/RouterService.php";
+
 
 class App
 {
-  public $USER;
-  public $ROOT;
-  public $APP;
+  private static $instance;
 
-  function __construct()
+  public static function getInstance()
   {
-    $ROOT = $_SERVER['DOCUMENT_ROOT'];
-    $APP = $this;
+    if(self::$instance === null)
+    {
+      self::$instance = new App();
+    }
+
+    return self::$instance;
   }
 
-  function run($url)
+  private function __construct(){}
+
+  function run()
   {
-    UrlValidatorService::isUrlValid($url);
-
-
+    $this->successOrDie(UrlValidatorService::isUrlValid($_SERVER['REQUEST_URI']));
+    $this->successOrDie(AuthenticationService::authenticate($_COOKIE));
+    $this->successOrDie(RouterService::route($_SERVER['REQUEST_URI']));
   }
 
-  function redirect
+  function successOrDie($returnValue)
+  {
+    if($returnValue !== true)
+    {
+      die();
+    }
+  }
 
 }
