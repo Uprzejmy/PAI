@@ -3,7 +3,7 @@
  * Created by Uprzejmy
  */
 
-class UserRepository
+class UserSessionRepository
 {
   //TODO
 
