@@ -29,7 +29,8 @@ class App
   {
     $this->successOrDie(UrlValidatorService::isUrlValid($_SERVER['REQUEST_URI']));
     $this->successOrDie(AuthenticationService::authenticate($_COOKIE));
-    $this->successOrDie(RouterService::route($_SERVER['REQUEST_URI']));
+
+    RouterService::route($_SERVER['REQUEST_URI']);
   }
 
   function successOrDie($returnValue)

@@ -3,17 +3,22 @@
  * Created by Uprzejmy
  */
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Front/RoutingTable.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/Controller.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/UserController.php";
+//TODO include all controllers
 
 class RouterService
 {
-  //TODO
   public static function route($url)
   {
-      $controller = new Controller();
-      $controller->action();
+    $routingTable = new RoutingTable();
 
-      return false;
+    $route = $routingTable->getRoute($url);
+
+    call_user_func_array(array(new $route->controller, $route->action), $route->parameters);
+
+    return false;
   }
 
 }
