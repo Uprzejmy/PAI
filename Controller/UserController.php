@@ -4,14 +4,13 @@
  */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/View/UserView.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/View/UserLoginView.php";
 
 class UserController
 {
     public function loginAction()
     {
-      $userLoginView = new UserLoginView();
+      $userView = new UserView();
 
-      $userLoginView->render(['testKey' => 'testValue']);
+      $userView->render('Login', ['testKey' => 'testValue']);
     }
 }

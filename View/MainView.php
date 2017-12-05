@@ -3,21 +3,20 @@
  * Created by Uprzejmy
  */
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/View/IView.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/View/View.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/View/BaseView.php";
 
-class MainView extends View
+class MainView extends View implements IView
 {
-  public function render(IView $view, $parameters = [])
+  function render($action, $parameters = [])
   {
-    echo("<!DOCTYPE html>
-          <html>
-          <body>
-          ");
+    $baseView = new BaseView();
+    $baseView->render($this, $action, $parameters);
+  }
 
-    include($this->templatesDir."MenuBar.php");
-    $view->renderContent($parameters);
-
-    echo("</body>
-          </html>");
+  function renderContent($action, $parameters)
+  {
+    include($this->templatesDir."$action.php");
   }
 }

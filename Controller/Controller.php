@@ -4,23 +4,21 @@
  */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Model.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/View/UserView.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/View/MainView.php";
 
 class Controller
 {
-  public function action()
+  public function homepageAction()
   {
-    $model = new Model();
+    $mainView = new MainView();
 
-    $userView = new UserView();
-
-    $userView->render();
+    $mainView->render('Homepage');
   }
 
   public function notFoundAction()
   {
-    $userView = new UserView();
+    $mainView = new MainView();
 
-    $userView->render();
+    $mainView->render('NotFound');
   }
 }

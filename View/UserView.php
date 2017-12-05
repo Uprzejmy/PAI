@@ -5,18 +5,18 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/View/IView.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/View/View.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/View/MainView.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/View/BaseView.php";
 
 class UserView extends View implements IView
 {
-  function render($parameters = [])
+  function render($action, $parameters = [])
   {
-    $mainView = new MainView();
-    $mainView->render($this, $parameters);
+    $baseView = new BaseView();
+    $baseView->render($this, $action, $parameters);
   }
 
-  function renderContent($parameters)
+  function renderContent($action, $parameters)
   {
-    include($this->templatesDir."UserBlock.php");
+    include($this->templatesDir."User/$action.php");
   }
 }

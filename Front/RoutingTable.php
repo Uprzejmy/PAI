@@ -27,6 +27,7 @@ class RoutingTable
   {
     $this->routes['/not_found'] = new Route("Controller", "notFoundAction");
     $this->routes['/login'] = new Route("UserController", "loginAction");
+    $this->routes['/homepage'] = new Route("Controller", "homepageAction");
 
     //TODO configure other routes
   }
