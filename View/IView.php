@@ -5,5 +5,6 @@
 
 interface IView
 {
-  function render();
+  function render($parameters = []);
+  function renderContent($parameters);
 }

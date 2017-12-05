@@ -4,7 +4,6 @@
  */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Model.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/View/MainView.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/View/UserView.php";
 
 class Controller
@@ -12,17 +11,16 @@ class Controller
   public function action()
   {
     $model = new Model();
-    $mainView = new MainView();
+
     $userView = new UserView();
 
-    $mainView->render($userView);
+    $userView->render();
   }
 
   public function notFoundAction()
   {
-    $mainView = new MainView();
     $userView = new UserView();
 
-    $mainView->render($userView);
+    $userView->render();
   }
 }

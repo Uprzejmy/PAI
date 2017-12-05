@@ -7,12 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/View/View.php";
 
 class MainView extends View
 {
-  public function __construct()
-  {
-    parent::__construct();
-  }
-
-  public function render(IView $view)
+  public function render(IView $view, $parameters = [])
   {
     echo("<!DOCTYPE html>
           <html>
@@ -20,7 +15,7 @@ class MainView extends View
           ");
 
     include($this->templatesDir."MenuBar.php");
-    $view->render();
+    $view->renderContent($parameters);
 
     echo("</body>
           </html>");
