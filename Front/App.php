@@ -3,7 +3,7 @@
  * Created by Uprzejmy
  */
 
-require_once $_SERVER['DOCUMENT_ROOT'] . "/Front/UrlValidatorService.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Front/RequestValidatorService.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Front/User/AuthenticationService.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Front/User/AuthorizationService.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Front/RouterService.php";
@@ -27,7 +27,7 @@ class App
 
   function run()
   {
-    $this->successOrDie(UrlValidatorService::isUrlValid($_SERVER['REQUEST_URI']));
+    $this->successOrDie(RequestValidatorService::validateRequest($_SERVER['REQUEST_URI']));
     $this->successOrDie(AuthenticationService::authenticate($_COOKIE));
 
     RouterService::route($_SERVER['REQUEST_URI']);

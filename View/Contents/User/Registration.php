@@ -1,11 +1,10 @@
 <div>
-  <p>This is user registration block</p>
   <form action="/registration" method="POST">
     <label for="email">Email</label>
-    <input type="text" id="email" name="email">
+    <input type="text" id="email" name="email" value="<?php echo $parameters['email'] ?>">
 
     <label for="username">Username</label>
-    <input type="text" id="username" name="username">
+    <input type="text" id="username" name="username" value="<?php echo $parameters['username'] ?>">
 
     <label for="password">Password</label>
     <input type="password" id="password" name="password">
