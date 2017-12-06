@@ -25,9 +25,14 @@ class RoutingTable
 
   private function initializeRoutingTable()
   {
-    $this->routes['/not_found'] = new Route("Controller", "notFoundAction");
+    //Main
+    $this->routes['/not_found'] = new Route("MainController", "notFoundAction");
+    $this->routes['/homepage'] = new Route("MainController", "homepageAction");
+
+    //User
     $this->routes['/login'] = new Route("UserController", "loginAction");
-    $this->routes['/homepage'] = new Route("Controller", "homepageAction");
+    $this->routes['/registration'] = new Route("UserController", "registrationAction");
+    $this->routes['/logout'] = new Route("UserController", "logoutAction");
 
     //TODO configure other routes
   }

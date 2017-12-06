@@ -4,7 +4,7 @@
  */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Front/RoutingTable.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/Controller.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/MainController.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/UserController.php";
 //TODO include all controllers
 
