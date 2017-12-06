@@ -1,6 +1,3 @@
 <div>
-  <p>This is not found block</p>
-  <p>
-    <?php var_dump($parameters) ?>
-  </p>
+  <p>Sorry, we couldn't find the address you requested</p>
 </div>
