@@ -5,12 +5,17 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/BaseController.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Model.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/DbConnection.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/View/MainView.php";
 
 class MainController extends BaseController
 {
   public function homepageAction()
   {
+    $dbConnection = DbConnection::getInstance()->getConnection();
+    $model = new Model();
+    $users = $model->getAllUsers($dbConnection);
+
     $mainView = new MainView();
 
     $mainView->render('Homepage');
