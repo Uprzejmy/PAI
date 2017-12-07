@@ -3,8 +3,7 @@
  * Created by Uprzejmy
  */
 
-  $dbHost = "127.0.0.1";
-  $dbName = "pai";
-  $dbUser = "pai";
-  $dbPassword = "demo1234";
-?>
+  $GLOBALS['dbHost'] = "127.0.0.1";
+  $GLOBALS['dbName'] = "pai";
+  $GLOBALS['dbUser'] = "pai";
+  $GLOBALS['dbPassword'] = "demo1234";

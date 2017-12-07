@@ -10,7 +10,7 @@ class User
   private $password;
   private $name;
   private $surname;
-  private $registeredAt;
+  private $registered_at;
 
   /**
    * @return mixed
@@ -18,6 +18,14 @@ class User
   public function getId()
   {
     return $this->id;
+  }
+
+  /**
+   * @param mixed $id
+   */
+  public function setId($id)
+  {
+    $this->id = $id;
   }
 
   /**
@@ -89,15 +97,15 @@ class User
    */
   public function getRegisteredAt()
   {
-    return $this->registeredAt;
+    return $this->registered_at;
   }
 
   /**
-   * @param mixed $registeredAt
+   * @param mixed $registered_at
    */
-  public function setRegisteredAt($registeredAt)
+  public function setRegisteredAt($registered_at)
   {
-    $this->registeredAt = $registeredAt;
+    $this->registered_at = $registered_at;
   }
 
 
