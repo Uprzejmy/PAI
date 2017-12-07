@@ -9,15 +9,11 @@ class BaseView extends View
 {
   public function render(IView $view, $action, $parameters = [])
   {
-    echo("<!DOCTYPE html>
-          <html>
-          <body>
-          ");
+    echo("<!DOCTYPE html><html><body>");
 
     include($this->templatesDir."MenuBar.php");
     $view->renderContent($action, $parameters);
 
-    echo("</body>
-          </html>");
+    echo("</body></html>");
   }
 }
