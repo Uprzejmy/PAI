@@ -25,4 +25,22 @@ class UserRepository
 
     return $users;
   }
+
+  public static function getUserById(mysqli $connection, $id)
+  {
+    $queryString = "SELECT id, email, name, surname, password, registered_at FROM users WHERE id = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("i",$id);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    if ($user = $result->fetch_object("User"))
+    {
+      return $user;
+    }
+
+    return null;
+  }
 }

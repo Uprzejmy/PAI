@@ -11,4 +11,9 @@ class Model
   {
     return UserRepository::getUsers($connection);
   }
+
+  public function getUserById(mysqli $connection, $id)
+  {
+    return UserRepository::getUserById($connection, $id);
+  }
 }

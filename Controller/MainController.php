@@ -15,6 +15,9 @@ class MainController extends BaseController
     $dbConnection = DbConnection::getInstance()->getConnection();
     $model = new Model();
     $users = $model->getAllUsers($dbConnection);
+    $user = $model->getUserById($dbConnection, 1);
+
+    var_dump($user);
 
     $mainView = new MainView();
 
