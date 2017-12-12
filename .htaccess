@@ -13,6 +13,7 @@ RewriteRule ^.+\.css$ - [T=text/css]
 
 #css
 RewriteRule styles.css$ styles.css [L]
+RewriteRule ^images/ - [L]
 
 #accesible links
 #homepage

@@ -1,4 +1,4 @@
-<div>
+<div class="container">
   <form action="/registration" method="POST">
     <label for="email">Email</label>
     <input type="text" id="email" name="email" value="<?php echo $parameters['email'] ?>">
