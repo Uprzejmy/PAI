@@ -3,7 +3,10 @@
  * Created by Uprzejmy
  */
 
-class RegistrationForm
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/IForm.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/Form.php";
+
+class RegistrationForm extends Form implements IForm
 {
   private $email;
   private $username;
@@ -32,15 +35,4 @@ class RegistrationForm
   {
     return $this->username;
   }
-
-  private function bindProperty($property)
-  {
-    if(isset($_POST[$property]))
-    {
-      return $_POST[$property];
-    }
-
-    return "";
-  }
-
 }
