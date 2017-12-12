@@ -17,8 +17,6 @@ class MainController extends BaseController
     $users = $model->getAllUsers($dbConnection);
     $user = $model->getUserById($dbConnection, 1);
 
-    var_dump($user);
-
     $mainView = new MainView();
 
     $mainView->render('Homepage');

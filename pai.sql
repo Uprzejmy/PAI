@@ -83,6 +83,7 @@ CREATE TABLE `matches` (
 CREATE TABLE `sessions` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
+  `email` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `ip` varchar(64) COLLATE utf8_unicode_ci NOT NULL,
   `agent` varchar(128) COLLATE utf8_unicode_ci NOT NULL,
   `created_at` datetime DEFAULT NULL,
