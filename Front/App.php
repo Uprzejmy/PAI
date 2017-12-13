@@ -30,7 +30,7 @@ class App
     $this->successOrDie(RequestValidatorService::validateRequest($_SERVER['REQUEST_URI']));
     $session = AuthenticationService::authenticate($_COOKIE);
 
-    RouterService::route($_SERVER['REQUEST_URI']);
+    RouterService::route($_SERVER['REQUEST_URI'], $session);
   }
 
   function successOrDie($returnValue)

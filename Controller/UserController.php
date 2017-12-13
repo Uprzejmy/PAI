@@ -41,9 +41,18 @@ class UserController extends BaseController
     ]);
   }
 
-  public function logoutAction()
+  public function logoutAction($parameters)
   {
-    //TODO clear session and others
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+
+    if($session->isUserLogged())
+    {
+      $model = new Model();
+
+      $model->logoutUser($session->getSessionKey());
+    }
+
     $this->redirect("/homepage");
   }
 
@@ -76,6 +85,6 @@ class UserController extends BaseController
     $userView->render('Registration', [
       'email' => $form->getEmail(),
       'form_errors' => $form->getErrors()
-      ]);
+    ]);
   }
 }

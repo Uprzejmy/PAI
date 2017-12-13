@@ -15,7 +15,7 @@ class UserSessionRepository
     $queryString = "SELECT user_id, email, session_key, token FROM sessions WHERE email = ? AND session_key = ? AND token = ?";
 
     $query = $connection->prepare($queryString);
-    $query->bind_param("isi", $email, $sessionKey, $token);
+    $query->bind_param("ssi", $email, $sessionKey, $token);
 
     $query->execute();
 
@@ -37,7 +37,7 @@ class UserSessionRepository
     $queryString = "INSERT INTO sessions(user_id, email, ip, agent, session_key, token) VALUES (?, ?, ?, ?, ?, ?)";
 
     $query = $connection->prepare($queryString);
-    $query->bind_param("isssss", $userId, $email, $ip, $agent, $sessionKey, $token);
+    $query->bind_param("issssi", $userId, $email, $ip, $agent, $sessionKey, $token);
 
     $query->execute();
   }

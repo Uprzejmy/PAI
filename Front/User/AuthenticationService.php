@@ -30,7 +30,7 @@ class AuthenticationService
       }
     }
 
-    return new UserSession();//should never happen!
+    return new UserSession();
   }
 
   public static function createSession($userId, $email)
@@ -47,6 +47,13 @@ class AuthenticationService
     setcookie("session_key", $sessionKey, time()+2*3600, "/");
   }
 
+  public static function deleteSession($sessionKey)
+  {
+    UserSessionRepository::deleteSession($sessionKey);
+
+    self::invalidateUserSession();
+  }
+
   private static function reloadSessionToken(UserSession $session)
   {
     $session->setToken(rand(0,1000));
@@ -56,14 +63,19 @@ class AuthenticationService
     setcookie("token", $session->getToken(), time()+2*3600, "/");
   }
 
-  private static function invalidateUserSessionAndDie()
+  private static function invalidateUserSession()
   {
     setcookie("token", null, time()-3600, "/");
     setcookie("email", null, time()-3600, "/");
     setcookie("user_id", null, time()-3600, "/");
     setcookie("session_key", null, time()-3600, "/");
+  }
 
-    header("Location: /login", true, 301);
+  private static function invalidateUserSessionAndDie()
+  {
+    self::invalidateUserSession();
+
+    header("Location: /homepage", true, 301);
     die();
   }
 }

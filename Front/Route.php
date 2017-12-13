@@ -13,7 +13,13 @@ class Route
   {
     $this->controller = $controller;
     $this->action = $action;
-    $this->parameters = $parameters;
+    $this->parameters = [];
+    $this->parameters = array_merge($this->parameters + $parameters);
+  }
+
+  public function addParameter($key, $value)
+  {
+    $this->parameters[$key] = $value;
   }
 
 }

@@ -56,4 +56,10 @@ class Model
 
     return true;
   }
+
+  public function logoutUser($sessionKey)
+  {
+    var_dump($sessionKey);
+    AuthenticationService::deleteSession($sessionKey);
+  }
 }
