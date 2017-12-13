@@ -23,7 +23,7 @@ class RegistrationForm extends Form implements IForm
 
   public function validateData()
   {
-    return true;
+    $this->valid = true;
   }
 
   public function getEmail()

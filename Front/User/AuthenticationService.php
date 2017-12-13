@@ -29,6 +29,19 @@ class AuthenticationService
     return new UserSession();
   }
 
+  public static function createSession($userId, $email)
+  {
+    $token = rand(0,1000);
+    $sessionKeyString = $email.$token.time();
+    $sessionKey = md5($sessionKeyString);
+
+    UserSessionRepository::createSession($userId, $email, $_SERVER['REMOTE_ADDR'], $_SERVER['HTTP_USER_AGENT'], $sessionKey, $token);
+
+    setcookie("token", $token, time()+3600, "/");
+    setcookie("email", $email, time()+3600, "/");
+    setcookie("session_key", $sessionKey, time()+3600, "/");
+  }
+
   private static function reloadSessionToken(UserSession $session)
   {
     $session->setToken(rand(0,1000));

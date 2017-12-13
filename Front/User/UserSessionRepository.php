@@ -23,12 +23,23 @@ class UserSessionRepository
 
     if ($session = $result->fetch_object("UserSession"))
     {
-      //TODO
-      /** @noinspection PhpIncompatibleReturnTypeInspection */
+      /** @var UserSession $session */
       return $session;
     }
 
     return null;
+  }
+
+  public static function createSession($userId, $email, $ip, $agent, $sessionKey, $token)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    $queryString = $connection->prepare("INSERT INTO sessions(user_id, email, ip, agent, session_key, token) VALUES (?, ?, ?, ?, ?, ?)");
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("isssss", $userId, $email, $ip, $agent, $sessionKey, $token);
+
+    $query->execute();
   }
 
   public static function deleteSession($sessionKey)

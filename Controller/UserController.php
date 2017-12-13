@@ -17,12 +17,27 @@ class UserController extends BaseController
     {
       $form->bindData();
       $form->validateData();
+
+      if($form->isValid())
+      {
+        $model = new Model();
+
+        if($model->loginUser($form->getEmail(), $form->getPassword()))
+        {
+          $this->redirect("/homepage");
+        }
+        else
+        {
+          $form->invalidateForm("Email and password mismatch");
+        }
+      }
     }
 
     $userView = new UserView();
 
     $userView->render('Login', [
-      'email' => $form->getEmail()
+      'email' => $form->getEmail(),
+      'form_errors' => $form->getErrors()
     ]);
   }
 

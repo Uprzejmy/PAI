@@ -26,7 +26,7 @@ class UserRepository
     return $users;
   }
 
-  public static function getUserById(mysqli $connection, $id)
+  public static function getUserById(mysqli $connection, $id) : User
   {
     $queryString = "SELECT id, email, name, surname, password, registered_at FROM users WHERE id = ?";
 
@@ -38,6 +38,26 @@ class UserRepository
 
     if ($user = $result->fetch_object("User"))
     {
+      /** @var User $user */
+      return $user;
+    }
+
+    return null;
+  }
+
+  public static function getUserWithPasswordByEmail(mysqli $connection, $email) : User
+  {
+    $queryString = "SELECT id, email, password FROM users WHERE email = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("s",$email);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    if ($user = $result->fetch_object("User"))
+    {
+      /** @var User $user */
       return $user;
     }
 

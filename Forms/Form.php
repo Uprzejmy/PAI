@@ -5,6 +5,9 @@
 
 abstract class Form
 {
+  protected $valid = false;
+  protected $errors = array();
+
   protected function bindProperty($property)
   {
     if(isset($_POST[$property]))
@@ -13,5 +16,15 @@ abstract class Form
     }
 
     return "";
+  }
+
+  public function isValid()
+  {
+    return $this->valid;
+  }
+
+  public function getErrors()
+  {
+    return $this->errors;
   }
 }
