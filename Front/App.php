@@ -30,8 +30,6 @@ class App
     $this->successOrDie(RequestValidatorService::validateRequest($_SERVER['REQUEST_URI']));
     $session = AuthenticationService::authenticate($_COOKIE);
 
-    var_dump($session);
-
     RouterService::route($_SERVER['REQUEST_URI']);
   }
 

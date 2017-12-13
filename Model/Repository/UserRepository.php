@@ -63,4 +63,33 @@ class UserRepository
 
     return null;
   }
+
+  public static function isEmailTaken(mysqli $connection, $email) : bool
+  {
+    $queryString = "SELECT 1 FROM users WHERE email = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("s",$email);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    if($result->num_rows > 0)
+    {
+      return true;
+    }
+
+    return false;
+  }
+
+  public static function createUser(mysqli $connection, $email, $hashedPassword) : int
+  {
+    $queryString = "INSERT INTO users (email, password) VALUES (?, ?)";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("ss",$email, $hashedPassword);
+    $query->execute();
+
+    return $query->insert_id;
+  }
 }

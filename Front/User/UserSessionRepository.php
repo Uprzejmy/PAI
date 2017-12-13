@@ -12,7 +12,7 @@ class UserSessionRepository
   {
     $connection = DbConnection::getInstance()->getConnection();
 
-    $queryString = "SELECT id, user_id, email, session_key, token FROM sessions WHERE email = ? AND session_key = ? AND token = ?";
+    $queryString = "SELECT user_id, email, session_key, token FROM sessions WHERE email = ? AND session_key = ? AND token = ?";
 
     $query = $connection->prepare($queryString);
     $query->bind_param("isi", $email, $sessionKey, $token);
@@ -34,7 +34,7 @@ class UserSessionRepository
   {
     $connection = DbConnection::getInstance()->getConnection();
 
-    $queryString = $connection->prepare("INSERT INTO sessions(user_id, email, ip, agent, session_key, token) VALUES (?, ?, ?, ?, ?, ?)");
+    $queryString = "INSERT INTO sessions(user_id, email, ip, agent, session_key, token) VALUES (?, ?, ?, ?, ?, ?)";
 
     $query = $connection->prepare($queryString);
     $query->bind_param("isssss", $userId, $email, $ip, $agent, $sessionKey, $token);
@@ -54,14 +54,14 @@ class UserSessionRepository
     $query->execute();
   }
 
-  public static function updateToken($sessionId, $token)
+  public static function updateSessionToken($sessionKey, $token)
   {
     $connection = DbConnection::getInstance()->getConnection();
 
-    $queryString = "UPDATE sessions SET token=? WHERE id=?";
+    $queryString = "UPDATE sessions SET token=? WHERE session_key=?";
 
     $query = $connection->prepare($queryString);
-    $query->bind_param("is", $sessionId, $token);
+    $query->bind_param("is", $token, $sessionKey);
 
     $query->execute();
   }

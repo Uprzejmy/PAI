@@ -12,11 +12,6 @@ class MainController extends BaseController
 {
   public function homepageAction()
   {
-    $dbConnection = DbConnection::getInstance()->getConnection();
-    $model = new Model();
-    $users = $model->getAllUsers($dbConnection);
-    $user = $model->getUserById($dbConnection, 1);
-
     $mainView = new MainView();
 
     $mainView->render('Homepage');

@@ -55,13 +55,27 @@ class UserController extends BaseController
     {
       $form->bindData();
       $form->validateData();
+
+      if($form->isValid())
+      {
+        $model = new Model();
+
+        if($model->registerUser($form->getEmail(), $form->getPassword(), $message))
+        {
+          $this->redirect("/homepage");
+        }
+        else
+        {
+          $form->invalidateForm($message);
+        }
+      }
     }
 
     $userView = new UserView();
 
     $userView->render('Registration', [
       'email' => $form->getEmail(),
-      'username' => $form->getUsername()
+      'form_errors' => $form->getErrors()
       ]);
   }
 }

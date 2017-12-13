@@ -17,7 +17,7 @@ class Model
     return UserRepository::getUserById($connection, $id);
   }
 
-  public function loginUser($email, $password)
+  public function loginUser($email, $password) : bool
   {
     $connection = DbConnection::getInstance()->getConnection();
 
@@ -36,5 +36,24 @@ class Model
     {
       return false;
     }
+
+    return false;
+  }
+
+  public function registerUser($email, $password, &$message) : bool
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    if (UserRepository::isEmailTaken($connection, $email))
+    {
+      $message = "Email already in use";
+      return false;
+    }
+
+    $userId = UserRepository::createUser($connection, $email, password_hash($password, PASSWORD_BCRYPT));
+
+    AuthenticationService::createSession($userId, $email);
+
+    return true;
   }
 }
