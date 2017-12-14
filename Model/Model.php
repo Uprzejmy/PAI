@@ -59,7 +59,6 @@ class Model
 
   public function logoutUser($sessionKey)
   {
-    var_dump($sessionKey);
     AuthenticationService::deleteSession($sessionKey);
   }
 }

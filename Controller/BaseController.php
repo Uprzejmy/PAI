@@ -9,7 +9,6 @@ class BaseController
 {
   protected function redirect($url)
   {
-    header("Location: $url", true, 301);
-    die();
+    header("Location: $url", true, 303);
   }
 }

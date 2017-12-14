@@ -140,6 +140,56 @@ a:hover
   color: #FFFFFF;
 }
 
+.login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -150px 0 0 -150px;
+  width:300px;
+  height:300px;
+}
+
+.login h1 {
+  color: #ffffff;
+  letter-spacing:1px;
+  text-align:center;
+}
+
+.login input {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  width: 100%;
+  margin-bottom: 10px;
+  background: rgba(0,0,0,0.3);
+  padding: 10px;
+  font-size: 13px;
+  color: #ffffff;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+  border: 1px solid rgba(0,0,0,0.3);
+  border-radius: 5px;
+}
+
+.login .button {
+  background: #f4a428;
+}
+
+
+.login .button:hover {
+  /*  background: #000000;*/
+}
+
+.login p {
+  color: #ffffff;
+  padding: 10px;
+  background: rgb(188, 5, 5);
+  font-size: 13px;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+  border: 1px solid rgba(0,0,0,0.3);
+  border-radius: 5px;
+  letter-spacing:1px;
+  text-align:center;
+}
 
 
 
@@ -178,11 +228,7 @@ td {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
-  /*position: relative;*/
-  width: 100%; 
-  /*left: 0;*/
-  /*right: 0;*/
-  /*max-width: 100%;*/
+  width: 100%;
   margin-bottom: 10px; 
   background: rgba(0,0,0,0.3);
   padding: 10px;
@@ -191,11 +237,10 @@ td {
   text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
   border: 1px solid rgba(0,0,0,0.3);
   border-radius: 5px;
-/*  box-shadow: inset 0 5px 45px rgba(100,100,100,0.2), 0 1px 1px rgba(255,255,255,0.2);*/
 }
 
 .login .button {
-  background: #4a77d4;
+  background: #cc8417;
 }
 
 
@@ -203,7 +248,7 @@ td {
 /*  background: #000000;*/
 }
 
-.login p {
+.login li {
   color: #ffffff;
   padding: 10px;
   background: rgb(188, 5, 5);
