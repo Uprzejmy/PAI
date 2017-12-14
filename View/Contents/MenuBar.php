@@ -8,6 +8,17 @@
         </div>
         <div class="menu_list">
             <ul>
+                <?php
+                    $session = $parameters['session'];
+                    if(isset($session) && $session->isUserLogged())
+                    {
+                        
+                    }
+                    else
+                    {
+
+                    }
+                ?>
                 <li>
                     <a href="/login">login</a>
                 </li>

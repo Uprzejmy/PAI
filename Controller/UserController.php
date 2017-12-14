@@ -9,8 +9,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/View/UserView.php";
 
 class UserController extends BaseController
 {
-  public function loginAction()
+  public function loginAction($parameters)
   {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+
     $form = new LoginForm();
 
     if($_SERVER['REQUEST_METHOD'] === 'POST')
@@ -36,6 +39,7 @@ class UserController extends BaseController
     $userView = new UserView();
 
     $userView->render('Login', [
+      'session' => $session,
       'email' => $form->getEmail(),
       'form_errors' => $form->getErrors()
     ]);
@@ -56,8 +60,11 @@ class UserController extends BaseController
     $this->redirect("/homepage");
   }
 
-  public function registrationAction()
+  public function registrationAction($parameters)
   {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+
     $form = new RegistrationForm();
 
     if($_SERVER['REQUEST_METHOD'] === 'POST')
@@ -83,6 +90,7 @@ class UserController extends BaseController
     $userView = new UserView();
 
     $userView->render('Registration', [
+      'session' => $session,
       'email' => $form->getEmail(),
       'form_errors' => $form->getErrors()
     ]);
