@@ -11,7 +11,7 @@ class BaseView extends View
   {
     echo("<!DOCTYPE html><html><head><link href=/styles.css rel=\"stylesheet\" type=\"text/css\" media=\"all\" /></head><body>");
 
-    include($this->templatesDir."MenuBar.php");
+    include($this->templatesDir."HeaderMenuBar.php");
     $view->renderContent($action, $parameters);
 
     echo("</body></html>");

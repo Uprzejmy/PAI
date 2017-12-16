@@ -5,18 +5,8 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Repository/UserRepository.php";
 
-class Model
+class UserModel
 {
-  public function getAllUsers(mysqli $connection)
-  {
-    return UserRepository::getUsers($connection);
-  }
-
-  public function getUserById(mysqli $connection, $id)
-  {
-    return UserRepository::getUserById($connection, $id);
-  }
-
   public function loginUser($email, $password) : bool
   {
     $connection = DbConnection::getInstance()->getConnection();

@@ -3,6 +3,8 @@
  * Created by Uprzejmy
  */
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/BaseController.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/UserModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/DbConnection.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/User/LoginForm.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/User/RegistrationForm.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/View/UserView.php";
@@ -23,7 +25,7 @@ class UserController extends BaseController
 
       if($form->isValid())
       {
-        $model = new Model();
+        $model = new UserModel();
 
         if($model->loginUser($form->getEmail(), $form->getPassword()))
         {
@@ -52,7 +54,7 @@ class UserController extends BaseController
 
     if($session->isUserLogged())
     {
-      $model = new Model();
+      $model = new UserModel();
 
       $model->logoutUser($session->getSessionKey());
     }
@@ -74,7 +76,7 @@ class UserController extends BaseController
 
       if($form->isValid())
       {
-        $model = new Model();
+        $model = new UserModel();
 
         if($model->registerUser($form->getEmail(), $form->getPassword(), $message))
         {
