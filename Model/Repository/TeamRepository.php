@@ -57,23 +57,23 @@ class TeamRepository
     return $query->insert_id;
   }
 
-  /*
-  public static function getAllByUserId($userId)
+  public static function getTeamsByUserId(mysqli $connection, $userId)
   {
-    $queryString = "SELECT id, email, password FROM users WHERE email = ?";
+    $teams = array();
+
+    $queryString = "SELECT teams.id, teams.name FROM teams LEFT JOIN teams_members ON teams.id = teams_members.team_id WHERE user_id = ?";
 
     $query = $connection->prepare($queryString);
-    $query->bind_param("s",$email);
+    $query->bind_param("i", $userId);
     $query->execute();
 
     $result = $query->get_result();
 
-    if ($user = $result->fetch_object("User"))
+    while($team = $result->fetch_object("Team"))
     {
-      return $user;
+      $teams[] = $team;
     }
 
-    return null;
+    return $teams;
   }
-  */
 }

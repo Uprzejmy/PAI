@@ -4,6 +4,7 @@
  */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/BaseController.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/AccountModel.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/User/LoginForm.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/User/RegistrationForm.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/View/AccountView.php";
@@ -27,10 +28,14 @@ class AccountController extends BaseController
     /** @var UserSession $session */
     $session = $parameters['session'];
 
+    $accountModel = new AccountModel();
+    $teams = $accountModel->getUserTeams($session->getUserId());
+
     $accountView = new AccountView();
 
     $accountView->render('Teams', [
-      'session' => $session
+      'session' => $session,
+      'teams' => $teams
     ]);
   }
 }
