@@ -3,7 +3,9 @@
  * Created by Uprzejmy
  */
 
-abstract class Form
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/IForm.php";
+
+abstract class Form implements IForm
 {
   protected $valid = false;
   protected $errors = array();
@@ -17,6 +19,9 @@ abstract class Form
 
     return "";
   }
+
+  public abstract function bindData();
+  public abstract function validateData();
 
   public function isValid()
   {
