@@ -7,11 +7,11 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/User.php";
 
 class UserRepository
 {
-  public static function getUsers(mysqli $connection)
+  public static function getAllUsers(mysqli $connection)
   {
     $users = array();
 
-    $queryString = "SELECT id, email, name, surname, password, registered_at FROM users";
+    $queryString = "SELECT id, email FROM users";
 
     $query = $connection->prepare($queryString);
     $query->execute();
