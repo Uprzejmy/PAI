@@ -234,17 +234,31 @@ div .content_menu
 }
 
 /** Content below navigation menu */
+
+div .content_below
+{
+  margin-right: auto;
+  margin-left: auto;
+}
+
 div .content_list
 {
+  float: left;
+  width: 66%;
   min-height: 30px;
-  margin: 30px 0px;
+  margin: 30px 0px 30px 0px;
+}
+
+.content_list ul
+{
+  width: 100%;
 }
 
 .content_list li
 {
   background: #4a4c52;
   color: #eee;
-  padding: 16px;
+  padding: 0px 10px;
   margin-bottom: 5px;
 }
 
@@ -252,8 +266,25 @@ div .content_list
 {
   background: rgba(0,0,0,0.3);
   color: #eee;
-  padding: 16px;
   margin-bottom: 5px;
+}
+
+.content_list li a
+{
+  text-decoration: none;
+  color: #eee;
+  width: 100%;
+  height: 100%;
+  display: block;
+  padding: 16px 0px;
+}
+
+div .content_actions
+{
+  float:right;
+  width: 33%;
+  min-height: 30px;
+  margin: 30px 0px;
 }
 
 
