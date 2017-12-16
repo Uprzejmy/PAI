@@ -140,7 +140,7 @@ a:hover
   color: #FFFFFF;
 }
 
-.login {
+.all_forms {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -149,13 +149,13 @@ a:hover
   height:300px;
 }
 
-.login h1 {
+.all_forms h1 {
   color: #ffffff;
   letter-spacing:1px;
   text-align:center;
 }
 
-.login input {
+.all_forms input {
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -170,16 +170,16 @@ a:hover
   border-radius: 5px;
 }
 
-.login .button {
+.all_forms .button {
   background: #f4a428;
 }
 
 
-.login .button:hover {
+.all_forms .button:hover {
   /*  background: #000000;*/
 }
 
-.login p {
+.all_forms p {
   color: #ffffff;
   padding: 10px;
   background: rgb(188, 5, 5);

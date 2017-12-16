@@ -1,5 +1,5 @@
 <div class="container">
-    <div class="login">
+    <div class="all_forms">
         <ul class="form_errors">
           <?php
               foreach($parameters['form_errors'] as $error)
