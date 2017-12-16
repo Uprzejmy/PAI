@@ -17,7 +17,11 @@
                 {
                     $id = $team->getId();
                     $name = $team->getName();
-                    echo("<li><a href='/teams/$id'>$name</a></li>");
+                    $members = $team->getNumberOfMembers();
+                    echo("<li>
+                            <a href='/teams/$id'><div>$name</div><div>members: $members</div></a>
+                            <a class='team_resign' href='/teams/resign/$id'><img src='/images/sign-off-icon-small.png'></a>
+                          </li>");
                 }
                 ?>
             </ul>

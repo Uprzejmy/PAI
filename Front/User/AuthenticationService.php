@@ -75,7 +75,7 @@ class AuthenticationService
   {
     self::invalidateUserSession();
 
-    header("Location: /homepage", true, 301);
+    header("Location: /homepage", true, 303);
     die();
   }
 }
