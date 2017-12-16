@@ -9,25 +9,20 @@
         <div class="menu_list">
             <ul>
                 <?php
+                    /** @var UserSession $session */
                     $session = $parameters['session'];
                     if(isset($session) && $session->isUserLogged())
                     {
-                        
+                        $email = $session->getEmail();
+                        echo ("<li><a href='/homepage'>Logged as: $email</a></li>"); //TODO user show page
+                        echo ("<li><a href='/logout'>logout</a></li>");
                     }
                     else
                     {
-
+                        echo ("<li><a href='/login'>login</a></li>");
+                        echo ("<li><a href='/registration'>registration</a></li>");
                     }
                 ?>
-                <li>
-                    <a href="/login">login</a>
-                </li>
-                <li>
-                    <a href="/registration">registration</a>
-                </li>
-                <li>
-                    <a href="/logout">logout</a>
-                </li>
             </ul>
         </div>
     </div>
