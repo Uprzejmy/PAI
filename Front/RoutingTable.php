@@ -35,7 +35,9 @@ class RoutingTable
     $this->routes['/logout'] = new Route("UserController", "logoutAction");
 
     //Account
-    $this->routes['/account'] = new Route("AccountController", "showAccountAction");
+    $this->routes['/account'] = new Route("AccountController", "showAccountTournamentsAction");
+    $this->routes['/account/tournaments'] = new Route("AccountController", "showAccountTournamentsAction");
+    $this->routes['/account/teams'] = new Route("AccountController", "showAccountTeamsAction");
 
     //TODO configure other routes
   }

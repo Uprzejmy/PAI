@@ -10,14 +10,26 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/View/AccountView.php";
 
 class AccountController extends BaseController
 {
-  public function showAccountAction($parameters)
+  public function showAccountTournamentsAction($parameters)
   {
     /** @var UserSession $session */
     $session = $parameters['session'];
 
     $accountView = new AccountView();
 
-    $accountView->render('Show', [
+    $accountView->render('Tournaments', [
+      'session' => $session
+    ]);
+  }
+
+  public function showAccountTeamsAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+
+    $accountView = new AccountView();
+
+    $accountView->render('Teams', [
       'session' => $session
     ]);
   }
