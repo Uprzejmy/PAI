@@ -14,7 +14,7 @@
                     if(isset($session) && $session->isUserLogged())
                     {
                         $email = $session->getEmail();
-                        echo ("<li><a href='/homepage'>Logged as: $email</a></li>"); //TODO user show page
+                        echo ("<li><a href='/account'>Logged as: $email</a></li>"); //TODO user show page
                         echo ("<li><a href='/logout'>logout</a></li>");
                     }
                     else
