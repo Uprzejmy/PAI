@@ -29,7 +29,10 @@
         <div class="content_actions">
             <ul>
               <?php
-              echo "<li>actions</li>";
+              echo "<li><a href='/teams/create'><div><img src='/images/plus_icon_very_small.png'></div><div class='team_create'>Create new Team</div></a></li>";
+              echo "<li><div class='team_invites'>Pending invites: </div><div class='team_invites'>0</div></li>";
+              // TODO team invites
+              // echo "<li><a href='/teams/create'><img src='/images/sign-off-icon-small.png'></a></li>";
               //          foreach($parameters['teams'] as $team)
               //          {
               //            $id = $team->getId();

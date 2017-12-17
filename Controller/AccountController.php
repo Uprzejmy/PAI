@@ -31,6 +31,8 @@ class AccountController extends BaseController
     $accountModel = new AccountModel();
     $teams = $accountModel->getUserTeams($session->getUserId());
 
+    //TODO team invites
+
     $accountView = new AccountView();
 
     $accountView->render('Teams', [
