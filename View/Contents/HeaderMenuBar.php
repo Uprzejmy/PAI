@@ -3,7 +3,7 @@
         <div class="header_menu_logo">
             <h1>
                 <img src="/images/cup-gold-icon-128.png" alt="cup logo" height="96" width="96">
-                <a href="homepage">Tournament Brackets</a>
+                <a href="/homepage">Tournament Brackets</a>
             </h1>
         </div>
         <div class="header_menu_list">

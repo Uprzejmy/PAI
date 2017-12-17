@@ -16,10 +16,14 @@ class AccountController extends BaseController
     /** @var UserSession $session */
     $session = $parameters['session'];
 
+    $accountModel = new AccountModel();
+    $tournaments = $accountModel->getUserTournaments($session->getUserId());
+
     $accountView = new AccountView();
 
     $accountView->render('Tournaments', [
-      'session' => $session
+      'session' => $session,
+      'tournaments' => $tournaments
     ]);
   }
 

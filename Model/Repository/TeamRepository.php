@@ -34,11 +34,6 @@ class TeamRepository
     $query->bind_param("is",$leaderId, $name);
     $query->execute();
 
-    if($query->error)
-    {
-      var_dump($query->error);
-    }
-
     return $query->insert_id;
   }
 
@@ -48,11 +43,6 @@ class TeamRepository
     $query = $connection->prepare($queryString);
     $query->bind_param("is",$teamId, $userId);
     $query->execute();
-
-    if($query->error)
-    {
-      var_dump($query->error);
-    }
 
     return $query->insert_id;
   }

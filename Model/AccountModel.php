@@ -27,4 +27,16 @@ class AccountModel
 
     return $teams;
   }
+
+  /**
+   * @param $userId
+   * @return Team[]
+   */
+  public function getUserTournaments($userId)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+
+    return array();
+  }
 }
