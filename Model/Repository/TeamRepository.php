@@ -51,10 +51,11 @@ class TeamRepository
   {
     $teams = array();
 
-    $queryString = "SELECT count(teams_members.id) as number_of_members, teams.id, teams.name FROM teams 
-                    LEFT JOIN teams_members ON teams.id = teams_members.team_id 
-                    WHERE user_id = ? 
-                    GROUP BY teams.id";
+    $queryString = "SELECT count(tm2.id) as number_of_members, teams.id, teams.name FROM teams 
+                    LEFT JOIN teams_members tm1 ON teams.id = tm1.team_id
+                    LEFT JOIN teams_members tm2 ON teams.id = tm2.team_id
+                    WHERE tm1.user_id = ? 
+                    GROUP BY tm2.team_id, teams.id";
     $query = $connection->prepare($queryString);
     $query->bind_param("i", $userId);
     $query->execute();
