@@ -262,7 +262,8 @@ ALTER TABLE `teams_matches`
 ALTER TABLE `teams_members`
   ADD PRIMARY KEY (`id`),
   ADD KEY `teams_members_user_id` (`user_id`),
-  ADD KEY `teams_members_team_id` (`team_id`);
+  ADD KEY `teams_members_team_id` (`team_id`),
+  ADD UNIQUE( `user_id`, `team_id`);
 
 --
 -- Indexes for table `teams_tournaments`
