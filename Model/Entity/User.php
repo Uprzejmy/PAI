@@ -109,5 +109,21 @@ class User
   }
 
 
+  /**
+   * @return mixed
+   */
+  public function getJoinedAt()
+  {
+    return $this->joined_at;
+  }
+
+  /**
+   * @param mixed $joined_at
+   */
+  public function setJoinedAt($joined_at)
+  {
+    $this->joined_at = $joined_at;
+  }
+  private $joined_at;
 
 }

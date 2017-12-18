@@ -5,47 +5,47 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/BaseController.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/DbConnection.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/TeamModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/View/TeamView.php";
 
 class TeamController extends BaseController
 {
-  public function showTeamAction($parameters)
+  public function showTeamTournamentsAction($parameters)
   {
     /** @var UserSession $session */
     $session = $parameters['session'];
 
+    $teamId = $parameters['id'];
 
-    var_dump($parameters);
-    /*
-    $form = new LoginForm();
+    $teamModel = new TeamModel();
+    $tournaments = $teamModel->getTeamTournaments($teamId);
 
-    if($_SERVER['REQUEST_METHOD'] === 'POST')
-    {
-      $form->bindData();
-      $form->validateData();
+    $teamView = new TeamView();
 
-      if($form->isValid())
-      {
-        $model = new UserModel();
-
-        if($model->loginUser($form->getEmail(), $form->getPassword()))
-        {
-          $this->redirect("/homepage");
-        }
-        else
-        {
-          $form->invalidateForm("Email and password mismatch");
-        }
-      }
-    }
-
-    $userView = new UserView();
-
-    $userView->render('Login', [
+    $teamView->render('Tournaments', [
       'session' => $session,
-      'email' => $form->getEmail(),
-      'form_errors' => $form->getErrors()
+      'teamId' => $teamId,
+      'tournaments' => $tournaments
     ]);
-    */
+  }
+
+  public function showTeamMembersAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+
+    $teamId = $parameters['id'];
+
+    $teamModel = new TeamModel();
+    $members = $teamModel->getTeamMembers($teamId);
+
+    $teamView = new TeamView();
+
+    $teamView->render('Members', [
+      'session' => $session,
+      'teamId' => $teamId,
+      'members' => $members
+    ]);
   }
 
 }

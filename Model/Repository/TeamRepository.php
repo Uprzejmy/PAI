@@ -4,6 +4,7 @@
  */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/Team.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/User.php";
 
 class TeamRepository
 {
@@ -68,5 +69,26 @@ class TeamRepository
     }
 
     return $teams;
+  }
+
+  public static function getTeamMembers(mysqli $connection, $teamId)
+  {
+    $teams = array();
+
+    $queryString = "SELECT users.email, teams_members.joined_at FROM teams_members
+                    LEFT JOIN users ON teams_members.user_id = users.id
+                    WHERE teams_members.team_id = ?";
+    $query = $connection->prepare($queryString);
+    $query->bind_param("i", $teamId);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    while($user = $result->fetch_object("User"))
+    {
+      $users[] = $user;
+    }
+
+    return $users;
   }
 }

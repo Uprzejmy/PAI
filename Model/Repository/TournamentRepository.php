@@ -60,6 +60,29 @@ class TournamentRepository
     return $tournaments;
   }
 
+  public static function getTournamentsByTeamId(mysqli $connection, $teamId)
+  {
+    $tournaments = array();
+
+    $queryString = "SELECT tournaments.id, tournaments.name, tournaments.created_at FROM tournaments 
+                    LEFT JOIN teams_tournaments ON tournaments.id = teams_tournaments.tournament_id
+                    WHERE teams_tournaments.team_id = ?
+                    ORDER BY tournaments.created_at DESC";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("i", $teamId);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    while($tournament = $result->fetch_object("Tournament"))
+    {
+      $tournaments[] = $tournament;
+    }
+
+    return $tournaments;
+  }
+
   public static function addTeamToTournament(mysqli $connection, $tournamentId, $teamId) : int
   {
     $queryString = "INSERT INTO teams_tournaments (tournament_id, team_id) VALUES (?, ?)";

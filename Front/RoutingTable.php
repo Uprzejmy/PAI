@@ -42,7 +42,9 @@ class RoutingTable
     $this->routes['/account/teams'] = new Route("AccountController", "showAccountTeamsAction");
 
     //Teams
-    $this->routes['/teams'] = new Route("TeamController", "showTeamAction");
+    //TODO ensure parameter existance
+    $this->routes['/team/tournaments'] = new Route("TeamController", "showTeamTournamentsAction");
+    $this->routes['/team/members'] = new Route("TeamController", "showTeamMembersAction");
 
     //TODO configure other routes
   }
