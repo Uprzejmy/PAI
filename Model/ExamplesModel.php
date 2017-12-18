@@ -8,6 +8,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Repository/TeamRepository.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Repository/TournamentRepository.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/User.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/Team.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/Tournament.php";
 
 class ExamplesModel
 {
@@ -24,6 +25,9 @@ class ExamplesModel
     $this->loadExampleTeamMembersData($connection, $teams, $users);
 
     $this->loadExampleTournamentsData($connection, $users);
+    $tournaments = TournamentRepository::getAllTournaments($connection);
+
+    $this->loadExampleTeamsTournamentsData($connection, $tournaments, $teams);
   }
 
   private function loadExampleUsersData(mysqli $connection)
@@ -117,4 +121,25 @@ class ExamplesModel
     TournamentRepository::createTournament($connection, $userAdminId, $name, $description);
   }
 
+  /**
+   * @param mysqli $connection
+   * @param Tournament[] $tournaments
+   * @param Team[] $teams
+   */
+  private function loadExampleTeamsTournamentsData(mysqli $connection, $tournaments, $teams)
+  {
+    //for each tournament
+    foreach($tournaments as $tournament)
+    {
+      //pick 5 random users
+      $teamsArrayKeys = array_rand($teams, 5);
+
+      //for each of picked users
+      foreach($teamsArrayKeys as $key)
+      {
+        //assign the user to the team
+        TournamentRepository::addTeamToTournament($connection, $tournament->getId(), $teams[$key]->getId());
+      }
+    }
+  }
 }

@@ -18,6 +18,25 @@ class TournamentRepository
     return $query->insert_id;
   }
 
+  public static function getAllTournaments(mysqli $connection)
+  {
+    $tournaments = array();
+
+    $queryString = "SELECT id, name FROM tournaments";
+
+    $query = $connection->prepare($queryString);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    while($tournament = $result->fetch_object("Tournament"))
+    {
+      $tournaments[] = $tournament;
+    }
+
+    return $tournaments;
+  }
+
   public static function getTournamentsByUserId(mysqli $connection, $userId)
   {
     $tournaments = array();
@@ -39,6 +58,17 @@ class TournamentRepository
     }
 
     return $tournaments;
+  }
+
+  public static function addTeamToTournament(mysqli $connection, $tournamentId, $teamId) : int
+  {
+    $queryString = "INSERT INTO teams_tournaments (tournament_id, team_id) VALUES (?, ?)";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("ii",$tournamentId, $teamId);
+    $query->execute();
+
+    return $query->insert_id;
   }
 
 }

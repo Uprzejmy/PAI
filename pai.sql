@@ -168,6 +168,14 @@ CREATE TABLE `teams_tournaments` (
   `joined_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Wyzwalacze `teams_tournaments`
+--
+DELIMITER $$
+CREATE TRIGGER `teams_tournaments_creation` BEFORE INSERT ON `teams_tournaments` FOR EACH ROW SET NEW.joined_at = NOW()
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -262,8 +270,7 @@ ALTER TABLE `teams_matches`
 ALTER TABLE `teams_members`
   ADD PRIMARY KEY (`id`),
   ADD KEY `teams_members_user_id` (`user_id`),
-  ADD KEY `teams_members_team_id` (`team_id`),
-  ADD UNIQUE( `user_id`, `team_id`);
+  ADD KEY `teams_members_team_id` (`team_id`);
 
 --
 -- Indexes for table `teams_tournaments`
@@ -375,14 +382,16 @@ ALTER TABLE `teams_matches`
 --
 ALTER TABLE `teams_members`
   ADD CONSTRAINT `teams_members_team_id` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`),
-  ADD CONSTRAINT `teams_members_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `teams_members_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `teams_members_unique` UNIQUE (user_id, team_id);
 
 --
 -- Ograniczenia dla tabeli `teams_tournaments`
 --
 ALTER TABLE `teams_tournaments`
   ADD CONSTRAINT `teams_tournaments_team_id` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`),
-  ADD CONSTRAINT `teams_tournaments_tournament_id` FOREIGN KEY (`tournament_id`) REFERENCES `tournaments` (`id`);
+  ADD CONSTRAINT `teams_tournaments_tournament_id` FOREIGN KEY (`tournament_id`) REFERENCES `tournaments` (`id`),
+  ADD CONSTRAINT `teams_tournaments_unique` UNIQUE (tournament_id, team_id);
 
 --
 -- Ograniczenia dla tabeli `tournaments`
