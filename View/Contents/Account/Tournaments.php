@@ -22,7 +22,7 @@
                 echo("<li>
                             <a href='/tournament/$id'><div>$name</div><div>participants: $participants</div></a>
                           </li>");
-                //<a class='team_resign' href='/teams/resign/$id'><img src='/images/sign-off-icon-small.png'></a>
+                //<a class='team_action' href='/teams/resign/$id'><img src='/images/sign-off-icon-small.png'></a>
               }
               ?>
             </ul>

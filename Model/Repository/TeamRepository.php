@@ -75,7 +75,7 @@ class TeamRepository
   {
     $teams = array();
 
-    $queryString = "SELECT users.email, teams_members.joined_at FROM teams_members
+    $queryString = "SELECT users.id, users.email, teams_members.joined_at FROM teams_members
                     LEFT JOIN users ON teams_members.user_id = users.id
                     WHERE teams_members.team_id = ?";
     $query = $connection->prepare($queryString);

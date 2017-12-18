@@ -24,9 +24,15 @@
         <?php
         foreach($parameters['members'] as $member)
         {
+            //TODO change a to form, and pass appropriate parameters
+          $userId = $member->getId();
           $email = $member->getEmail();
-          $joinedAt = $member->getJoinedAt();
-          echo("<li><div>email: $email joined: $joinedAt</div></dib></li>");
+          $joinedAt = $member->getPrintableJoinedAt();
+          echo("<li><div class='list_element_with_action'>
+                        <div>email: $email </div>
+                        <div>joined: $joinedAt</div></div>
+                        <div class='team_action'><a href='/teams/remove/$userId'><img src='/images/remove_item_icon_small.png'></a></div>
+                </li>");
         }
         ?>
       </ul>

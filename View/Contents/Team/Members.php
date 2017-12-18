@@ -25,8 +25,8 @@
         foreach($parameters['members'] as $member)
         {
           $email = $member->getEmail();
-          $joinedAt = $member->getJoinedAt();
-          echo("<li><div>email: $email joined: $joinedAt</div></dib></li>");
+          $joinedAt = $member->getPrintableJoinedAt();
+          echo("<li><div class='list_element'><div>email: $email </div><div>joined: $joinedAt</div></div></li>");
         }
         ?>
       </ul>

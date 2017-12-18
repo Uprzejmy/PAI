@@ -274,10 +274,9 @@ div .content_list
 .content_below li a:hover
 {
   background: rgba(0,0,0,0.3);
-  margin-bottom: 5px;
 }
 
-.content_list li a.team_resign
+.content_list li a.team_action
 {
   height: 40px;
   width: 7%;
@@ -287,7 +286,7 @@ div .content_list
   text-align: center;
 }
 
-.content_list li a.team_resign:hover
+.content_list li a.team_action:hover
 {
   background: #cb2431;
 }
@@ -299,6 +298,65 @@ div .content_list
 }
 
 .content_list li a div
+{
+  float: right;
+  padding: 16px 10px 16px 0px;
+}
+
+.content_below li .list_element
+{
+  text-decoration: none;
+  color: #eee;
+  width: 100%;
+  height: 48px;
+  display: block;
+  float: left;
+}
+
+.content_list li div.list_element div:first-child
+{
+  float: left;
+  padding: 16px 0px 16px 10px;
+}
+
+.content_list li div.list_element div
+{
+  float: right;
+  padding: 16px 10px 16px 0px;
+}
+
+.content_below li div.list_element_with_action
+{
+  text-decoration: none;
+  color: #eee;
+  width: 93%;
+  height: 48px;
+  display: block;
+  float: left;
+}
+
+.content_list li div.team_action
+{
+  height: 40px;
+  width: 7%;
+  float:right;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-align: center;
+}
+
+.content_list li div.team_action:hover
+{
+  background: #cb2431;
+}
+
+.content_list li div.list_element_with_action div:first-child
+{
+  float: left;
+  padding: 16px 0px 16px 10px;
+}
+
+.content_list li div.list_element_with_action div
 {
   float: right;
   padding: 16px 10px 16px 0px;

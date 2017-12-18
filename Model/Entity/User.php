@@ -3,6 +3,8 @@
  * Created by Uprzejmy
  */
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Utils.php";
+
 class User
 {
   private $id;
@@ -11,6 +13,7 @@ class User
   private $name;
   private $surname;
   private $registered_at;
+  private $joined_at;
 
   /**
    * @return mixed
@@ -108,6 +111,10 @@ class User
     $this->registered_at = $registered_at;
   }
 
+  public function getPrintableRegisteredAt()
+  {
+    return Utils::getDateFromStringDatetime($this->registered_at);
+  }
 
   /**
    * @return mixed
@@ -124,6 +131,10 @@ class User
   {
     $this->joined_at = $joined_at;
   }
-  private $joined_at;
+
+  public function getPrintableJoinedAt()
+  {
+    return Utils::getDateFromStringDatetime($this->joined_at);
+  }
 
 }
