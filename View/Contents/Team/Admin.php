@@ -1,7 +1,7 @@
 <div class="container">
   <div class="content_menu">
     <ul>
-      <li class="active">
+      <li>
         <a href="/team/tournaments/<?php echo $parameters['teamId'] ?>">Tournaments</a>
       </li>
       <li>
@@ -11,7 +11,7 @@
       if($parameters['isUserAdmin'])
       {
         $teamId = $parameters['teamId'];
-        echo("<li>
+        echo("<li class='active'>
                 <a href='/team/admin/$teamId'>Admin</a>
               </li>");
       }
@@ -22,12 +22,11 @@
     <div class="content_list">
       <ul>
         <?php
-        foreach($parameters['tournaments'] as $tournament)
+        foreach($parameters['members'] as $member)
         {
-          $id = $tournament->getId();
-          $name = $tournament->getName();
-          $createdAt = $tournament->getPrintableCreatedAt();
-          echo("<li><a href='/tournament/$id'><div>$name</div><div>createdAt: $createdAt</div></a></li>");
+          $email = $member->getEmail();
+          $joinedAt = $member->getJoinedAt();
+          echo("<li><div>email: $email joined: $joinedAt</div></dib></li>");
         }
         ?>
       </ul>

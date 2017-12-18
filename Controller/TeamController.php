@@ -23,6 +23,12 @@ class TeamController extends BaseController
       $this->redirect("/homepage");
     }
 
+    $isUserAdmin = false;
+    if($teamModel->isUserAdminInTeam($teamId, $session->getUserId()))
+    {
+      $isUserAdmin = true;
+    }
+
     $tournaments = $teamModel->getTeamTournaments($teamId);
 
     $teamView = new TeamView();
@@ -30,6 +36,7 @@ class TeamController extends BaseController
     $teamView->render('Tournaments', [
       'session' => $session,
       'teamId' => $teamId,
+      'isUserAdmin' => $isUserAdmin,
       'tournaments' => $tournaments
     ]);
   }
@@ -47,6 +54,12 @@ class TeamController extends BaseController
       $this->redirect("/homepage");
     }
 
+    $isUserAdmin = false;
+    if($teamModel->isUserAdminInTeam($teamId, $session->getUserId()))
+    {
+      $isUserAdmin = true;
+    }
+
     $members = $teamModel->getTeamMembers($teamId);
 
     $teamView = new TeamView();
@@ -54,6 +67,34 @@ class TeamController extends BaseController
     $teamView->render('Members', [
       'session' => $session,
       'teamId' => $teamId,
+      'isUserAdmin' => $isUserAdmin,
+      'members' => $members
+    ]);
+  }
+
+  public function showTeamMembersAdministrationAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+    $teamId = $parameters['id'];
+
+    $teamModel = new TeamModel();
+
+    if(!$teamModel->isUserAdminInTeam($teamId, $session->getUserId()))
+    {
+      $this->redirect("/homepage");
+    }
+
+    $isUserAdmin = true;
+
+    $members = $teamModel->getTeamMembers($teamId);
+
+    $teamView = new TeamView();
+
+    $teamView->render('Admin', [
+      'session' => $session,
+      'teamId' => $teamId,
+      'isUserAdmin' => $isUserAdmin,
       'members' => $members
     ]);
   }

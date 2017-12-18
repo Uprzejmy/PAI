@@ -109,4 +109,22 @@ class TeamRepository
 
     return false;
   }
+
+  public static function isUserAdminInTeam(mysqli $connection, $teamId, $userId) : bool
+  {
+    $queryString = "SELECT 1 FROM teams WHERE teams.id = ? AND teams.leader_id = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("ii", $teamId, $userId);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    if($result->num_rows > 0)
+    {
+      return true;
+    }
+
+    return false;
+  }
 }

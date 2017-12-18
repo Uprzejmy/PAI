@@ -7,6 +7,15 @@
       <li class="active">
         <a href="/team/members/<?php echo $parameters['teamId'] ?>">Members</a>
       </li>
+      <?php
+      if($parameters['isUserAdmin'])
+      {
+        $teamId = $parameters['teamId'];
+        echo("<li>
+                <a href='/team/admin/$teamId'>Admin</a>
+              </li>");
+      }
+      ?>
     </ul>
   </div>
   <div class="content_below">
