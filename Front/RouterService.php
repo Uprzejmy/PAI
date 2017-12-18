@@ -44,6 +44,7 @@ class RouterService
       if(preg_match('/\\d/', $part) > 0)
       {
         $splitUrl[1] = $part;
+        $splitUrl[0] = $splitUrl[0]."/{{number}}";
       }
       else
       {
