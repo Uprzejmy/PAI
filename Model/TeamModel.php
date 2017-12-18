@@ -50,4 +50,16 @@ class TeamModel
 
     return $users;
   }
+
+  /**
+   * @param $teamId
+   * @param $userId
+   * @return bool
+   */
+  public function isUserInTeam($teamId, $userId) : bool
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    return TeamRepository::isUserInTeam($connection, $teamId, $userId);
+  }
 }

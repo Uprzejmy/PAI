@@ -14,10 +14,15 @@ class TeamController extends BaseController
   {
     /** @var UserSession $session */
     $session = $parameters['session'];
-
     $teamId = $parameters['id'];
 
     $teamModel = new TeamModel();
+
+    if(!$teamModel->isUserInTeam($teamId, $session->getUserId()))
+    {
+      $this->redirect("/homepage");
+    }
+
     $tournaments = $teamModel->getTeamTournaments($teamId);
 
     $teamView = new TeamView();
@@ -33,10 +38,15 @@ class TeamController extends BaseController
   {
     /** @var UserSession $session */
     $session = $parameters['session'];
-
     $teamId = $parameters['id'];
 
     $teamModel = new TeamModel();
+
+    if(!$teamModel->isUserInTeam($teamId, $session->getUserId()))
+    {
+      $this->redirect("/homepage");
+    }
+
     $members = $teamModel->getTeamMembers($teamId);
 
     $teamView = new TeamView();

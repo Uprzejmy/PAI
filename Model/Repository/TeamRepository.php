@@ -91,4 +91,22 @@ class TeamRepository
 
     return $users;
   }
+
+  public static function isUserInTeam(mysqli $connection, $teamId, $userId) : bool
+  {
+    $queryString = "SELECT 1 FROM teams_members WHERE team_id = ? AND user_id = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("ii", $teamId, $userId);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    if($result->num_rows > 0)
+    {
+      return true;
+    }
+
+    return false;
+  }
 }
