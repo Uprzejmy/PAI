@@ -27,18 +27,20 @@ class App
 
   function run()
   {
-    $this->successOrDie(RequestValidatorService::validateRequest($_SERVER['REQUEST_URI']));
+    RequestValidatorService::validateRequest();
     $session = AuthenticationService::authenticate($_COOKIE);
+    $route = RouterService::getRoute($_SERVER['REQUEST_URI']);
 
-    RouterService::route($_SERVER['REQUEST_URI'], $session);
-  }
-
-  function successOrDie($returnValue)
-  {
-    if($returnValue !== true)
+    if(AuthorizationService::isUserAuthorized($route, $session))
     {
-      die();
+      RouterService::runRoute($route, $session);
     }
+    else
+    {
+      header("Location: /homepage", true, 303);
+    }
+
+    die();
   }
 
 }

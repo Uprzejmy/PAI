@@ -1,4 +1,12 @@
 <?php
+
+  function successOrDie($returnValue)
+  {
+    if($returnValue !== true)
+    {
+      die();
+    }
+  }
 /**
  * Created by Uprzejmy
  */
@@ -6,7 +14,7 @@
 class RequestValidatorService
 {
   //TODO
-  public static function validateRequest($url)
+  public static function validateRequest()
   {
     foreach($_POST as $key => $value)
     {
@@ -19,7 +27,5 @@ class RequestValidatorService
       $safeKey = htmlentities(trim($key), ENT_NOQUOTES);
       $_COOKIE[$safeKey] = htmlentities(trim($value), ENT_NOQUOTES);
     }
-
-    return true;
   }
 }

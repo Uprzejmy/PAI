@@ -7,12 +7,14 @@ class Route
 {
   public $controller;
   public $action;
+  public $requiresLogged;
   public $parameters;
 
-  function __construct($controller, $action, $parameters = [])
+  function __construct($controller, $action, $requiresLogged = true, $parameters = [])
   {
     $this->controller = $controller;
     $this->action = $action;
+    $this->requiresLogged = $requiresLogged;
     $this->parameters = [];
     $this->parameters = array_merge($this->parameters + $parameters);
   }

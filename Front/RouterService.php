@@ -12,7 +12,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/TeamController.php";
 
 class RouterService
 {
-  public static function route($url, UserSession $session)
+  public static function getRoute($url) : Route
   {
     $routingTable = new RoutingTable();
 
@@ -24,11 +24,13 @@ class RouterService
       $route->addParameter('id', $splitUrl[1]);
     }
 
+    return $route;
+  }
+
+  public static function runRoute(Route $route, UserSession $session)
+  {
     $route->addParameter('session', $session);
-
     call_user_func(array(new $route->controller, $route->action), $route->parameters);
-
-    return false;
   }
 
 
