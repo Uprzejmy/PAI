@@ -13,7 +13,7 @@ class RoutingTable
     $this->initializeRoutingTable();
   }
 
-  public function getRoute($url) : Route
+  public function matchRoute($url) : Route
   {
     if(isset($this->routes[$url]))
     {
@@ -40,6 +40,9 @@ class RoutingTable
     $this->routes['/account'] = new Route("AccountController", "showAccountTournamentsAction");
     $this->routes['/account/tournaments'] = new Route("AccountController", "showAccountTournamentsAction");
     $this->routes['/account/teams'] = new Route("AccountController", "showAccountTeamsAction");
+
+    //Teams
+    $this->routes['/teams'] = new Route("TeamController", "showTeamAction");
 
     //TODO configure other routes
   }
