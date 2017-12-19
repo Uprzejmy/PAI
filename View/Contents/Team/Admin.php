@@ -8,13 +8,10 @@
         <a href="/team/members/<?php echo $parameters['teamId'] ?>">Members</a>
       </li>
       <?php
-      if($parameters['isUserAdmin'])
-      {
         $teamId = $parameters['teamId'];
         echo("<li class='active'>
                 <a href='/team/admin/$teamId'>Admin</a>
               </li>");
-      }
       ?>
     </ul>
   </div>
@@ -28,10 +25,18 @@
           $userId = $member->getId();
           $email = $member->getEmail();
           $joinedAt = $member->getPrintableJoinedAt();
-          echo("<li><div class='list_element_with_action'>
+          echo("<li>
+                    <div class='list_element_with_action'>
                         <div>email: $email </div>
-                        <div>joined: $joinedAt</div></div>
-                        <div class='team_action'><a href='/teams/remove/$userId'><img src='/images/remove_item_icon_small.png'></a></div>
+                        <div>joined: $joinedAt</div>
+                    </div>
+                    <div class='team_action'>
+                        <form action='/team/invite' method='POST'>
+                            <button class='button' type='submit' value='inv'>
+                                <img src='/images/remove_item_icon_small.png'>
+                            </button>
+                        </form>
+                    </div>
                 </li>");
         }
         ?>
@@ -40,17 +45,27 @@
     <div class="content_actions">
       <ul>
         <?php
-        // TODO tournaments
-        // echo "<li><a href='/teams/create'><div><img src='/images/plus_icon_very_small.png'></div><div class='team_create'>Create new Team</div></a></li>";
-        // echo "<li><div class='team_invites'>Pending invites: </div><div class='team_invites'>0</div></li>";
-        // TODO team invites
-        // echo "<li><a href='/teams/create'><img src='/images/sign-off-icon-small.png'></a></li>";
-        //          foreach($parameters['teams'] as $team)
-        //          {
-        //            $id = $team->getId();
-        //            $name = $team->getName();
-        //            echo("<li>$name</li>");
-        //          }
+        echo "<li><div><img src='/images/plus_icon_very_small.png'></div><div class='team_invite_member'>Invite member</div></li>";
+        echo "<li>
+                <form action='/team/invite' method='POST'>
+                    <div>
+                        <input type='text' id='email' placeholder='email' name='email'>
+                    </div>
+                    <div>
+                        <button class='button' type='submit' value='inv'><img src='/images/invitation_send_icon_small.png'></button>
+                    </div>
+                </form>
+               </li>";
+
+
+//         TODO team invites
+//         echo "<li><a href='/teams/create'><img src='/images/sign-off-icon-small.png'></a></li>";
+//                  foreach($parameters['teams'] as $team)
+//                  {
+//                    $id = $team->getId();
+//                    $name = $team->getName();
+//                    echo("<li>$name</li>");
+//                  }
         ?>
       </ul>
     </div>
