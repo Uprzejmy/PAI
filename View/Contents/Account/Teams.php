@@ -20,7 +20,14 @@
                     $members = $team->getNumberOfMembers();
                     echo("<li>
                             <a href='/team/tournaments/$id'><div>$name</div><div>members: $members</div></a>
-                            <a class='team_action' href='/teams/resign/$id'><img src='/images/sign-off-icon-small.png'></a>
+                            <div class='team_action'>
+                                <form action='/team/self_remove' method='POST'>
+                                    <input type='text' id='teamId' name='teamId' value='$id' style='display:none'>
+                                    <button class='button' type='submit'>
+                                        <img src='/images/sign-off-icon-small.png'>
+                                    </button>
+                                </form>
+                            </div>
                           </li>");
                 }
                 ?>

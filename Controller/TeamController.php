@@ -107,6 +107,28 @@ class TeamController extends BaseController
     ]);
   }
 
+  public function selfRemoveFromTeamAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+    $teamId = $_POST['teamId'];
+
+    $teamModel = new TeamModel();
+
+    //TODO enhance hint to not self-remove from team when admin
+    if($teamModel->isUserAdminInTeam($teamId, $session->getUserId()))
+    {
+      $this->redirect("/account/teams");
+    }
+
+    if($teamModel->isUserInTeam($teamId, $session->getUserId()))
+    {
+      $teamModel->removeMemberFromTeam($teamId, $session->getUserId());
+    }
+
+    $this->redirect("/account/teams");
+  }
+
   public function removeMemberFromTeamAction($parameters)
   {
     /** @var UserSession $session */
