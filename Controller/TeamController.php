@@ -158,4 +158,24 @@ class TeamController extends BaseController
     $this->redirect("/team/admin/$teamId");
   }
 
+  public function acceptTeamInvitationAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+    $teamId = $_POST['teamId'];
+    $userId = $session->getUserId();
+
+    $teamModel = new TeamModel();
+
+    //just in case
+    if($teamModel->isUserInTeam($teamId, $userId))
+    {
+      $this->redirect("/account/teams");
+    }
+
+    $accountModel = new AccountModel();
+    $accountModel->acceptTeamInvitation($teamId, $userId);
+
+    $this->redirect("/account/teams");
+  }
 }

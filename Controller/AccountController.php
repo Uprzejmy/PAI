@@ -34,14 +34,17 @@ class AccountController extends BaseController
 
     $accountModel = new AccountModel();
     $teams = $accountModel->getUserTeams($session->getUserId());
+    $teamInvitations = $accountModel->getUserTeamInvitations($session->getUserId());
 
-    //TODO team invites
+    $countOfTeamInvitations = count($teamInvitations);
 
     $accountView = new AccountView();
 
     $accountView->render('Teams', [
       'session' => $session,
-      'teams' => $teams
+      'teams' => $teams,
+      'teamInvitations' => $teamInvitations,
+      'countOfTeamInvitations' => $countOfTeamInvitations
     ]);
   }
 }

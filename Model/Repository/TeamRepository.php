@@ -147,6 +147,24 @@ class TeamRepository
     return $query->insert_id;
   }
 
+  public static function isUserInvitationPending(mysqli $connection, $teamId, $userId) : int
+  {
+    $queryString = "SELECT 1 FROM teams_invites WHERE teams_invites.team_id = ? AND teams_invites.user_id = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("ii", $teamId, $userId);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    if($result->num_rows > 0)
+    {
+      return true;
+    }
+
+    return false;
+  }
+
   public static function removeUserInvitation(mysqli $connection, $teamId, $userId)
   {
     $queryString = "DELETE FROM teams_invites WHERE teams_invites.team_id = ? AND teams_invites.user_id = ?";
@@ -154,5 +172,26 @@ class TeamRepository
     $query = $connection->prepare($queryString);
     $query->bind_param("ii", $teamId, $userId);
     $query->execute();
+  }
+
+  public static function getTeamInvitationsByUserId(mysqli $connection, $userId)
+  {
+    $teams = array();
+
+    $queryString = "SELECT teams.id, teams.name FROM teams_invites 
+                    LEFT JOIN teams ON teams_invites.team_id = teams.id
+                    WHERE teams_invites.user_id = ?";
+    $query = $connection->prepare($queryString);
+    $query->bind_param("i", $userId);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    while($team = $result->fetch_object("Team"))
+    {
+      $teams[] = $team;
+    }
+
+    return $teams;
   }
 }

@@ -427,13 +427,13 @@ div .content_list
 .content_actions li div.team_invites:first-child
 {
   float: left;
-  padding: 16px 0px 16px 10px;
+  padding-left: 10px;
 }
 
 .content_actions li div.team_invites
 {
   float: right;
-  padding: 16px 10px 16px 0px;
+  padding-right: 10px;
 }
 
 .content_actions li div.team_invite_member
@@ -468,6 +468,21 @@ div .content_list
   padding-top: 4px;
   padding-bottom: 4px;
   color: #eee;
+}
+
+.content_actions form div.invite_left
+{
+  width: 80%;
+  float: left;
+  height: 48px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  clear: left;
+}
+
+.content_actions form div.invite_left p
+{
+  padding-left: 10px;
 }
 
 .content_actions form div:last-child:hover

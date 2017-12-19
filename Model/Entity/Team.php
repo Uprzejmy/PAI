@@ -11,6 +11,7 @@ class Team
   private $createdAt;
   private $captain;
   private $number_of_members;
+  private $invited_at;
 
   /**
    * @return mixed
@@ -100,5 +101,19 @@ class Team
     $this->number_of_members = $number_of_members;
   }
 
+  /**
+   * @return mixed
+   */
+  public function getInvitedAt()
+  {
+    return $this->invited_at;
+  }
 
+  /**
+   * @param mixed $invited_at
+   */
+  public function setInvitedAt($invited_at)
+  {
+    $this->invited_at = $invited_at;
+  }
 }
