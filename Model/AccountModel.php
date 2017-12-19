@@ -54,12 +54,12 @@ class AccountModel
 
     if(TeamRepository::isUserInvitationPending($connection, $teamId, $userId))
     {
-      //$connection->begin_transaction();
+      $connection->begin_transaction();
 
       TeamRepository::removeUserInvitation($connection, $teamId, $userId);
       TeamRepository::addMemberToTeam($connection, $teamId, $userId);
 
-      /*
+
       if($connection->error)
       {
         $connection->rollback();
@@ -67,7 +67,7 @@ class AccountModel
       }
 
       $connection->commit();
-      */
+
     }
   }
 
