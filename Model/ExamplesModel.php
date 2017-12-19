@@ -90,7 +90,17 @@ class ExamplesModel
       foreach($userArrayKeys as $key)
       {
         //assign the user to the team
-        TeamRepository::addMemberToTeam($connection, $team->getId(), $users[$key]->getId());
+        if(!TeamRepository::isUserInTeam($connection, $team->getId(), $users[$key]->getId()))
+        {
+          TeamRepository::addMemberToTeam($connection, $team->getId(), $users[$key]->getId());
+        }
+      }
+
+      //change membership into invitation, fix do not remove admin
+      if(!TeamRepository::isUserAdminInTeam($connection, $team->getId(), $users[$userArrayKeys[0]]->getId()))
+      {
+        TeamRepository::removeMemberFromTeam($connection, $team->getId(), $users[$userArrayKeys[0]]->getId());
+        TeamRepository::createUserInvitation($connection, $team->getId(), $users[$userArrayKeys[0]]->getId());
       }
     }
   }

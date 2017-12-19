@@ -42,7 +42,7 @@ class TeamRepository
   {
     $queryString = "INSERT INTO teams_members (team_id, user_id) VALUES (?, ?)";
     $query = $connection->prepare($queryString);
-    $query->bind_param("is",$teamId, $userId);
+    $query->bind_param("ii",$teamId, $userId);
     $query->execute();
 
     return $query->insert_id;
@@ -131,6 +131,25 @@ class TeamRepository
   public static function removeMemberFromTeam(mysqli $connection, $teamId, $userId)
   {
     $queryString = "DELETE FROM teams_members WHERE teams_members.team_id = ? AND teams_members.user_id = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("ii", $teamId, $userId);
+    $query->execute();
+  }
+
+  public static function createUserInvitation(mysqli $connection, $teamId, $userId) : int
+  {
+    $queryString = "INSERT INTO teams_invites (team_id, user_id) VALUES (?, ?)";
+    $query = $connection->prepare($queryString);
+    $query->bind_param("ii",$teamId, $userId);
+    $query->execute();
+
+    return $query->insert_id;
+  }
+
+  public static function removeUserInvitation(mysqli $connection, $teamId, $userId)
+  {
+    $queryString = "DELETE FROM teams_invites WHERE teams_invites.team_id = ? AND teams_invites.user_id = ?";
 
     $query = $connection->prepare($queryString);
     $query->bind_param("ii", $teamId, $userId);

@@ -158,6 +158,26 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
+-- Struktura tabeli dla tabeli `teams_invites`
+--
+
+CREATE TABLE `teams_invites` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `team_id` int(11) NOT NULL,
+  `invited_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Wyzwalacze `teams_invites`
+--
+DELIMITER $$
+CREATE TRIGGER `teams_invites_creation` BEFORE INSERT ON `teams_invites` FOR EACH ROW SET NEW.invited_at = NOW()
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+--
 -- Struktura tabeli dla tabeli `teams_tournaments`
 --
 
@@ -273,6 +293,14 @@ ALTER TABLE `teams_members`
   ADD KEY `teams_members_team_id` (`team_id`);
 
 --
+-- Indexes for table `teams_invites`
+--
+ALTER TABLE `teams_invites`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `teams_invites_user_id` (`user_id`),
+  ADD KEY `teams_invites_team_id` (`team_id`);
+
+--
 -- Indexes for table `teams_tournaments`
 --
 ALTER TABLE `teams_tournaments`
@@ -334,6 +362,11 @@ ALTER TABLE `teams_matches`
 ALTER TABLE `teams_members`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT dla tabeli `teams_invites`
+--
+ALTER TABLE `teams_invites`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT dla tabeli `teams_tournaments`
 --
 ALTER TABLE `teams_tournaments`
@@ -384,6 +417,14 @@ ALTER TABLE `teams_members`
   ADD CONSTRAINT `teams_members_team_id` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`),
   ADD CONSTRAINT `teams_members_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
   ADD CONSTRAINT `teams_members_unique` UNIQUE (user_id, team_id);
+
+--
+-- Ograniczenia dla tabeli `teams_invites`
+--
+ALTER TABLE `teams_invites`
+  ADD CONSTRAINT `teams_invites_team_id` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`),
+  ADD CONSTRAINT `teams_invites_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `teams_invites_unique` UNIQUE (user_id, team_id);
 
 --
 -- Ograniczenia dla tabeli `teams_tournaments`
