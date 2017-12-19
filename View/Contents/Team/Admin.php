@@ -47,27 +47,19 @@
     <div class="content_actions">
       <ul>
         <?php
+        $teamId = $parameters['teamId'];
         echo "<li><div><img src='/images/plus_icon_very_small.png'></div><div class='team_invite_member'>Invite member</div></li>";
         echo "<li>
-                <form action='/team/invite' method='POST'>
+                <form action='/team/invite/send' method='POST'>
                     <div>
                         <input type='text' id='email' placeholder='email' name='email'>
+                        <input type='text' id='teamId' name='teamId' value='$teamId' style='display:none'>
                     </div>
                     <div>
-                        <button class='button' type='submit' value='inv'><img src='/images/invitation_send_icon_small.png'></button>
+                        <button class='button' type='submit'><img src='/images/invitation_send_icon_small.png'></button>
                     </div>
                 </form>
                </li>";
-
-
-//         TODO team invites
-//         echo "<li><a href='/teams/create'><img src='/images/sign-off-icon-small.png'></a></li>";
-//                  foreach($parameters['teams'] as $team)
-//                  {
-//                    $id = $team->getId();
-//                    $name = $team->getName();
-//                    echo("<li>$name</li>");
-//                  }
         ?>
       </ul>
     </div>

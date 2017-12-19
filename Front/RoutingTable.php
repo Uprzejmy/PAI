@@ -48,7 +48,7 @@ class RoutingTable
     $this->routes['/team/members/remove'] = new Route("TeamController", "removeMemberFromTeamAction", true);
     $this->routes['/team/self_remove'] = new Route("TeamController", "selfRemoveFromTeamAction", true);
     $this->routes['/team/invite/accept'] = new Route("TeamController", "acceptTeamInvitationAction", true);
-
+    $this->routes['/team/invite/send'] = new Route("TeamController", "sendTeamInvitationAction", true);
 
     //TODO configure other routes
   }

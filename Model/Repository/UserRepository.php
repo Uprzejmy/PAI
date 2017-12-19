@@ -64,6 +64,25 @@ class UserRepository
     return null;
   }
 
+  public static function getUserByEmail(mysqli $connection, $email) : User
+  {
+    $queryString = "SELECT id, email FROM users WHERE email = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("s",$email);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    if ($user = $result->fetch_object("User"))
+    {
+      /** @var User $user */
+      return $user;
+    }
+
+    return null;
+  }
+
   public static function isEmailTaken(mysqli $connection, $email) : bool
   {
     $queryString = "SELECT 1 FROM users WHERE email = ?";

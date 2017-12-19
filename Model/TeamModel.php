@@ -87,4 +87,23 @@ class TeamModel
 
     return;
   }
+
+  public function sendInvitationToUser($teamId, $email)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    $user = UserRepository::getUserByEmail($connection, $email);
+
+    if($user === null)
+    {
+      return;
+    }
+
+    if(!TeamRepository::isUserInvitationPending($connection, $teamId, $user->getId()))
+    {
+      TeamRepository::createUserInvitation($connection, $teamId, $user->getId());
+    }
+
+    return;
+  }
 }
