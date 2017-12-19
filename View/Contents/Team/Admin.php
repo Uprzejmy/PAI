@@ -21,7 +21,7 @@
         <?php
         foreach($parameters['members'] as $member)
         {
-            //TODO change a to form, and pass appropriate parameters
+          $teamId = $parameters['teamId'];
           $userId = $member->getId();
           $email = $member->getEmail();
           $joinedAt = $member->getPrintableJoinedAt();
@@ -31,7 +31,9 @@
                         <div>joined: $joinedAt</div>
                     </div>
                     <div class='team_action'>
-                        <form action='/team/invite' method='POST'>
+                        <form action='/team/members/remove' method='POST'>
+                            <input type='text' id='teamId' name='teamId' value='$teamId' style='display:none'>
+                            <input type='text' id='userId' name='userId' value='$userId' style='display:none'>
                             <button class='button' type='submit' value='inv'>
                                 <img src='/images/remove_item_icon_small.png'>
                             </button>

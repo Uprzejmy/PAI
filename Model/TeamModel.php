@@ -74,4 +74,17 @@ class TeamModel
 
     return TeamRepository::isUserAdminInTeam($connection, $teamId, $userId);
   }
+
+  /**
+   * @param $teamId
+   * @param $userId
+   */
+  public function removeMemberFromTeam($teamId, $userId)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    TeamRepository::removeMemberFromTeam($connection, $teamId, $userId);
+
+    return;
+  }
 }

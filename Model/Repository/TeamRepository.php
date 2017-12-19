@@ -127,4 +127,13 @@ class TeamRepository
 
     return false;
   }
+
+  public static function removeMemberFromTeam(mysqli $connection, $teamId, $userId)
+  {
+    $queryString = "DELETE FROM teams_members WHERE teams_members.team_id = ? AND teams_members.user_id = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("ii", $teamId, $userId);
+    $query->execute();
+  }
 }
