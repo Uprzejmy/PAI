@@ -106,4 +106,34 @@ class TeamModel
 
     return;
   }
+
+  /**
+   * @param $teamId
+   * @return User[]
+   */
+  public function getTeamInvitations($teamId)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    try
+    {
+      $users = TeamRepository::getTeamInvitationsByTeamId($connection, $teamId);
+    }
+    catch(TypeError $t)
+    {
+      return array();
+    }
+
+    return $users;
+  }
+
+  public function removeTeamInvitation($teamId, $userId)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    if(TeamRepository::isUserInvitationPending($connection, $teamId, $userId))
+    {
+      TeamRepository::removeUserInvitation($connection, $teamId, $userId);
+    }
+  }
 }

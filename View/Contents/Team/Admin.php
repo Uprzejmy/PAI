@@ -51,15 +51,32 @@
         echo "<li><div><img src='/images/plus_icon_very_small.png'></div><div class='team_invite_member'>Invite member</div></li>";
         echo "<li>
                 <form action='/team/invite/send' method='POST'>
-                    <div>
+                    <div class='action_description'>
                         <input type='text' id='email' placeholder='email' name='email'>
                         <input type='text' id='teamId' name='teamId' value='$teamId' style='display:none'>
                     </div>
-                    <div>
+                    <div class='action_icon'>
                         <button class='button' type='submit'><img src='/images/invitation_send_icon_small.png'></button>
                     </div>
                 </form>
                </li>";
+
+        foreach($parameters['invitedUsers'] as $user)
+        {
+            $email = $user->getEmail();
+            $userId = $user->getId();
+
+            echo "<li>
+                    <div class='action_description'><p>$email</p></div>
+                    <div class='action_icon'>
+                        <form action='/team/invite/remove' method='POST'>
+                            <input type='text' id='teamId' name='teamId' value='$teamId' style='display:none'>
+                            <input type='text' id='userId' name='userId' value='$userId' style='display:none'>
+                            <button class='button' type='submit'><img src='/images/junk_icon_small.png'></button>
+                        </form>
+                    </div>
+                  </li>";
+        }
         ?>
       </ul>
     </div>

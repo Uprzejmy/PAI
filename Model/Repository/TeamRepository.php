@@ -194,4 +194,25 @@ class TeamRepository
 
     return $teams;
   }
+
+  public static function getTeamInvitationsByTeamId(mysqli $connection, $teamId)
+  {
+    $users = array();
+
+    $queryString = "SELECT users.email, users.id FROM teams_invites 
+                    LEFT JOIN users ON teams_invites.user_id = users.id
+                    WHERE teams_invites.team_id = ?";
+    $query = $connection->prepare($queryString);
+    $query->bind_param("i", $teamId);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    while($user = $result->fetch_object("User"))
+    {
+      $users[] = $user;
+    }
+
+    return $users;
+  }
 }

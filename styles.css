@@ -36,11 +36,6 @@ ol, ul
   list-style: none;
 }
 
-p
-{
-  line-height: 180%;
-}
-
 strong
 {
 }
@@ -450,17 +445,21 @@ div .content_list
   height: 100%;
 }
 
-.content_actions form div:first-child
+.content_actions div.action_description
 {
   width: 80%;
   float: left;
   height: 48px;
   padding-top: 0px;
   padding-bottom: 0px;
-  clear: left;
 }
 
-.content_actions form div
+.content_actions div.action_description p
+{
+  padding-left: 10px;
+}
+
+.content_actions div.action_icon
 {
   width: 15%;
   float: right;
@@ -468,6 +467,11 @@ div .content_list
   padding-top: 4px;
   padding-bottom: 4px;
   color: #eee;
+}
+
+.content_actions div.action_icon:hover
+{
+  background: #cb2431;
 }
 
 .content_actions form div.invite_left

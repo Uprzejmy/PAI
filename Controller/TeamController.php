@@ -88,7 +88,7 @@ class TeamController extends BaseController
     $isUserAdmin = true;
 
     $members = $teamModel->getTeamMembers($teamId);
-    //TODO don't show admin in managable users, separate query?
+    //TODO don't show admin in manageable users, separate query?
     foreach($members as $key=>$member)
     {
       if($member->getId() === $session->getUserId())
@@ -97,13 +97,16 @@ class TeamController extends BaseController
       }
     }
 
+    $invitedUsers = $teamModel->getTeamInvitations($teamId);
+
     $teamView = new TeamView();
 
     $teamView->render('Admin', [
       'session' => $session,
       'teamId' => $teamId,
       'isUserAdmin' => $isUserAdmin,
-      'members' => $members
+      'members' => $members,
+      'invitedUsers' => $invitedUsers
     ]);
   }
 
@@ -195,6 +198,26 @@ class TeamController extends BaseController
     }
 
     $teamModel->sendInvitationToUser($teamId, $userEmail);
+
+    $this->redirect("/team/admin/$teamId");
+  }
+
+  public function removeTeamInvitationAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+    $adminId = $session->getUserId();
+    $teamId = $_POST['teamId'];
+    $userId = $_POST['userId'];
+
+    $teamModel = new TeamModel();
+
+    if(!$teamModel->isUserAdminInTeam($teamId, $adminId))
+    {
+      $this->redirect("/account/teams");
+    }
+
+    $teamModel->removeTeamInvitation($teamId, $userId);
 
     $this->redirect("/team/admin/$teamId");
   }
