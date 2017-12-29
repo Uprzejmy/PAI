@@ -215,4 +215,22 @@ class TeamRepository
 
     return $users;
   }
+
+  public static function isTeamNameInUse(mysqli $connection, $name) : bool
+  {
+    $queryString = "SELECT 1 FROM teams WHERE name = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("s", $name);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    if($result->num_rows > 0)
+    {
+      return true;
+    }
+
+    return false;
+  }
 }

@@ -7,6 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/BaseController.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/DbConnection.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/TeamModel.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/View/TeamView.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/Team/TeamCreateForm.php";
 
 class TeamController extends BaseController
 {
@@ -220,5 +221,45 @@ class TeamController extends BaseController
     $teamModel->removeTeamInvitation($teamId, $userId);
 
     $this->redirect("/team/admin/$teamId");
+  }
+
+  public function createTeamAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+    $userId = $session->getUserId();
+
+    $form = new TeamCreateForm();
+
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST')
+    {
+      $form->bindData();
+      $form->validateData();
+
+      if($form->isValid())
+      {
+        $model = new TeamModel();
+
+        $teamId = $model->createTeam($userId, $form->getName());
+
+        if($teamId !== null)
+        {
+          $this->redirect("/team/tournaments/$teamId");
+        }
+        else
+        {
+          $form->invalidateForm("name already in use");
+        }
+      }
+    }
+
+    $teamView = new TeamView();
+
+    $teamView->render('Create', [
+      'session' => $session,
+      'name' => $form->getName(),
+      'form_errors' => $form->getErrors()
+    ]);
   }
 }

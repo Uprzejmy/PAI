@@ -136,4 +136,20 @@ class TeamModel
       TeamRepository::removeUserInvitation($connection, $teamId, $userId);
     }
   }
+
+  public function createTeam($leaderId, $name)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    if(TeamRepository::isTeamNameInUse($connection, $name))
+    {
+      return null;
+    }
+
+    $teamId = TeamRepository::createTeam($connection, $leaderId, $name);
+
+    TeamRepository::addMemberToTeam($connection, $teamId, $leaderId);
+
+    return $teamId;
+  }
 }

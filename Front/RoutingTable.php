@@ -50,6 +50,7 @@ class RoutingTable
     $this->routes['/team/invite/accept'] = new Route("TeamController", "acceptTeamInvitationAction", true);
     $this->routes['/team/invite/send'] = new Route("TeamController", "sendTeamInvitationAction", true);
     $this->routes['/team/invite/remove'] = new Route("TeamController", "removeTeamInvitationAction", true);
+    $this->routes['/team/create'] = new Route("TeamController", "createTeamAction", true);
 
     //TODO check if requested resource id exists and redirect the user if it doesn't
     //TODO configure other routes
