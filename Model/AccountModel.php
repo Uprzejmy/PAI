@@ -73,13 +73,21 @@ class AccountModel
 
   /**
    * @param $userId
-   * @return Team[]
+   * @return Tournament[]
    */
   public function getUserTournaments($userId)
   {
     $connection = DbConnection::getInstance()->getConnection();
 
+    try
+    {
+      $tournaments = TournamentRepository::getTournamentsByUserId($connection, $userId);
+    }
+    catch(TypeError $t)
+    {
+      return array();
+    }
 
-    return array();
+    return $tournaments;
   }
 }

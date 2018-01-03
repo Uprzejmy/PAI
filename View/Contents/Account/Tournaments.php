@@ -19,10 +19,10 @@
                 $name = $tournament->getName();
                 $description = $tournament->getDescription();
                 $participants = 999;//$team->getNumberOfTeams();
+                $createdAt = $tournament->getPrintableCreatedAt();
                 echo("<li>
-                            <a href='/tournament/$id'><div>$name</div><div>participants: $participants</div></a>
-                          </li>");
-                //<a class='team_action' href='/teams/resign/$id'><img src='/images/sign-off-icon-small.png'></a>
+                        <a href='/tournament/$id'><div>$name</div><div>created at: $createdAt</div></a>
+                      </li>");
               }
               ?>
             </ul>
