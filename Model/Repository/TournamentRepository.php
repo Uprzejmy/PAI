@@ -7,7 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/Tournament.php";
 
 class TournamentRepository
 {
-  public static function createTournament(mysqli $connection, $adminUserId, $name, $description = "") : int
+  public static function createTournament(mysqli $connection, $adminUserId, $name, $description) : int
   {
     $queryString = "INSERT INTO tournaments (admin_id, name, description) VALUES (?, ?, ?)";
 
@@ -92,6 +92,24 @@ class TournamentRepository
     $query->execute();
 
     return $query->insert_id;
+  }
+
+  public static function isTournamentNameInUse(mysqli $connection, $name) : bool
+  {
+    $queryString = "SELECT 1 FROM tournaments WHERE name = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("s", $name);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    if($result->num_rows > 0)
+    {
+      return true;
+    }
+
+    return false;
   }
 
 }

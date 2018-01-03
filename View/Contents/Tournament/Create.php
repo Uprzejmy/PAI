@@ -6,7 +6,7 @@
         echo("<li>$error</li>");
       ?>
     </ul>
-    <form action="/tournament/create" method="POST">
+    <form action="/tournaments/create" method="POST">
       <label for="name">Name</label>
       <input type="text" id="name" name="name" value="<?php echo $parameters['name'] ?>">
 
