@@ -412,6 +412,13 @@ div .content_list
   padding: 16px 0px;
 }
 
+.content_actions li a div.tournament_create
+{
+  text-align: center;
+  text-transform: uppercase;
+  width: 70%
+}
+
 .content_actions li a div.team_create
 {
   text-align: center;

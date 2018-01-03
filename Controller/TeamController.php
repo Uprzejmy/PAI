@@ -4,7 +4,6 @@
  */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/BaseController.php";
-require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/DbConnection.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/TeamModel.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/View/TeamView.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/Team/TeamCreateForm.php";

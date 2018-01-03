@@ -8,6 +8,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/MainController.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/UserController.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/AccountController.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/TeamController.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/TournamentController.php";
 //TODO include all controllers
 
 class RouterService
