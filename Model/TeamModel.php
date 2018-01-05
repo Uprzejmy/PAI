@@ -13,6 +13,26 @@ class TeamModel
 {
   /**
    * @param $teamId
+   * @return Team
+   */
+  public function getTeamById($teamId)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    try
+    {
+      $team = TeamRepository::getTeamById($connection, $teamId);
+    }
+    catch(TypeError $t)
+    {
+      return null;
+    }
+
+    return $team;
+  }
+
+  /**
+   * @param $teamId
    * @return Tournament[]
    */
   public function getTeamTournaments($teamId)

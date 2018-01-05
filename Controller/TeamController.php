@@ -30,12 +30,14 @@ class TeamController extends BaseController
     }
 
     $tournaments = $teamModel->getTeamTournaments($teamId);
+    $team = $teamModel->getTeamById($teamId);
 
     $teamView = new TeamView();
 
     $teamView->render('Tournaments', [
       'session' => $session,
       'teamId' => $teamId,
+      'team' => $team,
       'isUserAdmin' => $isUserAdmin,
       'tournaments' => $tournaments
     ]);
@@ -61,6 +63,7 @@ class TeamController extends BaseController
     }
 
     $members = $teamModel->getTeamMembers($teamId);
+    $team = $teamModel->getTeamById($teamId);
 
     $teamView = new TeamView();
 
@@ -68,6 +71,7 @@ class TeamController extends BaseController
       'session' => $session,
       'teamId' => $teamId,
       'isUserAdmin' => $isUserAdmin,
+      'team' => $team,
       'members' => $members
     ]);
   }
@@ -98,6 +102,7 @@ class TeamController extends BaseController
     }
 
     $invitedUsers = $teamModel->getTeamInvitations($teamId);
+    $team = $teamModel->getTeamById($teamId);
 
     $teamView = new TeamView();
 
@@ -105,6 +110,7 @@ class TeamController extends BaseController
       'session' => $session,
       'teamId' => $teamId,
       'isUserAdmin' => $isUserAdmin,
+      'team' => $team,
       'members' => $members,
       'invitedUsers' => $invitedUsers
     ]);

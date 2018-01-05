@@ -65,7 +65,7 @@ a:hover
 
 .container
 {
-  margin: 0px auto;
+  margin: 2em auto 0 auto;
   width: 1200px;
 }
 
@@ -73,8 +73,7 @@ a:hover
 /*** Menu */
 .header_menu
 {
-  height: 150px;
-  margin: 3em 0em;
+  height: 40px;
 }
 
 /** header menu logo + header menu link relation */
@@ -82,17 +81,15 @@ a:hover
 .header_menu_logo
 {
   top: 2em;
-  /*width: 100%;*/
   float: left;
-  height: 150px;
+  height: 40px;
 }
 
 .header_menu_list
 {
   top: 2em;
-  /*width: 100%;*/
   float: right;
-  height: 150px;
+  height: 40px;
 }
 
 
@@ -112,8 +109,7 @@ a:hover
 .header_menu_logo img
 {
   display: inline-block;
-  margin: 0 0 2em 0;
-  padding-right: 0.50em;
+  margin-right: 20px;
   float: left;
 }
 
@@ -205,6 +201,24 @@ a:hover
   border-radius: 5px;
   letter-spacing:1px;
   text-align:center;
+}
+
+/* page title */
+div .left-logo-adjuster
+{
+  float: left;
+  width: 96px;
+  margin-right: 20px;
+  color: #2b2b2b;
+}
+
+div .content_title
+{
+}
+
+p.content_title_header
+{
+  font-size: 30px;
 }
 
 

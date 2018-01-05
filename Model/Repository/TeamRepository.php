@@ -71,6 +71,20 @@ class TeamRepository
     return $teams;
   }
 
+  public static function getTeamById(mysqli $connection, $teamId)
+  {
+    $queryString = "SELECT teams.id, teams.name, teams.created_at, teams.description FROM teams
+                    WHERE teams.id = ?";
+    $query = $connection->prepare($queryString);
+    $query->bind_param("i", $teamId);
+    $query->execute();
+
+    $result = $query->get_result();
+    $team = $result->fetch_object("Team");
+
+    return $team;
+  }
+
   public static function getTeamMembers(mysqli $connection, $teamId)
   {
     $teams = array();

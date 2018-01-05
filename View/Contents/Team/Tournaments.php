@@ -1,4 +1,14 @@
 <div class="container">
+    <div class="left-logo-adjuster">.</div>
+    <div class="content_title">
+          <?php
+          $team = $parameters['team'];
+          $name = $team->getName();
+          echo "<p class='content_title_header'>$name</p>";
+          ?>
+    </div>
+</div>
+<div class="container">
   <div class="content_menu">
     <ul>
       <li class="active">
