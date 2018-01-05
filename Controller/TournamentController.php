@@ -16,12 +16,69 @@ class TournamentController extends BaseController
     $session = $parameters['session'];
     $tournamentId = $parameters['id'];
 
+    $tournamentModel = new TournamentModel();
+
+    $tournament = $tournamentModel->getTournamentById($tournamentId);
+    if($tournament === null)
+    {
+      $this->redirect("/not_found");
+    }
 
     $tournamentView = new TournamentView();
 
     $tournamentView->render('Show', [
       'session' => $session,
-      'tournamentId' => $tournamentId
+      'tournamentId' => $tournamentId,
+      'tournament' => $tournament,
+      'isUserAdmin' => true
+    ]);
+  }
+
+  public function showTournamentMatchesAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+    $tournamentId = $parameters['id'];
+
+    $tournamentModel = new TournamentModel();
+
+    $tournament = $tournamentModel->getTournamentById($tournamentId);
+    if($tournament === null)
+    {
+      $this->redirect("/not_found");
+    }
+
+    $tournamentView = new TournamentView();
+
+    $tournamentView->render('Matches', [
+      'session' => $session,
+      'tournamentId' => $tournamentId,
+      'tournament' => $tournament,
+      'isUserAdmin' => true
+    ]);
+  }
+
+  public function showTournamentAdminAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+    $tournamentId = $parameters['id'];
+
+    $tournamentModel = new TournamentModel();
+
+    $tournament = $tournamentModel->getTournamentById($tournamentId);
+    if($tournament === null)
+    {
+      $this->redirect("/not_found");
+    }
+
+    $tournamentView = new TournamentView();
+
+    $tournamentView->render('Admin', [
+      'session' => $session,
+      'tournamentId' => $tournamentId,
+      'tournament' => $tournament,
+      'isUserAdmin' => true
     ]);
   }
 

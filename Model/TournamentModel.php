@@ -22,4 +22,20 @@ class TournamentModel
 
     return $tournamentId;
   }
+
+  public function getTournamentById($id)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    try
+    {
+      $tournament = TournamentRepository::getTournamentById($connection, $id);
+    }
+    catch(TypeError $t)
+    {
+      return null;
+    }
+
+    return $tournament;
+  }
 }

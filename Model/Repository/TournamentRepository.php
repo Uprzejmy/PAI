@@ -18,6 +18,20 @@ class TournamentRepository
     return $query->insert_id;
   }
 
+  public static function getTournamentById(mysqli $connection, $id)
+  {
+    $queryString = "SELECT tournaments.id, tournaments.name, tournaments.created_at FROM tournaments 
+                    WHERE tournaments.id = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("i", $id);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    return $result->fetch_object("Tournament");
+  }
+
   public static function getAllTournaments(mysqli $connection)
   {
     $tournaments = array();
