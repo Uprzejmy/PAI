@@ -7,6 +7,8 @@ class Match
 {
   private $id;
   private $matchDate;
+  private $order;
+
   private $tournament;
 
   /**
@@ -31,6 +33,22 @@ class Match
   public function setMatchDate($matchDate)
   {
     $this->matchDate = $matchDate;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getOrder()
+  {
+    return $this->order;
+  }
+
+  /**
+   * @param mixed $order
+   */
+  public function setOrder($order)
+  {
+    $this->order = $order;
   }
 
   /**
