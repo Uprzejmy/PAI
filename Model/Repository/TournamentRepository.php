@@ -20,7 +20,7 @@ class TournamentRepository
 
   public static function getTournamentById(mysqli $connection, $id)
   {
-    $queryString = "SELECT tournaments.id, tournaments.name, tournaments.created_at FROM tournaments 
+    $queryString = "SELECT tournaments.id, tournaments.name, tournaments.admin_id, tournaments.created_at FROM tournaments 
                     WHERE tournaments.id = ?";
 
     $query = $connection->prepare($queryString);

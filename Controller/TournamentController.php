@@ -30,7 +30,7 @@ class TournamentController extends BaseController
       'session' => $session,
       'tournamentId' => $tournamentId,
       'tournament' => $tournament,
-      'isUserAdmin' => true
+      'isUserAdmin' => $tournament->isAdmin($session->getUserId())
     ]);
   }
 
@@ -54,7 +54,7 @@ class TournamentController extends BaseController
       'session' => $session,
       'tournamentId' => $tournamentId,
       'tournament' => $tournament,
-      'isUserAdmin' => true
+      'isUserAdmin' => $tournament->isAdmin($session->getUserId())
     ]);
   }
 
@@ -67,7 +67,7 @@ class TournamentController extends BaseController
     $tournamentModel = new TournamentModel();
 
     $tournament = $tournamentModel->getTournamentById($tournamentId);
-    if($tournament === null)
+    if($tournament === null || !$tournament->isAdmin($session->getUserId()))
     {
       $this->redirect("/not_found");
     }
@@ -81,7 +81,7 @@ class TournamentController extends BaseController
       'tournamentId' => $tournamentId,
       'tournament' => $tournament,
       'teams' => $teams,
-      'isUserAdmin' => true
+      'isUserAdmin' => $tournament->isAdmin($session->getUserId())
     ]);
   }
 
@@ -94,7 +94,7 @@ class TournamentController extends BaseController
     $tournamentModel = new TournamentModel();
 
     $tournament = $tournamentModel->getTournamentById($tournamentId);
-    if($tournament === null)
+    if($tournament === null || !$tournament->isAdmin($session->getUserId()))
     {
       $this->redirect("/not_found");
     }
@@ -105,7 +105,7 @@ class TournamentController extends BaseController
       'session' => $session,
       'tournamentId' => $tournamentId,
       'tournament' => $tournament,
-      'isUserAdmin' => true
+      'isUserAdmin' => $tournament->isAdmin($session->getUserId())
     ]);
   }
 

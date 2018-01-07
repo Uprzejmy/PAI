@@ -11,7 +11,7 @@ class Tournament
   private $name;
   private $description;
   private $created_at;
-  private $admin;
+  private $admin_id;
 
   /**
    * @return mixed
@@ -75,19 +75,29 @@ class Tournament
   }
 
   /**
-   * @return User
+   * @return mixed
    */
-  public function getAdmin(): User
+  public function getAdminId()
   {
-    return $this->admin;
+    return $this->admin_id;
   }
 
   /**
-   * @param User $admin
+   * @param mixed $adminId
    */
-  public function setAdmin(User $admin)
+  public function setAdminId($adminId)
   {
-    $this->admin = $admin;
+    $this->admin_id = $adminId;
+  }
+
+  public function isAdmin($userId) : bool
+  {
+    if($this->admin_id === $userId)
+    {
+      return true;
+    }
+
+    return false;
   }
 
 
