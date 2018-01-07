@@ -247,4 +247,26 @@ class TeamRepository
 
     return false;
   }
+
+  public static function getTeamsByTournamentId(mysqli $connection, $tournamentId)
+  {
+    $teams = array();
+
+    $queryString = "SELECT teams.id, teams.name, teams_tournaments.joined_at FROM teams_tournaments
+                    LEFT JOIN teams ON teams_tournaments.team_id = teams.id
+                    WHERE teams_tournaments.tournament_id = ?
+                    ORDER BY teams_tournaments.joined_at";
+    $query = $connection->prepare($queryString);
+    $query->bind_param("i", $tournamentId);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    while($team = $result->fetch_object("Team"))
+    {
+      $teams[] = $team;
+    }
+
+    return $teams;
+  }
 }

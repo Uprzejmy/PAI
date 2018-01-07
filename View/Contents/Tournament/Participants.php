@@ -16,20 +16,17 @@
       <li>
         <a href="/tournaments/<?php echo $parameters['tournamentId'] ?>">Bracket</a>
       </li>
-      <li class="active">
+      <li>
         <a href="/tournaments/matches/<?php echo $parameters['tournamentId'] ?>">Matches</a>
       </li>
       <?php
-      if($parameters['isUserAdmin'])
-      {
         $tournamentId = $parameters['tournamentId'];
-        echo("<li>
+        echo("<li class='active'>
                 <a href='/tournaments/admin/participants/$tournamentId'>Participants</a>
               </li>");
         echo("<li>
                 <a href='/tournaments/admin/settings/$tournamentId'>Settings</a>
               </li>");
-      }
       ?>
     </ul>
   </div>
@@ -37,25 +34,26 @@
     <div class="content_list">
       <ul>
         <?php
-        /*
+
         foreach($parameters['teams'] as $team)
         {
           $id = $team->getId();
           $name = $team->getName();
-          $members = $team->getNumberOfMembers();
+          $joinedAt = $team->getPrintableJoinedAt();
           echo("<li>
-                            <a href='/team/tournaments/$id'><div>$name</div><div>members: $members</div></a>
-                            <div class='team_action'>
-                                <form action='/team/self_remove' method='POST'>
-                                    <input type='text' id='teamId' name='teamId' value='$id' style='display:none'>
-                                    <button class='button' type='submit'>
-                                        <img src='/images/sign-off-icon-small.png'>
-                                    </button>
-                                </form>
-                            </div>
-                          </li>");
+                    <a href='/not_found'><div>$name</div><div>joined at: $joinedAt</div></a>
+                    <div class='team_action'>
+                        <form action='/tournaments/remove_team' method='POST'>
+                            <input type='text' id='teamId' name='teamId' value='$id' style='display:none'>
+                            <input type='text' id='tournamentId' name='tournamentId' value='$tournamentId' style='display:none'>
+                            <button class='button' type='submit'>
+                                <img src='/images/remove_item2_icon.png'>
+                            </button>
+                        </form>
+                    </div>
+                  </li>");
         }
-        */
+
         ?>
       </ul>
     </div>

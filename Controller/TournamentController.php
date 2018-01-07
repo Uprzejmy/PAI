@@ -58,7 +58,34 @@ class TournamentController extends BaseController
     ]);
   }
 
-  public function showTournamentAdminAction($parameters)
+  public function showTournamentAdminParticipantsAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+    $tournamentId = $parameters['id'];
+
+    $tournamentModel = new TournamentModel();
+
+    $tournament = $tournamentModel->getTournamentById($tournamentId);
+    if($tournament === null)
+    {
+      $this->redirect("/not_found");
+    }
+
+    $teams = $tournamentModel->getTournamentTeams($tournamentId);
+
+    $tournamentView = new TournamentView();
+
+    $tournamentView->render('Participants', [
+      'session' => $session,
+      'tournamentId' => $tournamentId,
+      'tournament' => $tournament,
+      'teams' => $teams,
+      'isUserAdmin' => true
+    ]);
+  }
+
+  public function showTournamentAdminSettingsAction($parameters)
   {
     /** @var UserSession $session */
     $session = $parameters['session'];
@@ -74,7 +101,7 @@ class TournamentController extends BaseController
 
     $tournamentView = new TournamentView();
 
-    $tournamentView->render('Admin', [
+    $tournamentView->render('Settings', [
       'session' => $session,
       'tournamentId' => $tournamentId,
       'tournament' => $tournament,
@@ -119,6 +146,25 @@ class TournamentController extends BaseController
       'name' => $form->getName(),
       'form_errors' => $form->getErrors()
     ]);
+  }
+
+  public function removeTeamFromTournamentAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+    $teamId = $_POST['teamId'];
+    $tournamentId = $_POST['tournamentId'];
+
+    $tournamentModel = new TournamentModel();
+
+    if(!$tournamentModel->isUserAdminInTournament($tournamentId, $session->getUserId()))
+    {
+      $this->redirect("/homepage");
+    }
+
+    $tournamentModel->removeTeamFromTournament($tournamentId, $teamId);
+
+    $this->redirect("/tournaments/admin/participants/$tournamentId");
   }
 
 }

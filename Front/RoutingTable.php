@@ -55,8 +55,10 @@ class RoutingTable
     //Tournaments
     $this->routes['/tournaments/{{number}}'] = new Route("TournamentController", "showTournamentAction", true);
     $this->routes['/tournaments/matches/{{number}}'] = new Route("TournamentController", "showTournamentMatchesAction", true);
-    $this->routes['/tournaments/admin/{{number}}'] = new Route("TournamentController", "showTournamentAdminAction", true);
+    $this->routes['/tournaments/admin/participants/{{number}}'] = new Route("TournamentController", "showTournamentAdminParticipantsAction", true);
+    $this->routes['/tournaments/admin/settings/{{number}}'] = new Route("TournamentController", "showTournamentAdminSettingsAction", true);
     $this->routes['/tournaments/create'] = new Route("TournamentController", "createTournamentAction", true);
+    $this->routes['/tournaments/remove_team'] = new Route("TournamentController", "removeTeamFromTournamentAction", true);
 
 
     //TODO check if requested resource id exists and redirect the user if it doesn't

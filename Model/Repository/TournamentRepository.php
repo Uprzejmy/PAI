@@ -126,4 +126,31 @@ class TournamentRepository
     return false;
   }
 
+  public static function isUserAdminInTournament(mysqli $connection, $tournamentId, $userId) : bool
+  {
+    $queryString = "SELECT 1 FROM tournaments WHERE tournaments.id = ? AND tournaments.admin_id = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("ii", $tournamentId, $userId);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    if($result->num_rows > 0)
+    {
+      return true;
+    }
+
+    return false;
+  }
+
+  public static function removeTeamFromTournament(mysqli $connection, $tournamentId, $teamId)
+  {
+    $queryString = "DELETE FROM teams_tournaments WHERE teams_tournaments.tournament_id = ? AND teams_tournaments.team_id = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("ii", $tournamentId, $teamId);
+    $query->execute();
+  }
+
 }

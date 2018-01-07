@@ -20,13 +20,13 @@
         <a href="/tournaments/matches/<?php echo $parameters['tournamentId'] ?>">Matches</a>
       </li>
       <?php
-      if($parameters['isUserAdmin'])
-      {
         $tournamentId = $parameters['tournamentId'];
+        echo("<li>
+                <a href='/tournaments/admin/participants/$tournamentId'>Participants</a>
+              </li>");
         echo("<li class='active'>
-                        <a href='/tournaments/admin/$tournamentId'>Admin</a>
-                      </li>");
-      }
+                <a href='/tournaments/admin/settings/$tournamentId'>Settings</a>
+              </li>");
       ?>
     </ul>
   </div>

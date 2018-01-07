@@ -23,9 +23,12 @@
             if($parameters['isUserAdmin'])
             {
                 $tournamentId = $parameters['tournamentId'];
-                echo("<li>
-                        <a href='/tournaments/admin/$tournamentId'>Admin</a>
-                      </li>");
+              echo("<li>
+                      <a href='/tournaments/admin/participants/$tournamentId'>Participants</a>
+                    </li>");
+              echo("<li>
+                      <a href='/tournaments/admin/settings/$tournamentId'>Settings</a>
+                    </li>");
             }
             ?>
         </ul>

@@ -12,6 +12,7 @@ class Team
   private $captain;
   private $number_of_members;
   private $invited_at;
+  private $joinedAt;
 
   /**
    * @return mixed
@@ -115,5 +116,26 @@ class Team
   public function setInvitedAt($invited_at)
   {
     $this->invited_at = $invited_at;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getJoinedAt()
+  {
+    return $this->joinedAt;
+  }
+
+  /**
+   * @param mixed $joinedAt
+   */
+  public function setJoinedAt($joinedAt)
+  {
+    $this->joinedAt = $joinedAt;
+  }
+
+  public function getPrintableJoinedAt()
+  {
+    return Utils::getDateFromStringDatetime($this->joinedAt);
   }
 }

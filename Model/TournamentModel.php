@@ -38,4 +38,45 @@ class TournamentModel
 
     return $tournament;
   }
+
+  /**
+   * @param $tournamentId
+   * @return Team[]
+   */
+  public function getTournamentTeams($tournamentId)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    try
+    {
+      $teams = TeamRepository::getTeamsByTournamentId($connection, $tournamentId);
+    }
+    catch(TypeError $t)
+    {
+      return array();
+    }
+
+    return $teams;
+  }
+
+  /**
+   * @param $tournamentId
+   * @param $userId
+   * @return bool
+   */
+  public function isUserAdminInTournament($tournamentId, $userId) : bool
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    return TournamentRepository::isUserAdminInTournament($connection, $tournamentId, $userId);
+  }
+
+  public function removeTeamFromTournament($tournamentId, $teamId)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    TournamentRepository::removeTeamFromTournament($connection, $tournamentId, $teamId);
+
+    return;
+  }
 }
