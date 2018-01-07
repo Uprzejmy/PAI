@@ -7,6 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/BaseController.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/TeamModel.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/View/TeamView.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/Team/TeamCreateForm.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/Team/TeamInviteForm.php";
 
 class TeamController extends BaseController
 {
@@ -203,9 +204,25 @@ class TeamController extends BaseController
       $this->redirect("/account/teams");
     }
 
-    $teamModel->sendInvitationToUser($teamId, $userEmail);
+    $form = new TeamInviteForm();
 
-    $this->redirect("/team/admin/$teamId");
+    if($_SERVER['REQUEST_METHOD'] === 'POST')
+    {
+      $form->bindData();
+      $form->validateData();
+
+      if($form->isValid())
+      {
+        $teamModel->sendInvitationToUser($teamId, $userEmail);
+
+        $this->redirect("/team/admin/$teamId");
+      }
+      else
+      {
+        //there's no error message handling for this form
+        $this->redirect("/team/admin/$teamId");
+      }
+    }
   }
 
   public function removeTeamInvitationAction($parameters)
