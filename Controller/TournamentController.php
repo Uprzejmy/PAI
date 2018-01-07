@@ -7,6 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/BaseController.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/TournamentModel.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/View/TournamentView.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/Tournament/TournamentCreateForm.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/BracketHelper.php";
 
 class TournamentController extends BaseController
 {
@@ -24,13 +25,23 @@ class TournamentController extends BaseController
       $this->redirect("/not_found");
     }
 
+    $teams = $tournamentModel->getTournamentTeams($tournamentId);
+
+    $numberOfTeams = count($teams);
+
+    //$bracketMatches = BracketHelper::generateBracket($teams);
+    //$tournamentModel->saveBracket($bracketMatches);
+    //$bracketView = BracketHelper::generateBracketHtmlView($bracketMatches);
+
     $tournamentView = new TournamentView();
 
     $tournamentView->render('Show', [
       'session' => $session,
       'tournamentId' => $tournamentId,
       'tournament' => $tournament,
-      'isUserAdmin' => $tournament->isAdmin($session->getUserId())
+      'isUserAdmin' => $tournament->isAdmin($session->getUserId()),
+      'teams' => $teams,
+      'numberOfTeams' => $numberOfTeams
     ]);
   }
 
@@ -165,6 +176,24 @@ class TournamentController extends BaseController
     $tournamentModel->removeTeamFromTournament($tournamentId, $teamId);
 
     $this->redirect("/tournaments/admin/participants/$tournamentId");
+  }
+
+  public function startTournamentAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+    $tournamentId = $_POST['tournamentId'];
+
+    $tournamentModel = new TournamentModel();
+
+    if(!$tournamentModel->isUserAdminInTournament($tournamentId, $session->getUserId()))
+    {
+      $this->redirect("/homepage");
+    }
+
+    $tournamentModel->startTournament($tournamentId);
+
+    $this->redirect("/tournaments/$tournamentId");
   }
 
 }

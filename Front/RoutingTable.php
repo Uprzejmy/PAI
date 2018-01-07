@@ -59,7 +59,7 @@ class RoutingTable
     $this->routes['/tournaments/admin/settings/{{number}}'] = new Route("TournamentController", "showTournamentAdminSettingsAction", true);
     $this->routes['/tournaments/create'] = new Route("TournamentController", "createTournamentAction", true);
     $this->routes['/tournaments/remove_team'] = new Route("TournamentController", "removeTeamFromTournamentAction", true);
-
+    $this->routes['/tournaments/start'] = new Route("TournamentController", "startTournamentAction", true);
 
     //TODO check if requested resource id exists and redirect the user if it doesn't
     //TODO configure other routes

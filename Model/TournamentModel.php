@@ -5,7 +5,9 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/DbConnection.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Repository/TournamentRepository.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Repository/BracketRepository.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/Tournament.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/BracketHelper.php";
 
 class TournamentModel
 {
@@ -78,5 +80,38 @@ class TournamentModel
     TournamentRepository::removeTeamFromTournament($connection, $tournamentId, $teamId);
 
     return;
+  }
+
+  public function startTournament($tournamentId)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    $teams = $this->getTournamentTeams($tournamentId);
+
+    if(count($teams) > 1)
+    {
+      $bracketMatches = BracketHelper::generateBracket($teams);
+
+      $connection->begin_transaction();
+
+      foreach($bracketMatches as $bracketMatch)
+      {
+        $matchId = BracketRepository::createMatch($connection, $tournamentId, $bracketMatch->getOrder());
+        BracketRepository::createTeamMatch($connection, $matchId, $bracketMatch->getLeftTeam()->getId());
+        //TODO improve this empty data handling
+        if($bracketMatch->getRightTeam() !== null)
+        {
+          BracketRepository::createTeamMatch($connection, $matchId, $bracketMatch->getRightTeam()->getId());
+        }
+      }
+
+      if($connection->error)
+      {
+        $connection->rollback();
+        return false;
+      }
+
+      $connection->commit();
+    }
   }
 }

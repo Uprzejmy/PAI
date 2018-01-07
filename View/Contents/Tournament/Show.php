@@ -35,29 +35,21 @@
     </div>
     <div class="content_below">
         <div class="content_list">
-            <ul>
+            <div class="tournament_description">
               <?php
-              /*
-              foreach($parameters['teams'] as $team)
-              {
-                $id = $team->getId();
-                $name = $team->getName();
-                $members = $team->getNumberOfMembers();
-                echo("<li>
-                                  <a href='/team/tournaments/$id'><div>$name</div><div>members: $members</div></a>
-                                  <div class='team_action'>
-                                      <form action='/team/self_remove' method='POST'>
-                                          <input type='text' id='teamId' name='teamId' value='$id' style='display:none'>
-                                          <button class='button' type='submit'>
-                                              <img src='/images/sign-off-icon-small.png'>
-                                          </button>
-                                      </form>
-                                  </div>
-                                </li>");
-              }
-              */
+              $tournament = $parameters['tournament'];
+              $description = $tournament->getDescription();
+
+              echo("<p>$description</p>");
               ?>
-            </ul>
+            </div>
+            <div class="tournament_content">
+                <?php
+
+
+
+                ?>
+            </div>
         </div>
         <div class="content_actions">
             <ul>
