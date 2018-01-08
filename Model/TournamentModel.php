@@ -96,12 +96,12 @@ class TournamentModel
       foreach($bracketMatches as $bracketMatch)
       {
         $matchId = BracketRepository::createMatch($connection, $tournamentId, $bracketMatch->getOrder());
-        BracketRepository::createTeamMatch($connection, $matchId, $bracketMatch->getLeftTeam()->getId());
+        BracketRepository::createTeamMatch($connection, $matchId, $bracketMatch->getLeftTeam()->getId(), 0);
 
         //TODO improve this empty data handling
         if($bracketMatch->getRightTeam() !== null)
         {
-          BracketRepository::createTeamMatch($connection, $matchId, $bracketMatch->getRightTeam()->getId());
+          BracketRepository::createTeamMatch($connection, $matchId, $bracketMatch->getRightTeam()->getId(), 1);
         }
       }
 
@@ -133,5 +133,48 @@ class TournamentModel
     }
 
     return true;
+  }
+
+  public function getDetailedBracketMatches($tournamentId)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    try
+    {
+      $bracketMatchesRO = BracketRepository::getDetailedBracketMatchesByTournamentId($connection, $tournamentId);
+    }
+    catch(TypeError $t)
+    {
+      return array();
+    }
+
+    return $bracketMatchesRO;
+  }
+
+  public function getBracketHtmlRepresentation($tournamentId)
+  {
+    $bracketMatches = $this->getDetailedBracketMatches($tournamentId);
+
+    if($bracketMatches !== null)
+    {
+      foreach($bracketMatches as $bracketMatch)
+      {
+        if($bracketMatch->leftTeamName === null || $bracketMatch->leftTeamScore === null)
+        {
+          $bracketMatch->leftTeamName = "";
+          $bracketMatch->leftTeamScore = 0;
+        }
+
+        if($bracketMatch->rightTeamName === null || $bracketMatch->rightTeamScore === null)
+        {
+          $bracketMatch->rightTeamName = "";
+          $bracketMatch->rightTeamScore = 0;
+        }
+      }
+
+      return BracketHelper::generateBracketHtmlView($bracketMatches);
+    }
+
+    return "";
   }
 }

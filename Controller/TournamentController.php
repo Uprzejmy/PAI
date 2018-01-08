@@ -33,6 +33,11 @@ class TournamentController extends BaseController
     //$tournamentModel->saveBracket($bracketMatches);
     //$bracketView = BracketHelper::generateBracketHtmlView($bracketMatches);
 
+    $bracketView = $tournamentModel->getBracketHtmlRepresentation($tournamentId);
+
+    echo($bracketView);
+
+
     $tournamentView = new TournamentView();
 
     $tournamentView->render('Show', [

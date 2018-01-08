@@ -4,23 +4,74 @@
  */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/BracketMatch.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/BracketMatchReadOnly.php";
 
 class BracketHelper
 {
   /**
-   * @param Team[] $teams
+   * @param BracketMatchReadOnly[] $bracketMatchesRO
    * @return mixed
    *
-   * this function should take collection of teams and return html view of the tournament bracket
-   * order of array elements matter,
+   * this function assumes that BracketMatchReadOnly[] has keys equal to particular BracketMatch element
    *
    * TODO this shouldn't take teams as the input. Tournament should've already been deployed at this point
    */
-  public static function generateBracketHtmlView($teams)
+  public static function generateBracketHtmlView($bracketMatchesRO)
   {
-    //TODO implement
+    /*
+    echo "<pre>";
+    print_r($bracketMatchesRO);
+    echo "</pre>";
+    */
 
-    return null;
+    $html = "";
+    $html .= "<main class='tournament_bracket'>";
+
+    //guaranteed by arguments assumptions
+    $numberOfMatches = max(array_keys($bracketMatchesRO));
+
+    //1->1, 3->2, 7->3, 15->4, ...
+    $numberOfRounds = log($numberOfMatches+1,2);
+
+    $lastPrintedMatchKey = $numberOfMatches;
+    $numberOfMatchesInRound = $numberOfMatches+1;
+
+    //for each round
+    for($i=1;$i<=$numberOfRounds;$i++)
+    {
+      $html .= "<ul class='round'>";
+
+      $html .= "<li class='spacer'>&nbsp;</li>";
+
+      //for each match in round
+      $numberOfMatchesInRound = $numberOfMatchesInRound/2;
+      for($j=0;$j<$numberOfMatchesInRound;$j++)
+      {
+        $match = self::getBracketMatchByIndex($bracketMatchesRO, $lastPrintedMatchKey--);
+
+        $html .= "<li class='game game-top'>$match->leftTeamName<span>$match->leftTeamScore</span></li>";
+        //$html .= "<li class='game game-spacer'>&nbsp;</li>";
+        $html .= "<li class='game game-bottom'>$match->rightTeamName<span>$match->rightTeamScore</span></li>";
+
+        $html .= "<li class='spacer'>&nbsp;</li>";
+      }
+
+      $html .= "</ul>";
+    }
+
+    $html .= "</main>";
+
+    return $html;
+  }
+
+  private static function getBracketMatchByIndex($bracketMatches, $index)
+  {
+    if(key_exists($index, $bracketMatches))
+    {
+      return $bracketMatches[$index];
+    }
+
+    return new BracketMatchReadOnly();
   }
 
   /**

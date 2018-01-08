@@ -546,6 +546,81 @@ div .content_list
 
 }
 
+/*
+ *  Flex Layout Specifics
+*/
+main.tournament_bracket
+{
+  display:flex;
+  flex-direction:row;
+
+  padding:10px;
+  line-height:2em;
+}
+
+.tournament_bracket .round
+{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  width:250px;
+  list-style:none;
+  padding:0;
+  margin-right: 35px;
+}
+
+.tournament_bracket .round .spacer
+{
+  flex-grow:1;
+}
+
+.tournament_bracket .round .spacer:first-child,
+.tournament_bracket .round .spacer:last-child
+{
+  flex-grow:.5;
+}
+
+.tournament_bracket .round .game-spacer
+{
+  flex-grow:1;
+}
+
+.tournament_bracket li.game
+{
+  padding-left:10px;
+}
+
+.tournament_bracket li.game.winner
+{
+  font-weight:bold;
+}
+
+.tournament_bracket li.game span
+{
+  float:right;
+  /*margin-right:5px;*/
+  padding: 0 5px;
+  background: #66686f;
+  color: #2b2b2b;
+}
+
+.tournament_bracket li.game-top
+{
+  border-bottom:1px solid #2b2b2b;
+  background: #4a4c52;
+}
+
+.tournament_bracket li.game-spacer
+{
+  border-right:1px solid #2b2b2b;
+  min-height:40px;
+}
+
+.tournament_bracket li.game-bottom
+{
+  border-top:1px solid #2b2b2b;
+  background: #4a4c52;
+}
 
 
 
