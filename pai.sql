@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 08, 2018 at 06:45 PM
+-- Generation Time: Jan 08, 2018 at 07:02 PM
 -- Server version: 5.7.20-0ubuntu0.16.04.1
 -- PHP Version: 7.0.22-0ubuntu0.16.04.1
 
@@ -208,6 +208,7 @@ CREATE TABLE `tournaments` (
   `admin_id` int(11) NOT NULL,
   `name` varchar(127) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `started` int(11) NOT NULL DEFAULT '0',
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

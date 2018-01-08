@@ -10,6 +10,7 @@ class Tournament
   private $id;
   private $name;
   private $description;
+  private $started;
   private $created_at;
   private $admin_id;
 
@@ -51,6 +52,35 @@ class Tournament
   public function setDescription($description)
   {
     $this->description = $description;
+  }
+
+  /**
+   * @return mixed
+   */
+  public function getStarted()
+  {
+    return $this->started;
+  }
+
+  /**
+   * @return bool
+   */
+  public function isStarted()
+  {
+    if($this->started === 1)
+    {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * @param mixed $started
+   */
+  public function setStarted($started)
+  {
+    $this->started = $started;
   }
 
   /**

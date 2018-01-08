@@ -33,12 +33,19 @@
   <div class="content_below">
     <div class="content_list">
       <div>
-          <form action='/tournaments/start' method='POST'>
-              <input type='text' id='tournamentId' name='tournamentId' value='<?php echo $parameters['tournamentId'] ?>' style='display:none'>
-              <button class='button' type='submit'>
-                  Start Tournament!
-              </button>
-          </form>
+        <?php
+          $tournament = $parameters['tournament'];
+          $tournamentId = $parameters['tournamentId'];
+          if(!$tournament->isStarted())
+          {
+              echo("<form action='/tournaments/start' method='POST'>
+                      <input type='text' id='tournamentId' name='tournamentId' value='$tournamentId' style='display:none'>
+                      <button class='button' type='submit'>
+                          Start Tournament!
+                      </button>
+                    </form>");
+          }
+        ?>
       </div>
     </div>
     <div class="content_actions">

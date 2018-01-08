@@ -86,10 +86,9 @@ class TournamentModel
   {
     $connection = DbConnection::getInstance()->getConnection();
 
-    $teams = $this->getTournamentTeams($tournamentId);
-
-    if(count($teams) > 1)
+    if($this->canTournamentBeStarted($tournamentId))
     {
+      $teams = $this->getTournamentTeams($tournamentId);
       $bracketMatches = BracketHelper::generateBracket($teams);
 
       $connection->begin_transaction();
@@ -98,6 +97,7 @@ class TournamentModel
       {
         $matchId = BracketRepository::createMatch($connection, $tournamentId, $bracketMatch->getOrder());
         BracketRepository::createTeamMatch($connection, $matchId, $bracketMatch->getLeftTeam()->getId());
+
         //TODO improve this empty data handling
         if($bracketMatch->getRightTeam() !== null)
         {
@@ -105,13 +105,33 @@ class TournamentModel
         }
       }
 
+      TournamentRepository::setTournamentStarted($connection, $tournamentId);
+
       if($connection->error)
       {
         $connection->rollback();
-        return false;
+        return;
       }
 
       $connection->commit();
     }
+  }
+
+  public function canTournamentBeStarted($tournamentId) : bool
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    if(TournamentRepository::isTournamentStarted($connection, $tournamentId))
+    {
+      return false;
+    }
+
+    $teams = $this->getTournamentTeams($tournamentId);
+    if(count($teams) < 1)
+    {
+      return false;
+    }
+
+    return true;
   }
 }

@@ -20,7 +20,7 @@ class TournamentRepository
 
   public static function getTournamentById(mysqli $connection, $id)
   {
-    $queryString = "SELECT tournaments.id, tournaments.name, tournaments.description, tournaments.admin_id, tournaments.created_at FROM tournaments 
+    $queryString = "SELECT tournaments.id, tournaments.name, tournaments.description, tournaments.started, tournaments.admin_id, tournaments.created_at FROM tournaments 
                     WHERE tournaments.id = ?";
 
     $query = $connection->prepare($queryString);
@@ -151,6 +151,33 @@ class TournamentRepository
     $query = $connection->prepare($queryString);
     $query->bind_param("ii", $tournamentId, $teamId);
     $query->execute();
+  }
+
+  public static function setTournamentStarted(mysqli $connection, $tournamentId)
+  {
+    $queryString = "UPDATE tournaments SET started = 1 WHERE tournaments.id = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("i",$tournamentId);
+    $query->execute();
+  }
+
+  public static function isTournamentStarted(mysqli $connection, $tournamentId) : bool
+  {
+    $queryString = "SELECT 1 FROM tournaments WHERE tournaments.id = ? AND tournaments.started = 1";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("i", $tournamentId);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    if($result->num_rows > 0)
+    {
+      return true;
+    }
+
+    return false;
   }
 
 }
