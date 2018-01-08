@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Czas generowania: 16 Gru 2017, 19:24
--- Wersja serwera: 5.7.20-0ubuntu0.16.04.1
--- Wersja PHP: 7.0.22-0ubuntu0.16.04.1
+-- Generation Time: Jan 08, 2018 at 06:45 PM
+-- Server version: 5.7.20-0ubuntu0.16.04.1
+-- PHP Version: 7.0.22-0ubuntu0.16.04.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Baza danych: `pai`
+-- Database: `pai`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `blocked`
+-- Table structure for table `blocked`
 --
 
 CREATE TABLE `blocked` (
@@ -34,7 +34,7 @@ CREATE TABLE `blocked` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Wyzwalacze `blocked`
+-- Triggers `blocked`
 --
 DELIMITER $$
 CREATE TRIGGER `blocked_creation` BEFORE INSERT ON `blocked` FOR EACH ROW SET NEW.created_at = NOW()
@@ -44,7 +44,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `logins`
+-- Table structure for table `logins`
 --
 
 CREATE TABLE `logins` (
@@ -55,7 +55,7 @@ CREATE TABLE `logins` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Wyzwalacze `logins`
+-- Triggers `logins`
 --
 DELIMITER $$
 CREATE TRIGGER `logins_creation` BEFORE INSERT ON `logins` FOR EACH ROW SET NEW.created_at = NOW()
@@ -65,19 +65,19 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `matches`
+-- Table structure for table `matches`
 --
 
 CREATE TABLE `matches` (
   `id` int(11) NOT NULL,
   `tournament_id` int(11) NOT NULL,
-  `match_date` datetime NOT NULL
+  `match_order` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `sessions`
+-- Table structure for table `sessions`
 --
 
 CREATE TABLE `sessions` (
@@ -92,7 +92,7 @@ CREATE TABLE `sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Wyzwalacze `sessions`
+-- Triggers `sessions`
 --
 DELIMITER $$
 CREATE TRIGGER `session_creation` BEFORE INSERT ON `sessions` FOR EACH ROW SET NEW.created_at = NOW()
@@ -102,7 +102,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `teams`
+-- Table structure for table `teams`
 --
 
 CREATE TABLE `teams` (
@@ -114,7 +114,7 @@ CREATE TABLE `teams` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Wyzwalacze `teams`
+-- Triggers `teams`
 --
 DELIMITER $$
 CREATE TRIGGER `teams_creation` BEFORE INSERT ON `teams` FOR EACH ROW SET NEW.created_at = NOW()
@@ -124,41 +124,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `teams_matches`
---
-
-CREATE TABLE `teams_matches` (
-  `id` int(11) NOT NULL,
-  `match_id` int(11) NOT NULL,
-  `team_id` int(11) NOT NULL,
-  `scores` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `teams_members`
---
-
-CREATE TABLE `teams_members` (
-  `id` int(11) NOT NULL,
-  `user_id` int(11) NOT NULL,
-  `team_id` int(11) NOT NULL,
-  `joined_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Wyzwalacze `teams_members`
---
-DELIMITER $$
-CREATE TRIGGER `teams_members_creation` BEFORE INSERT ON `teams_members` FOR EACH ROW SET NEW.joined_at = NOW()
-$$
-DELIMITER ;
-
--- --------------------------------------------------------
-
---
--- Struktura tabeli dla tabeli `teams_invites`
+-- Table structure for table `teams_invites`
 --
 
 CREATE TABLE `teams_invites` (
@@ -169,7 +135,7 @@ CREATE TABLE `teams_invites` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Wyzwalacze `teams_invites`
+-- Triggers `teams_invites`
 --
 DELIMITER $$
 CREATE TRIGGER `teams_invites_creation` BEFORE INSERT ON `teams_invites` FOR EACH ROW SET NEW.invited_at = NOW()
@@ -177,8 +143,43 @@ $$
 DELIMITER ;
 
 -- --------------------------------------------------------
+
 --
--- Struktura tabeli dla tabeli `teams_tournaments`
+-- Table structure for table `teams_matches`
+--
+
+CREATE TABLE `teams_matches` (
+  `id` int(11) NOT NULL,
+  `match_id` int(11) NOT NULL,
+  `team_id` int(11) NOT NULL,
+  `scores` int(11) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teams_members`
+--
+
+CREATE TABLE `teams_members` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `team_id` int(11) NOT NULL,
+  `joined_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Triggers `teams_members`
+--
+DELIMITER $$
+CREATE TRIGGER `teams_members_creation` BEFORE INSERT ON `teams_members` FOR EACH ROW SET NEW.joined_at = NOW()
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `teams_tournaments`
 --
 
 CREATE TABLE `teams_tournaments` (
@@ -189,7 +190,7 @@ CREATE TABLE `teams_tournaments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Wyzwalacze `teams_tournaments`
+-- Triggers `teams_tournaments`
 --
 DELIMITER $$
 CREATE TRIGGER `teams_tournaments_creation` BEFORE INSERT ON `teams_tournaments` FOR EACH ROW SET NEW.joined_at = NOW()
@@ -199,7 +200,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `tournaments`
+-- Table structure for table `tournaments`
 --
 
 CREATE TABLE `tournaments` (
@@ -211,7 +212,7 @@ CREATE TABLE `tournaments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Wyzwalacze `tournaments`
+-- Triggers `tournaments`
 --
 DELIMITER $$
 CREATE TRIGGER `tournament_creation` BEFORE INSERT ON `tournaments` FOR EACH ROW SET NEW.created_at = NOW()
@@ -221,7 +222,7 @@ DELIMITER ;
 -- --------------------------------------------------------
 
 --
--- Struktura tabeli dla tabeli `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -232,7 +233,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
--- Wyzwalacze `users`
+-- Triggers `users`
 --
 DELIMITER $$
 CREATE TRIGGER `users_registration` BEFORE INSERT ON `users` FOR EACH ROW SET NEW.registered_at = NOW()
@@ -240,7 +241,7 @@ $$
 DELIMITER ;
 
 --
--- Indeksy dla zrzutów tabel
+-- Indexes for dumped tables
 --
 
 --
@@ -277,6 +278,15 @@ ALTER TABLE `teams`
   ADD KEY `teams_user_id` (`leader_id`);
 
 --
+-- Indexes for table `teams_invites`
+--
+ALTER TABLE `teams_invites`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `teams_invites_unique` (`user_id`,`team_id`),
+  ADD KEY `teams_invites_user_id` (`user_id`),
+  ADD KEY `teams_invites_team_id` (`team_id`);
+
+--
 -- Indexes for table `teams_matches`
 --
 ALTER TABLE `teams_matches`
@@ -289,22 +299,16 @@ ALTER TABLE `teams_matches`
 --
 ALTER TABLE `teams_members`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `teams_members_unique` (`user_id`,`team_id`),
   ADD KEY `teams_members_user_id` (`user_id`),
   ADD KEY `teams_members_team_id` (`team_id`);
-
---
--- Indexes for table `teams_invites`
---
-ALTER TABLE `teams_invites`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `teams_invites_user_id` (`user_id`),
-  ADD KEY `teams_invites_team_id` (`team_id`);
 
 --
 -- Indexes for table `teams_tournaments`
 --
 ALTER TABLE `teams_tournaments`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `teams_tournaments_unique` (`tournament_id`,`team_id`),
   ADD KEY `teams_tournaments_team_id` (`team_id`),
   ADD KEY `teams_tournaments_tournament_id` (`tournament_id`);
 
@@ -327,115 +331,112 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT dla tabeli `blocked`
+-- AUTO_INCREMENT for table `blocked`
 --
 ALTER TABLE `blocked`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT dla tabeli `logins`
+-- AUTO_INCREMENT for table `logins`
 --
 ALTER TABLE `logins`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT dla tabeli `matches`
+-- AUTO_INCREMENT for table `matches`
 --
 ALTER TABLE `matches`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT dla tabeli `sessions`
+-- AUTO_INCREMENT for table `sessions`
 --
 ALTER TABLE `sessions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT dla tabeli `teams`
+-- AUTO_INCREMENT for table `teams`
 --
 ALTER TABLE `teams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
---
--- AUTO_INCREMENT dla tabeli `teams_matches`
---
-ALTER TABLE `teams_matches`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT dla tabeli `teams_members`
---
-ALTER TABLE `teams_members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
--- AUTO_INCREMENT dla tabeli `teams_invites`
+-- AUTO_INCREMENT for table `teams_invites`
 --
 ALTER TABLE `teams_invites`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT dla tabeli `teams_tournaments`
+-- AUTO_INCREMENT for table `teams_matches`
+--
+ALTER TABLE `teams_matches`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `teams_members`
+--
+ALTER TABLE `teams_members`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `teams_tournaments`
 --
 ALTER TABLE `teams_tournaments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT dla tabeli `tournaments`
+-- AUTO_INCREMENT for table `tournaments`
 --
 ALTER TABLE `tournaments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT dla tabeli `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- Ograniczenia dla zrzutów tabel
+-- Constraints for dumped tables
 --
 
 --
--- Ograniczenia dla tabeli `matches`
+-- Constraints for table `matches`
 --
 ALTER TABLE `matches`
   ADD CONSTRAINT `matches_tournaments_tournament_id` FOREIGN KEY (`tournament_id`) REFERENCES `tournaments` (`id`);
 
 --
--- Ograniczenia dla tabeli `sessions`
+-- Constraints for table `sessions`
 --
 ALTER TABLE `sessions`
   ADD CONSTRAINT `sessions_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Ograniczenia dla tabeli `teams`
+-- Constraints for table `teams`
 --
 ALTER TABLE `teams`
   ADD CONSTRAINT `teams_leader_id` FOREIGN KEY (`leader_id`) REFERENCES `users` (`id`);
 
 --
--- Ograniczenia dla tabeli `teams_matches`
+-- Constraints for table `teams_invites`
+--
+ALTER TABLE `teams_invites`
+  ADD CONSTRAINT `teams_invites_team_id` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`),
+  ADD CONSTRAINT `teams_invites_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `teams_matches`
 --
 ALTER TABLE `teams_matches`
   ADD CONSTRAINT `teams_matches_match_id` FOREIGN KEY (`match_id`) REFERENCES `matches` (`id`),
   ADD CONSTRAINT `teams_matches_team_id` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`);
 
 --
--- Ograniczenia dla tabeli `teams_members`
+-- Constraints for table `teams_members`
 --
 ALTER TABLE `teams_members`
   ADD CONSTRAINT `teams_members_team_id` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`),
-  ADD CONSTRAINT `teams_members_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `teams_members_unique` UNIQUE (user_id, team_id);
+  ADD CONSTRAINT `teams_members_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`);
 
 --
--- Ograniczenia dla tabeli `teams_invites`
---
-ALTER TABLE `teams_invites`
-  ADD CONSTRAINT `teams_invites_team_id` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`),
-  ADD CONSTRAINT `teams_invites_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `teams_invites_unique` UNIQUE (user_id, team_id);
-
---
--- Ograniczenia dla tabeli `teams_tournaments`
+-- Constraints for table `teams_tournaments`
 --
 ALTER TABLE `teams_tournaments`
   ADD CONSTRAINT `teams_tournaments_team_id` FOREIGN KEY (`team_id`) REFERENCES `teams` (`id`),
-  ADD CONSTRAINT `teams_tournaments_tournament_id` FOREIGN KEY (`tournament_id`) REFERENCES `tournaments` (`id`),
-  ADD CONSTRAINT `teams_tournaments_unique` UNIQUE (tournament_id, team_id);
+  ADD CONSTRAINT `teams_tournaments_tournament_id` FOREIGN KEY (`tournament_id`) REFERENCES `tournaments` (`id`);
 
 --
--- Ograniczenia dla tabeli `tournaments`
+-- Constraints for table `tournaments`
 --
 ALTER TABLE `tournaments`
   ADD CONSTRAINT `tournaments_users_id` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`);
