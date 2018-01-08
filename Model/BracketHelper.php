@@ -47,12 +47,8 @@ class BracketHelper
     //2->1, [3-4]->2, [5-8]->3, [9-16]->4, ...
     $numberOfRounds = ceil(log($numberOfTeams, 2));
 
-    echo "number of rounds: $numberOfRounds</br>";
-
     //number of matches in first round!
     $numberOfMatches = pow(2, $numberOfRounds)/2;
-
-    echo "number of matches in first round: $numberOfMatches</br>";
 
     //generate the matches and assign the left team
     $bracketMatches = array();
@@ -75,21 +71,6 @@ class BracketHelper
         $bracketMatch->setRightTeam($teams[$index]);
       }
     }
-
-    echo "</br></br>";
-    echo "bracketMatches:</br>";
-    echo "<pre>";
-    foreach($bracketMatches as $match)
-    {
-      echo "order: ".$match->getOrder()."</br>";
-      echo "left: ".$match->getLeftTeam()->getName()."</br>";
-      if($match->getRightTeam() !== null)
-      {
-        echo "right: ".$match->getRightTeam()->getName()."</br>";
-      }
-      echo "</br></br>";
-    }
-    echo "</pre>";
 
     return $bracketMatches;
   }
