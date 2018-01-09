@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 08, 2018 at 07:02 PM
+-- Generation Time: Jan 09, 2018 at 09:13 PM
 -- Server version: 5.7.20-0ubuntu0.16.04.1
 -- PHP Version: 7.0.22-0ubuntu0.16.04.1
 
@@ -152,7 +152,8 @@ CREATE TABLE `teams_matches` (
   `id` int(11) NOT NULL,
   `match_id` int(11) NOT NULL,
   `team_id` int(11) NOT NULL,
-  `scores` int(11) DEFAULT '0'
+  `scores` int(11) DEFAULT '0',
+  `position` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------

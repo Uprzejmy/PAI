@@ -26,16 +26,9 @@ class TournamentController extends BaseController
     }
 
     $teams = $tournamentModel->getTournamentTeams($tournamentId);
-
     $numberOfTeams = count($teams);
 
-    //$bracketMatches = BracketHelper::generateBracket($teams);
-    //$tournamentModel->saveBracket($bracketMatches);
-    //$bracketView = BracketHelper::generateBracketHtmlView($bracketMatches);
-
     $bracketView = $tournamentModel->getBracketHtmlRepresentation($tournamentId);
-
-    echo($bracketView);
 
 
     $tournamentView = new TournamentView();
@@ -46,7 +39,8 @@ class TournamentController extends BaseController
       'tournament' => $tournament,
       'isUserAdmin' => $tournament->isAdmin($session->getUserId()),
       'teams' => $teams,
-      'numberOfTeams' => $numberOfTeams
+      'numberOfTeams' => $numberOfTeams,
+      'bracketView' => $bracketView
     ]);
   }
 
