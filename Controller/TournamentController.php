@@ -12,23 +12,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/BracketHelper.php";
 
 class TournamentController extends BaseController
 {
-  public function showLatestTournamentsAction($parameters)
-  {
-    /** @var UserSession $session */
-    $session = $parameters['session'];
-
-    $tournamentModel = new TournamentModel();
-
-    $tournaments = $tournamentModel->getLastTenActiveTournaments();
-
-    $tournamentView = new TournamentView();
-
-    $tournamentView->render('Latest', [
-      'session' => $session,
-      'tournaments' => $tournaments
-    ]);
-  }
-
   public function showTournamentAction($parameters)
   {
     /** @var UserSession $session */
@@ -102,6 +85,34 @@ class TournamentController extends BaseController
       'isTournamentStarted' => $tournament->isStarted(),
       'isUserLogged' => $session->isUserLogged(),
       'matches' => $matches
+    ]);
+  }
+
+  public function showTournamentTeamsAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+    $tournamentId = $parameters['id'];
+
+    $tournamentModel = new TournamentModel();
+
+    $tournament = $tournamentModel->getTournamentById($tournamentId);
+    if($tournament === null || !$tournament->isAdmin($session->getUserId()))
+    {
+      $this->redirect("/not_found");
+    }
+
+    $teams = $tournamentModel->getTournamentTeams($tournamentId);
+
+    $tournamentView = new TournamentView();
+
+    $tournamentView->render('Participants', [
+      'session' => $session,
+      'tournamentId' => $tournamentId,
+      'tournament' => $tournament,
+      'teams' => $teams,
+      'isUserAdmin' => $tournament->isAdmin($session->getUserId()),
+      'isTournamentStarted' => $tournament->isStarted(),
     ]);
   }
 

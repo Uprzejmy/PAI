@@ -8,11 +8,10 @@
     <div class="content_menu">
         <ul>
             <li>
-                <a href="/account/tournaments">Tournaments</a>
+                <a href="/homepage">Latest Active Tournaments</a>
             </li>
-            <li class="active">
-                <a href="/account/teams">Teams</a>
-            </li>
+            <li><a href='/account/tournaments'>My Tournaments</a>
+            <li class='active'><a href='/account/teams'>My Teams</a></li>
         </ul>
     </div>
     <div class="content_below">

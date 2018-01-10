@@ -10,6 +10,13 @@
       <li class="active">
         <a href="/homepage">Latest Active Tournaments</a>
       </li>
+      <?php
+        if($parameters['isUserLogged'])
+        {
+            echo("<li><a href='/account/tournaments'>My Tournaments</a>
+                  <li><a href='/account/teams'>My Teams</a></li>");
+        }
+      ?>
     </ul>
   </div>
   <div class="content_below">

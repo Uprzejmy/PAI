@@ -5,12 +5,31 @@
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/BaseController.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/AccountModel.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/TournamentModel.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/User/LoginForm.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/User/RegistrationForm.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/View/AccountView.php";
 
 class AccountController extends BaseController
 {
+  public function showLatestTournamentsAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+
+    $tournamentModel = new TournamentModel();
+
+    $tournaments = $tournamentModel->getLastTenActiveTournaments();
+
+    $accountView = new AccountView();
+
+    $accountView->render('Latest', [
+      'session' => $session,
+      'tournaments' => $tournaments,
+      'isUserLogged' => $session->isUserLogged()
+    ]);
+  }
+
   public function showAccountTournamentsAction($parameters)
   {
     /** @var UserSession $session */

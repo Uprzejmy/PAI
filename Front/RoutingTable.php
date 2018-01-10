@@ -29,7 +29,7 @@ class RoutingTable
 
     //Main
     $this->routes['/not_found'] = new Route("MainController", "notFoundAction", false);
-    $this->routes['/homepage'] = new Route("TournamentController", "showLatestTournamentsAction", false);
+    $this->routes['/homepage'] = new Route("AccountController", "showLatestTournamentsAction", false);
 
     //User
     $this->routes['/login'] = new Route("UserController", "loginAction", false);

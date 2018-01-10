@@ -7,12 +7,11 @@
 <div class="container">
     <div class="content_menu">
         <ul>
-            <li class="active">
-                <a href="/account/tournaments">Tournaments</a>
-            </li>
             <li>
-                <a href="/account/teams">Teams</a>
+                <a href="/homepage">Latest Active Tournaments</a>
             </li>
+            <li class='active'><a href='/account/tournaments'>My Tournaments</a>
+            <li><a href='/account/teams'>My Teams</a></li>
         </ul>
     </div>
     <div class="content_below">
