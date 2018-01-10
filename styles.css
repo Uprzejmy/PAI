@@ -384,6 +384,53 @@ div .content_list
   padding: 16px 10px 16px 0px;
 }
 
+.content_list li.simple_list div
+{
+  color: #FFFFFF;
+}
+
+.content_list li.simple_list div.tournament_match_date
+{
+  padding: 16px 10px;
+  text-align: center;
+  float: left;
+  width: 10%
+}
+
+.content_list li.simple_list div.tournament_match_result
+{
+  padding: 16px 0px;
+  float: right;
+  width: 85%
+}
+
+.content_list li.simple_list div.tournament_match_result > div
+{
+  float: left;
+  width: 50%
+}
+
+.content_list li.simple_list div.tournament_match_result div.content_to_right
+{
+  float: right;
+}
+
+.content_list li.simple_list div.tournament_match_result div.content_to_right:first-child
+{
+  margin-left: 8px;
+}
+
+.content_list li.simple_list div.tournament_match_result div.content_to_left
+{
+  float: left;
+}
+
+.content_list li.simple_list div.tournament_match_result div.content_to_left:first-child
+{
+  margin-right: 8px;
+}
+
+
 .content_actions
 {
   float:right;

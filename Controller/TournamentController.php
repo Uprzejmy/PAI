@@ -58,13 +58,16 @@ class TournamentController extends BaseController
       $this->redirect("/not_found");
     }
 
+    $matches = $tournamentModel->getDetailedAndPlayedBracketMatches($tournamentId);
+
     $tournamentView = new TournamentView();
 
     $tournamentView->render('Matches', [
       'session' => $session,
       'tournamentId' => $tournamentId,
       'tournament' => $tournament,
-      'isUserAdmin' => $tournament->isAdmin($session->getUserId())
+      'isUserAdmin' => $tournament->isAdmin($session->getUserId()),
+      'matches' => $matches
     ]);
   }
 

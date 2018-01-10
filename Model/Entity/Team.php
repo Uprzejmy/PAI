@@ -3,6 +3,8 @@
  * Created by Uprzejmy
  */
 
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Utils.php";
+
 class Team
 {
   private $id;

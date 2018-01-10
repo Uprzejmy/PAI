@@ -37,25 +37,30 @@
     <div class="content_list">
       <ul>
         <?php
-        /*
-        foreach($parameters['teams'] as $team)
+
+        foreach($parameters['matches'] as $match)
         {
-          $id = $team->getId();
-          $name = $team->getName();
-          $members = $team->getNumberOfMembers();
-          echo("<li>
-                            <a href='/team/tournaments/$id'><div>$name</div><div>members: $members</div></a>
-                            <div class='team_action'>
-                                <form action='/team/self_remove' method='POST'>
-                                    <input type='text' id='teamId' name='teamId' value='$id' style='display:none'>
-                                    <button class='button' type='submit'>
-                                        <img src='/images/sign-off-icon-small.png'>
-                                    </button>
-                                </form>
-                            </div>
-                          </li>");
+          $leftTeamName = $match->leftTeamName;
+          $leftTeamScore = $match->leftTeamScore;
+          $rightTeamName = $match->rightTeamName;
+          $rightTeamScore = $match->rightTeamScore;
+          $matchDate = $match->getPrintableMatchDate();
+          echo("<li class='simple_list'>
+                  <div class='tournament_match_date'>
+                    <div>$matchDate</div>
+                  </div>
+                  <div class='tournament_match_result'>
+                    <div>
+                      <div class='content_to_right'>$leftTeamScore</div>
+                      <div class='content_to_right'>$leftTeamName</div>
+                    </div>
+                    <div>
+                      <div class='content_to_left'>:$rightTeamScore</div>
+                      <div class='content_to_left'>$rightTeamName</div>
+                    </div>
+                  </div>
+                </li>");
         }
-        */
         ?>
       </ul>
     </div>

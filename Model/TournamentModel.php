@@ -151,6 +151,22 @@ class TournamentModel
     return $bracketMatchesRO;
   }
 
+  public function getDetailedAndPlayedBracketMatches($tournamentId)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    try
+    {
+      $bracketMatchesRO = BracketRepository::getDetailedAndPlayedBracketMatchesByTournamentId($connection, $tournamentId);
+    }
+    catch(TypeError $t)
+    {
+      return array();
+    }
+
+    return $bracketMatchesRO;
+  }
+
   public function getBracketHtmlRepresentation($tournamentId)
   {
     $bracketMatches = $this->getDetailedBracketMatches($tournamentId);
