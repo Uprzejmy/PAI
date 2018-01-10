@@ -55,7 +55,7 @@ class RoutingTable
     //Tournaments
     $this->routes['/tournaments/{{number}}'] = new Route("TournamentController", "showTournamentAction", false);
     $this->routes['/tournaments/matches/{{number}}'] = new Route("TournamentController", "showTournamentMatchesAction", false);
-    $this->routes['/tournaments/admin/participants/{{number}}'] = new Route("TournamentController", "showTournamentAdminParticipantsAction", true);
+    $this->routes['/tournaments/participants/{{number}}'] = new Route("TournamentController", "showTournamentTeamsAction", false);
     $this->routes['/tournaments/admin/settings/{{number}}'] = new Route("TournamentController", "showTournamentAdminSettingsAction", true);
     $this->routes['/tournaments/join/{{number}}'] = new Route("TournamentController", "joinTournamentAction", true);
     $this->routes['/tournaments/create'] = new Route("TournamentController", "createTournamentAction", true);

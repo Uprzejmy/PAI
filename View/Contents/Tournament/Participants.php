@@ -19,22 +19,25 @@
       <li>
         <a href="/tournaments/matches/<?php echo $parameters['tournamentId'] ?>">Matches</a>
       </li>
+      <li class="active">
+        <a href="/tournaments/participants/<?php echo $parameters['tournamentId'] ?>">Participants</a>
+      </li>
       <?php
         $tournamentId = $parameters['tournamentId'];
 
-        if(!$parameters['isTournamentStarted'])
+        if($parameters['isUserLogged'] && !$parameters['isTournamentStarted'])
         {
           echo("<li>
                   <a href='/tournaments/join/$tournamentId'>Join</a>
                 </li>");
         }
 
-        echo("<li class='active'>
-                <a href='/tournaments/admin/participants/$tournamentId'>Participants</a>
-              </li>");
-        echo("<li>
-                <a href='/tournaments/admin/settings/$tournamentId'>Settings</a>
-              </li>");
+        if($parameters['isUserAdmin'])
+        {
+          echo("<li>
+                  <a href='/tournaments/admin/settings/$tournamentId'>Settings</a>
+                </li>");
+        }
       ?>
     </ul>
   </div>
@@ -48,9 +51,11 @@
           $id = $team->getId();
           $name = $team->getName();
           $joinedAt = $team->getPrintableJoinedAt();
-          echo("<li>
-                    <a href='/not_found'><div>$name</div><div>joined at: $joinedAt</div></a>
-                    <div class='team_action'>
+          echo("<li><div class='list_element'><div>$name</div>");
+
+          if($parameters['isUserAdmin'] && !$parameters['isTournamentStarted'])
+          {
+              echo("<div class='tournament_action'>
                         <form action='/tournaments/remove_team' method='POST'>
                             <input type='text' id='teamId' name='teamId' value='$id' style='display:none'>
                             <input type='text' id='tournamentId' name='tournamentId' value='$tournamentId' style='display:none'>
@@ -58,8 +63,10 @@
                                 <img src='/images/remove_item2_icon.png'>
                             </button>
                         </form>
-                    </div>
-                  </li>");
+                    </div>");
+          }
+
+          echo("<div>Joined At: $joinedAt</div></div></li>");
         }
 
         ?>

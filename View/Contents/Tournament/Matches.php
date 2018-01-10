@@ -19,8 +19,10 @@
       <li class="active">
         <a href="/tournaments/matches/<?php echo $parameters['tournamentId'] ?>">Matches</a>
       </li>
+      <li>
+        <a href='/tournaments/participants/<?php echo $parameters['tournamentId'] ?>'>Participants</a>
+      </li>
       <?php
-
       $tournamentId = $parameters['tournamentId'];
 
       if($parameters['isUserLogged'] && !$parameters['isTournamentStarted'])
@@ -32,9 +34,6 @@
 
       if($parameters['isUserAdmin'])
       {
-        echo("<li>
-                <a href='/tournaments/admin/participants/$tournamentId'>Participants</a>
-              </li>");
         echo("<li>
                 <a href='/tournaments/admin/settings/$tournamentId'>Settings</a>
               </li>");

@@ -353,6 +353,18 @@ div .content_list
   background: #cb2431;
 }
 
+
+.content_list li div.list_element div.tournament_action
+{
+  height: 40px;
+  padding: 4px 5px;
+}
+
+.content_list li div.list_element div.tournament_action:hover
+{
+  background: #cb2431;
+}
+
 .content_list li a div:first-child
 {
   float: left;

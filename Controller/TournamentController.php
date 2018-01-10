@@ -97,9 +97,17 @@ class TournamentController extends BaseController
     $tournamentModel = new TournamentModel();
 
     $tournament = $tournamentModel->getTournamentById($tournamentId);
-    if($tournament === null || !$tournament->isAdmin($session->getUserId()))
+    if($tournament === null)
     {
       $this->redirect("/not_found");
+    }
+
+    $isUserLogged = $session->isUserLogged();
+    $isUserAdmin = false;
+
+    if($isUserLogged)
+    {
+      $isUserAdmin = $tournament->isAdmin($session->getUserId());
     }
 
     $teams = $tournamentModel->getTournamentTeams($tournamentId);
@@ -111,35 +119,8 @@ class TournamentController extends BaseController
       'tournamentId' => $tournamentId,
       'tournament' => $tournament,
       'teams' => $teams,
-      'isUserAdmin' => $tournament->isAdmin($session->getUserId()),
-      'isTournamentStarted' => $tournament->isStarted(),
-    ]);
-  }
-
-  public function showTournamentAdminParticipantsAction($parameters)
-  {
-    /** @var UserSession $session */
-    $session = $parameters['session'];
-    $tournamentId = $parameters['id'];
-
-    $tournamentModel = new TournamentModel();
-
-    $tournament = $tournamentModel->getTournamentById($tournamentId);
-    if($tournament === null || !$tournament->isAdmin($session->getUserId()))
-    {
-      $this->redirect("/not_found");
-    }
-
-    $teams = $tournamentModel->getTournamentTeams($tournamentId);
-
-    $tournamentView = new TournamentView();
-
-    $tournamentView->render('Participants', [
-      'session' => $session,
-      'tournamentId' => $tournamentId,
-      'tournament' => $tournament,
-      'teams' => $teams,
-      'isUserAdmin' => $tournament->isAdmin($session->getUserId()),
+      'isUserLogged' => $isUserLogged,
+      'isUserAdmin' => $isUserAdmin,
       'isTournamentStarted' => $tournament->isStarted(),
     ]);
   }
@@ -283,7 +264,7 @@ class TournamentController extends BaseController
 
     $tournamentModel->removeTeamFromTournament($tournamentId, $teamId);
 
-    $this->redirect("/tournaments/admin/participants/$tournamentId");
+    $this->redirect("/tournaments/participants/$tournamentId");
   }
 
   public function startTournamentAction($parameters)
