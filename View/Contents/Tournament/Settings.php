@@ -19,8 +19,16 @@
       <li>
         <a href="/tournaments/matches/<?php echo $parameters['tournamentId'] ?>">Matches</a>
       </li>
-      <?php
+        <?php
         $tournamentId = $parameters['tournamentId'];
+
+        if(!$parameters['isTournamentStarted'])
+        {
+          echo("<li>
+                  <a href='/tournaments/join/$tournamentId'>Join</a>
+                </li>");
+        }
+
         echo("<li>
                 <a href='/tournaments/admin/participants/$tournamentId'>Participants</a>
               </li>");

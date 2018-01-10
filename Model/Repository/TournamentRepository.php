@@ -144,6 +144,27 @@ class TournamentRepository
     return false;
   }
 
+  public static function isUserInTournament(mysqli $connection, $tournamentId, $userId) : bool
+  {
+    $queryString = "SELECT 1 FROM tournaments
+                    LEFT JOIN teams_tournaments ON tournaments.id = teams_tournaments.tournament_id
+                    LEFT JOIN teams_members ON teams_tournaments.team_id = teams_members.team_id
+                    WHERE tournaments.id = ? AND teams_members.user_id = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("ii", $tournamentId, $userId);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    if($result->num_rows > 0)
+    {
+      return true;
+    }
+
+    return false;
+  }
+
   public static function removeTeamFromTournament(mysqli $connection, $tournamentId, $teamId)
   {
     $queryString = "DELETE FROM teams_tournaments WHERE teams_tournaments.tournament_id = ? AND teams_tournaments.team_id = ?";

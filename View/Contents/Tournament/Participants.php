@@ -21,6 +21,14 @@
       </li>
       <?php
         $tournamentId = $parameters['tournamentId'];
+
+        if(!$parameters['isTournamentStarted'])
+        {
+          echo("<li>
+                  <a href='/tournaments/join/$tournamentId'>Join</a>
+                </li>");
+        }
+
         echo("<li class='active'>
                 <a href='/tournaments/admin/participants/$tournamentId'>Participants</a>
               </li>");

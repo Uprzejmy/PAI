@@ -8,6 +8,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Repository/TeamRepository.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Repository/TournamentRepository.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/Tournament.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/User.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/Team.php";
 
 class TeamModel
 {
@@ -69,6 +70,26 @@ class TeamModel
     }
 
     return $users;
+  }
+
+  /**
+   * @param $adminId
+   * @return Team[]
+   */
+  public function getTeamsByAdmin($adminId)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    try
+    {
+      $teams = TeamRepository::getTeamsByAdminId($connection, $adminId);
+    }
+    catch(TypeError $t)
+    {
+      return array();
+    }
+
+    return $teams;
   }
 
   /**

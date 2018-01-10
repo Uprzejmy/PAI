@@ -71,6 +71,26 @@ class TeamRepository
     return $teams;
   }
 
+  public static function getTeamsByAdminId(mysqli $connection, $adminId)
+  {
+    $teams = array();
+
+    $queryString = "SELECT teams.id, teams.name FROM teams
+                    WHERE teams.leader_id = ?";
+    $query = $connection->prepare($queryString);
+    $query->bind_param("i", $adminId);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    while($team = $result->fetch_object("Team"))
+    {
+      $teams[] = $team;
+    }
+
+    return $teams;
+  }
+
   public static function getTeamById(mysqli $connection, $teamId)
   {
     $queryString = "SELECT teams.id, teams.name, teams.created_at, teams.description FROM teams

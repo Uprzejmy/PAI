@@ -191,7 +191,7 @@ a:hover
   background: #CD8009;
 }
 
-.all_forms p {
+.all_forms li {
   color: #ffffff;
   padding: 10px;
   background: rgb(188, 5, 5);
@@ -202,6 +202,41 @@ a:hover
   letter-spacing:1px;
   text-align:center;
 }
+
+/** special case - tournament join form */
+.join_form
+{
+  position: static;
+  margin: 0px;
+  width: 350px;
+}
+
+.join_form select
+{
+  width: 100%;
+  margin-bottom: 10px;
+  color: #ffffff;
+  font-size: 13px;
+  background: rgba(0,0,0,0.3);
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+  border: 1px solid rgba(0,0,0,0.3);
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.join_form label
+{
+  width: 100%;
+}
+
+.join_form .form_errors li
+{
+  background: rgb(188, 5, 5);
+  margin: 0px;
+  padding: 10px;
+  height: 15px;
+}
+
 
 /* page title */
 div .left-logo-adjuster

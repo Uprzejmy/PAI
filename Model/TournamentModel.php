@@ -169,6 +169,13 @@ class TournamentModel
 
   public function getBracketHtmlRepresentation($tournamentId)
   {
+    $tournament = $this->getTournamentById($tournamentId);
+
+    if (!$tournament->isStarted())
+    {
+      return "<div><p>This tournament hasn't been started yet</p></div>";
+    }
+
     $bracketMatches = $this->getDetailedBracketMatches($tournamentId);
 
     if($bracketMatches !== null)
@@ -192,5 +199,19 @@ class TournamentModel
     }
 
     return "";
+  }
+
+  public function isUserInTournament($tournamentId, $userId) : bool
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    return TournamentRepository::isUserInTournament($connection, $tournamentId, $userId);
+  }
+
+  public function addTeamToTournament($tournamentId, $teamId)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    TournamentRepository::addTeamToTournament($connection, $tournamentId, $teamId);
   }
 }

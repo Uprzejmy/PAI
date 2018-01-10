@@ -7,6 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Controller/BaseController.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/TournamentModel.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/View/TournamentView.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/Tournament/TournamentCreateForm.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Forms/Tournament/TournamentJoinForm.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/BracketHelper.php";
 
 class TournamentController extends BaseController
@@ -20,16 +21,21 @@ class TournamentController extends BaseController
     $tournamentModel = new TournamentModel();
 
     $tournament = $tournamentModel->getTournamentById($tournamentId);
-    if($tournament === null)
+    if ($tournament === null)
     {
       $this->redirect("/not_found");
     }
 
-    $teams = $tournamentModel->getTournamentTeams($tournamentId);
-    $numberOfTeams = count($teams);
+    if ($session->isUserLogged())
+    {
+      $isUserTournamentAdmin = $tournament->isAdmin($session->getUserId());
+    }
+    else
+    {
+      $isUserTournamentAdmin = false;
+    }
 
     $bracketView = $tournamentModel->getBracketHtmlRepresentation($tournamentId);
-
 
     $tournamentView = new TournamentView();
 
@@ -37,9 +43,9 @@ class TournamentController extends BaseController
       'session' => $session,
       'tournamentId' => $tournamentId,
       'tournament' => $tournament,
-      'isUserAdmin' => $tournament->isAdmin($session->getUserId()),
-      'teams' => $teams,
-      'numberOfTeams' => $numberOfTeams,
+      'isUserAdmin' => $isUserTournamentAdmin,
+      'isTournamentStarted' => $tournament->isStarted(),
+      'isUserLogged' => $session->isUserLogged(),
       'bracketView' => $bracketView
     ]);
   }
@@ -58,6 +64,15 @@ class TournamentController extends BaseController
       $this->redirect("/not_found");
     }
 
+    if ($session->isUserLogged())
+    {
+      $isUserTournamentAdmin = $tournament->isAdmin($session->getUserId());
+    }
+    else
+    {
+      $isUserTournamentAdmin = false;
+    }
+
     $matches = $tournamentModel->getDetailedAndPlayedBracketMatches($tournamentId);
 
     $tournamentView = new TournamentView();
@@ -66,7 +81,9 @@ class TournamentController extends BaseController
       'session' => $session,
       'tournamentId' => $tournamentId,
       'tournament' => $tournament,
-      'isUserAdmin' => $tournament->isAdmin($session->getUserId()),
+      'isUserAdmin' => $isUserTournamentAdmin,
+      'isTournamentStarted' => $tournament->isStarted(),
+      'isUserLogged' => $session->isUserLogged(),
       'matches' => $matches
     ]);
   }
@@ -94,7 +111,8 @@ class TournamentController extends BaseController
       'tournamentId' => $tournamentId,
       'tournament' => $tournament,
       'teams' => $teams,
-      'isUserAdmin' => $tournament->isAdmin($session->getUserId())
+      'isUserAdmin' => $tournament->isAdmin($session->getUserId()),
+      'isTournamentStarted' => $tournament->isStarted(),
     ]);
   }
 
@@ -118,7 +136,67 @@ class TournamentController extends BaseController
       'session' => $session,
       'tournamentId' => $tournamentId,
       'tournament' => $tournament,
-      'isUserAdmin' => $tournament->isAdmin($session->getUserId())
+      'isUserAdmin' => $tournament->isAdmin($session->getUserId()),
+      'isTournamentStarted' => $tournament->isStarted(),
+    ]);
+  }
+
+  public function joinTournamentAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+    $userId = $session->getUserId();
+    $tournamentId = $parameters['id'];
+
+    $tournamentModel = new TournamentModel();
+
+    $tournament = $tournamentModel->getTournamentById($tournamentId);
+    if($tournament === null)
+    {
+      $this->redirect("/not_found");
+    }
+
+    if($tournament->isStarted())
+    {
+      $this->redirect("/tournaments/$tournamentId");
+    }
+
+    $form = new TournamentJoinForm();
+
+    if($_SERVER['REQUEST_METHOD'] === 'POST')
+    {
+      $form->bindData();
+      $form->validateData();
+
+      if($form->isValid())
+      {
+        $teamModel = new TeamModel();
+
+        //only team admin should be able to join the tournament
+        if(!$teamModel->isUserAdminInTeam($form->getTeamId(), $userId))
+        {
+          $this->redirect("/tournaments/$tournamentId");
+        }
+
+        $tournamentModel->addTeamToTournament($form->getTournamentId(), $form->getTeamId());
+
+        $this->redirect("/tournaments/$tournamentId");
+      }
+    }
+
+    $teamModel = new TeamModel();
+    $userAdminTeams = $teamModel->getTeamsByAdmin($userId);
+
+    $tournamentView = new TournamentView();
+
+    $tournamentView->render('Join', [
+      'session' => $session,
+      'tournamentId' => $tournamentId,
+      'tournament' => $tournament,
+      'isUserAdmin' => $tournament->isAdmin($userId),
+      'isUserInTournament' => $tournamentModel->isUserInTournament($tournamentId, $userId),
+      'userAdminTeams' => $userAdminTeams,
+      'form_errors' => $form->getErrors()
     ]);
   }
 
