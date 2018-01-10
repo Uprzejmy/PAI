@@ -12,6 +12,23 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/BracketHelper.php";
 
 class TournamentController extends BaseController
 {
+  public function showLatestTournamentsAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+
+    $tournamentModel = new TournamentModel();
+
+    $tournaments = $tournamentModel->getLastTenActiveTournaments();
+
+    $tournamentView = new TournamentView();
+
+    $tournamentView->render('Latest', [
+      'session' => $session,
+      'tournaments' => $tournaments
+    ]);
+  }
+
   public function showTournamentAction($parameters)
   {
     /** @var UserSession $session */

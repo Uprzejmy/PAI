@@ -306,6 +306,11 @@ div .content_list
   margin: 30px 0px 30px 0px;
 }
 
+.content_below .before_list_spacer
+{
+  margin-top: 94px;
+}
+
 .content_below ul
 {
   width: 100%;

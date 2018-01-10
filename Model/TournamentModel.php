@@ -214,4 +214,20 @@ class TournamentModel
 
     TournamentRepository::addTeamToTournament($connection, $tournamentId, $teamId);
   }
+
+  public function getLastTenActiveTournaments()
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    try
+    {
+      $tournaments = TournamentRepository::getLastTenActiveTournaments($connection);
+    }
+    catch(TypeError $t)
+    {
+      return array();
+    }
+
+    return $tournaments;
+  }
 }

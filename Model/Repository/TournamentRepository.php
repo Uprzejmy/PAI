@@ -201,4 +201,26 @@ class TournamentRepository
     return false;
   }
 
+  public static function getLastTenActiveTournaments(mysqli $connection)
+  {
+    $tournaments = array();
+
+    $queryString = "SELECT DISTINCT tournaments.id, tournaments.name, tournaments.created_at, matches.match_date FROM tournaments 
+                    LEFT JOIN matches ON tournaments.id = matches.tournament_id
+                    ORDER BY matches.match_date DESC 
+                    LIMIT 10";
+
+    $query = $connection->prepare($queryString);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    while($tournament = $result->fetch_object("Tournament"))
+    {
+      $tournaments[] = $tournament;
+    }
+
+    return $tournaments;
+  }
+
 }
