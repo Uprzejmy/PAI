@@ -419,6 +419,11 @@ div .content_list
   padding: 16px 10px 16px 0px;
 }
 
+.content_list li.simple_list a
+{
+  width: 100%;
+}
+
 .content_list li.simple_list div
 {
   color: #FFFFFF;

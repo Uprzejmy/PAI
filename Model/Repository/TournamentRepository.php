@@ -55,7 +55,7 @@ class TournamentRepository
   {
     $tournaments = array();
 
-    $queryString = "SELECT tournaments.id, tournaments.name FROM tournaments 
+    $queryString = "SELECT DISTINCT tournaments.id, tournaments.name FROM tournaments 
                     LEFT JOIN teams_tournaments ON tournaments.id = teams_tournaments.tournament_id
                     LEFT JOIN teams_members ON teams_members.team_id = teams_tournaments.team_id
                     WHERE teams_members.user_id = ?";

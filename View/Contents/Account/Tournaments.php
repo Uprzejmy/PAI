@@ -24,7 +24,7 @@
                 $id = $tournament->getId();
                 $name = $tournament->getName();
                 $createdAt = $tournament->getPrintableCreatedAt();
-                echo("<li>
+                echo("<li class='simple_list'>
                         <a href='/tournaments/$id'><div>$name</div><div>created at: $createdAt</div></a>
                       </li>");
               }
