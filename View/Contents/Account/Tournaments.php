@@ -33,14 +33,12 @@
         </div>
         <div class="content_actions">
             <ul>
-              <?php
-               echo "<li>
-                        <a href='/tournaments/create'>
-                            <div><img src='/images/plus_icon_very_small.png'></div>
-                            <div class='tournament_create'>Create new Tournament</div>
-                        </a>
-                     </li>";
-              ?>
+              <li class="action_create">
+                  <a href='/tournaments/create'>
+                      <div><img src='/images/plus_icon_very_small.png'></div>
+                      <div class='tournament_create'>Create new Tournament</div>
+                  </a>
+              </li>
             </ul>
         </div>
     </div>

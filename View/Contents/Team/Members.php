@@ -42,21 +42,10 @@
       </ul>
     </div>
     <div class="content_actions">
-      <ul>
-        <?php
-        // TODO tournaments
-        // echo "<li><a href='/teams/create'><div><img src='/images/plus_icon_very_small.png'></div><div class='team_create'>Create new Team</div></a></li>";
-        // echo "<li><div class='team_invites'>Pending invites: </div><div class='team_invites'>0</div></li>";
-        // TODO team invites
-        // echo "<li><a href='/teams/create'><img src='/images/sign-off-icon-small.png'></a></li>";
-        //          foreach($parameters['teams'] as $team)
-        //          {
-        //            $id = $team->getId();
-        //            $name = $team->getName();
-        //            echo("<li>$name</li>");
-        //          }
-        ?>
-      </ul>
+        <ul>
+            <li class="action_create"><a href='/team/create'><div><img src='/images/plus_icon_very_small.png'></div><div class='team_create'>Create new Team</div></a></li>
+            <li class="action_create"><a href='/tournaments/create'><div><img src='/images/plus_icon_very_small.png'></div><div class='tournament_create'>Create new Tournament</div></a></li>
+        </ul>
     </div>
   </div>
 </div>

@@ -58,7 +58,7 @@
       <ul>
         <?php
         $teamId = $parameters['teamId'];
-        echo "<li><div><img src='/images/plus_icon_very_small.png'></div><div class='team_invite_member'>Invite member</div></li>";
+        echo "<li class='action_create'><div><img src='/images/plus_icon_very_small.png'></div><div class='team_invite_member'>Invite member</div></li>";
         echo "<li>
                 <form action='/team/invite/send' method='POST'>
                     <div class='action_description'>

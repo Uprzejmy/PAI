@@ -494,7 +494,7 @@ div .content_list
   line-height: 48px;
 }
 
-.content_actions li:first-child
+.content_actions li.action_create
 {
   background: #f4a428;
 }
@@ -504,12 +504,12 @@ div .content_list
   width: 100%;
 }
 
-.content_actions li:first-child a:hover
+.content_actions li.action_create a:hover
 {
   background: #CD8009;
 }
 
-.content_actions li:first-child div
+.content_actions li.action_create div
 {
   float: left;
   width: 20%;
@@ -517,7 +517,7 @@ div .content_list
   height: 48px;
 }
 
-.content_actions li:first-child div img
+.content_actions li.action_create div img
 {
   padding: 16px 0px;
 }

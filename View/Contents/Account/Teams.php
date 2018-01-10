@@ -43,7 +43,7 @@
             <ul>
                 <?php
                 $countOfTeamInvitations = $parameters['countOfTeamInvitations'];
-                echo "<li><a href='/team/create'><div><img src='/images/plus_icon_very_small.png'></div><div class='team_create'>Create new Team</div></a></li>";
+                echo "<li class='action_create'><a href='/team/create'><div><img src='/images/plus_icon_very_small.png'></div><div class='team_create'>Create new Team</div></a></li>";
                 echo "<li><div class='team_invites'>Pending invites:</div><div class='team_invites'>$countOfTeamInvitations</div></li>";
 
                 foreach($parameters['teamInvitations'] as $teamInvitation)
