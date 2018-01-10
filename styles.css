@@ -655,7 +655,7 @@ main.tournament_bracket
   color: #2b2b2b;
 }
 
-.tournament_bracket li.game-top1
+.tournament_bracket li.game-top
 {
   border-bottom:1px solid #2b2b2b;
   background: #4a4c52;
