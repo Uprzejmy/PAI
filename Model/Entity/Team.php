@@ -9,7 +9,6 @@ class Team
 {
   private $id;
   private $name;
-  private $description;
   private $createdAt;
   private $captain;
   private $number_of_members;
@@ -38,22 +37,6 @@ class Team
   public function setName($name)
   {
     $this->name = $name;
-  }
-
-  /**
-   * @return mixed
-   */
-  public function getDescription()
-  {
-    return $this->description;
-  }
-
-  /**
-   * @param mixed $description
-   */
-  public function setDescription($description)
-  {
-    $this->description = $description;
   }
 
   /**

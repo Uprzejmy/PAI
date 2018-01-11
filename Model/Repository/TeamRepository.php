@@ -93,7 +93,7 @@ class TeamRepository
 
   public static function getTeamById(mysqli $connection, $teamId)
   {
-    $queryString = "SELECT teams.id, teams.name, teams.created_at, teams.description FROM teams
+    $queryString = "SELECT teams.id, teams.name, teams.created_at FROM teams
                     WHERE teams.id = ?";
     $query = $connection->prepare($queryString);
     $query->bind_param("i", $teamId);
