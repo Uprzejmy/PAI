@@ -24,7 +24,7 @@
                 $name = $tournament->getName();
                 $createdAt = $tournament->getPrintableCreatedAt();
                 echo("<li class='simple_list'>
-                        <a href='/tournaments/$id'><div>$name</div><div>created at: $createdAt</div></a>
+                        <a href='/tournaments/$id'><div>$name</div><div>Created At: $createdAt</div></a>
                       </li>");
               }
               ?>
