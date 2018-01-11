@@ -29,7 +29,6 @@ class DbConnection
   {
     //TODO refactor this, don't put connection information in the global scope
     $this->connection = new mysqli($GLOBALS['dbHost'], $GLOBALS['dbUser'], $GLOBALS['dbPassword'], $GLOBALS['dbName']);
-
   }
 
   public function getConnection() : mysqli

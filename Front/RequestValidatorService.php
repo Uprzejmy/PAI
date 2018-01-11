@@ -13,7 +13,6 @@
 
 class RequestValidatorService
 {
-  //TODO
   public static function validateRequest()
   {
     foreach($_POST as $key => $value)

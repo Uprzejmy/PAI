@@ -110,7 +110,6 @@ CREATE TABLE `teams` (
   `id` int(11) NOT NULL,
   `leader_id` int(11) NOT NULL,
   `name` varchar(127) COLLATE utf8_unicode_ci NOT NULL,
-  `description` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 

@@ -72,34 +72,5 @@
         ?>
       </ul>
     </div>
-    <div class="content_actions">
-      <ul>
-        <?php
-        /*
-        $countOfTeamInvitations = $parameters['countOfTeamInvitations'];
-        echo "<li><a href='/team/create'><div><img src='/images/plus_icon_very_small.png'></div><div class='team_create'>Create new Team</div></a></li>";
-        echo "<li><div class='team_invites'>Pending invites:</div><div class='team_invites'>$countOfTeamInvitations</div></li>";
-
-        foreach($parameters['teamInvitations'] as $teamInvitation)
-        {
-          $id = $teamInvitation->getId();
-          $name = $teamInvitation->getName();
-
-          echo "<li>
-                            <form action='/team/invite/accept' method='POST'>
-                                <input type='text' id='teamId' name='teamId' value='$id' style='display:none'>
-                                <div class='invite_left'>
-                                    <p>$name</p>
-                                </div>
-                                <div>
-                                    <button class='button' type='submit'><img src='/images/tick_icon_small.png'></button>
-                                </div>
-                            </form>
-                        </li>";
-        }
-        */
-        ?>
-      </ul>
-    </div>
   </div>
 </div>
