@@ -20,6 +20,9 @@ class LoginForm extends Form implements IForm
   public function validateData()
   {
     $this->valid = true;
+
+    $this->validateEmail();
+    $this->validatePassword();
   }
 
   public function invalidateForm($message = "")
@@ -36,5 +39,31 @@ class LoginForm extends Form implements IForm
   public function getPassword()
   {
     return $this->password;
+  }
+
+  private function validateEmail()
+  {
+    if(strlen($this->email) < 3)
+    {
+      $this->invalidateForm("Provided data is too short");
+    }
+
+    if(strlen($this->email) >64)
+    {
+      $this->invalidateForm("Provided data is too long");
+    }
+  }
+
+  private function validatePassword()
+  {
+    if(strlen($this->password) < 3)
+    {
+      $this->invalidateForm("Provided data is too short");
+    }
+
+    if(strlen($this->password) > 64)
+    {
+      $this->invalidateForm("Provided data is too long");
+    }
   }
 }

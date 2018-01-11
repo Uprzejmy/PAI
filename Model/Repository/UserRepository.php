@@ -64,7 +64,7 @@ class UserRepository
     return null;
   }
 
-  public static function getUserByEmail(mysqli $connection, $email) : User
+  public static function getUserByEmail(mysqli $connection, $email)
   {
     $queryString = "SELECT id, email FROM users WHERE email = ?";
 

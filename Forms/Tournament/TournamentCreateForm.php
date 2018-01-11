@@ -18,6 +18,8 @@ class TournamentCreateForm extends Form implements IForm
   public function validateData()
   {
     $this->valid = true;
+
+    $this->validateName();
   }
 
   public function invalidateForm($message = "")
@@ -29,5 +31,18 @@ class TournamentCreateForm extends Form implements IForm
   public function getName()
   {
     return $this->name;
+  }
+
+  private function validateName()
+  {
+    if(strlen($this->name) < 3)
+    {
+      $this->invalidateForm("Provided data is too short");
+    }
+
+    if(strlen($this->name) > 80)
+    {
+      $this->invalidateForm("Provided data is too long");
+    }
   }
 }

@@ -23,10 +23,9 @@ class RegistrationForm extends Form implements IForm
   {
     $this->valid = true; //assume valid
 
-    if($this->password !== $this->password2)
-    {
-      $this->invalidateForm("password and confirmation don't match");
-    }
+    $this->validateEmail();
+    $this->validatePassword();
+    $this->validatePasswordsMatch();
   }
 
   public function invalidateForm($message = "")
@@ -48,5 +47,40 @@ class RegistrationForm extends Form implements IForm
   public function getPassword2()
   {
     return $this->password2;
+  }
+
+
+  private function validateEmail()
+  {
+    if(strlen($this->email) < 3)
+    {
+      $this->invalidateForm("Provided data is too short");
+    }
+
+    if(strlen($this->email) > 64)
+    {
+      $this->invalidateForm("Provided data is too long");
+    }
+  }
+
+  private function validatePassword()
+  {
+    if(strlen($this->password) < 3 || strlen($this->password2) < 3)
+    {
+      $this->invalidateForm("Provided data is too short");
+    }
+
+    if(strlen($this->password) > 64 || strlen($this->password2) < 64)
+    {
+      $this->invalidateForm("Provided data is too long");
+    }
+  }
+
+  private function validatePasswordsMatch()
+  {
+    if($this->password !== $this->password2)
+    {
+      $this->invalidateForm("password and confirmation don't match");
+    }
   }
 }

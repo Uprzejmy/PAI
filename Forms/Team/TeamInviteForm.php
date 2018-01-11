@@ -17,7 +17,9 @@ class TeamInviteForm extends Form implements IForm
 
   public function validateData()
   {
-    $this->valid = $this->validateEmail();
+    $this->valid = true;
+
+    $this->validateEmail();
   }
 
   public function invalidateForm($message = "")
@@ -31,13 +33,11 @@ class TeamInviteForm extends Form implements IForm
     return $this->email;
   }
 
-  public function validateEmail() : bool
+  public function validateEmail()
   {
     if(strlen($this->email) === 0)
     {
-      return false;
+      $this->invalidateForm("");
     }
-
-    return true;
   }
 }
