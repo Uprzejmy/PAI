@@ -561,6 +561,16 @@ div .content_list
   width: 10%;
 }
 
+.content_list li.simple_list div.tournament_report_score select
+{
+  width: 100%;
+  color: #ffffff;
+  background: rgba(0,0,0,0.3);
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+  border: 1px solid rgba(0,0,0,0.3);
+  border-radius: 5px;
+}
+
 
 
 .content_actions
@@ -720,9 +730,29 @@ div .content_list
   color: #7d8292;
 }
 
-.tournament_content
+.start_tournament_action
 {
+  height: 60px;
+  width: 220px;
+  background: #f4a428;
+}
 
+.start_tournament_action:hover
+{
+  background: #CD8009;
+}
+
+.start_tournament_action p
+{
+  line-height: 60px;
+  color: #FFFFFF;
+}
+
+
+.start_tournament_action .start_element
+{
+  float: left;
+  padding-left: 10px;
 }
 
 /*

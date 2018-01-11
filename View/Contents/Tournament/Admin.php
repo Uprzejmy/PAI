@@ -40,23 +40,19 @@
   </div>
   <div class="content_below">
     <div class="content_list">
-      <ul>
         <?php
         $tournament = $parameters['tournament'];
         $tournamentId = $parameters['tournamentId'];
         if(!$tournament->isStarted())
         {
-          echo("<li>
-                  <div class='start_tournament_action'>
-                
-                    <form action='/tournaments/start' method='POST'>
-                      <input type='text' id='tournamentId' name='tournamentId' value='$tournamentId' style='display:none'>
-                      <button class='button' type='submit'>
-                          Start Tournament!
-                      </button>
-                    </form>
-                  </div>
-                </li>");
+          echo("<div class='start_tournament_action'>
+                  <form action='/tournaments/start' method='POST'>
+                    <input type='text' id='tournamentId' name='tournamentId' value='$tournamentId' style='display:none'>
+                    <button class='button' type='submit'>
+                        <p class='start_element'>Start Tournament!</p><img class='start_element' src='/images/start_flag_icon_small.png'>
+                    </button>
+                  </form>
+                </div>");
         }
 
         $options = "";
@@ -64,6 +60,8 @@
         {
             $options .= "<option value='$i'>$i</option>";
         }
+
+        echo("<ul>");
 
         foreach($parameters['matchesToReport'] as $match)
         {
