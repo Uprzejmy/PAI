@@ -63,7 +63,7 @@ class ExamplesModel
     $this->createTeam($connection, $users[array_rand($users)]->getId(), "Dont Pull a Hammy Watkins!");
     $this->createTeam($connection, $users[array_rand($users)]->getId(), "Every Kiss Begins with Clay");
     $this->createTeam($connection, $users[array_rand($users)]->getId(), "Flaccoroni and Cheese");
-    $this->createTeam($connection, $users[array_rand($users)]->getId(), "Momma, dont let you babies grow up to be Cowboys");
+    $this->createTeam($connection, $users[array_rand($users)]->getId(), "Momma, dont let you babies");
   }
 
   private function createTeam(mysqli $connection, $userId, $name)

@@ -7,6 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/DbConnection.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Repository/TournamentRepository.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Repository/BracketRepository.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/Tournament.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/Match.php";
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/BracketHelper.php";
 
 class TournamentModel
@@ -99,7 +100,11 @@ class TournamentModel
         BracketRepository::createTeamMatch($connection, $matchId, $bracketMatch->getLeftTeam()->getId(), 0);
 
         //TODO improve this empty data handling
-        if($bracketMatch->getRightTeam() !== null)
+        if($bracketMatch->getRightTeam() === null)
+        {
+          $this->reportScore($matchId, 0, -1);
+        }
+        else
         {
           BracketRepository::createTeamMatch($connection, $matchId, $bracketMatch->getRightTeam()->getId(), 1);
         }
@@ -158,6 +163,22 @@ class TournamentModel
     try
     {
       $bracketMatchesRO = BracketRepository::getDetailedAndPlayedBracketMatchesByTournamentId($connection, $tournamentId);
+    }
+    catch(TypeError $t)
+    {
+      return array();
+    }
+
+    return $bracketMatchesRO;
+  }
+
+  public function getDetailedBracketMatchesAwaitingForScore($tournamentId)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    try
+    {
+      $bracketMatchesRO = BracketRepository::getDetailedBracketMatchesAwaitingForScore($connection, $tournamentId);
     }
     catch(TypeError $t)
     {
@@ -229,5 +250,56 @@ class TournamentModel
     }
 
     return $tournaments;
+  }
+
+  public function reportScore($matchId, $leftScore, $rightScore)
+  {
+    if($leftScore === $rightScore)
+    {
+      return;
+    }
+
+    $connection = DbConnection::getInstance()->getConnection();
+
+    $match = BracketRepository::getDetailedBracketMatchById($connection, $matchId);
+    $newOrder = floor($match->matchOrder/2);
+    $newPosition = 1 - $match->matchOrder % 2;
+    $winnerId = $leftScore > $rightScore ? $match->leftTeamId : $match->rightTeamId;
+
+    $connection->begin_transaction();
+
+    BracketRepository::updateMatchDate($connection, $matchId);
+
+    BracketRepository::updateTeamMatchScore($connection, $matchId, $leftScore, 0);
+    BracketRepository::updateTeamMatchScore($connection, $matchId, $rightScore, 1);
+
+    //this was the last tournament match
+    if($newOrder < 1)
+    {
+      TournamentRepository::endTournament($connection, $match->tournamentId, $winnerId);
+    }
+    else
+    {
+      $newMatch = BracketRepository::getMatchIdByOrder($connection, $match->tournamentId, $newOrder);
+      if($newMatch === null)
+      {
+        $newMatchId = BracketRepository::createMatch($connection, $match->tournamentId, $newOrder);
+      }
+      else
+      {
+        $newMatchId = $newMatch->getId();
+      }
+
+      BracketRepository::createTeamMatch($connection, $newMatchId, $winnerId, $newPosition);
+    }
+
+
+    if($connection->error)
+    {
+      $connection->rollback();
+      return;
+    }
+
+    $connection->commit();
   }
 }

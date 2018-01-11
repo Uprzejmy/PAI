@@ -30,7 +30,7 @@
       {
         $tournamentId = $parameters['tournamentId'];
         echo("<li>
-                <a href='/tournaments/admin/settings/$tournamentId'>Settings</a>
+                <a href='/tournaments/admin/$tournamentId'>Admin</a>
               </li>");
       }
       ?>

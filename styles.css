@@ -496,6 +496,72 @@ div .content_list
   width: 5%;
 }
 
+.content_list li.simple_list div.tournament_score_form
+{
+  height: 40px;
+  width: 7%;
+  float: right;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  text-align: center;
+  border-left:2px solid #2b2b2b;
+}
+
+.content_list li.simple_list div.tournament_score_form:hover
+{
+  background: #009000;
+}
+
+.content_list li.simple_list div.tournament_report_score
+{
+  float: left;
+  width: 92%
+}
+
+.content_list li.simple_list div.tournament_report_score > div
+{
+  float: left;
+  width: 49%
+}
+
+.content_list li.simple_list div.tournament_report_score .left
+{
+  border-right:2px solid #2b2b2b;
+}
+
+.content_list li.simple_list div.tournament_report_score div.content_to_right
+{
+  float: right;
+  width: 85%;
+  text-align: center;
+  padding: 16px 0px;
+}
+
+.content_list li.simple_list div.tournament_report_score div.content_to_right:first-child
+{
+  margin-left: 8px;
+  margin-right: 8px;
+  text-align: right;
+  width: 10%;
+}
+
+.content_list li.simple_list div.tournament_report_score div.content_to_left
+{
+  float: left;
+  width: 85%;
+  text-align: center;
+  padding: 16px 0px;
+}
+
+.content_list li.simple_list div.tournament_report_score div.content_to_left:first-child
+{
+  margin-right: 8px;
+  margin-left: 6px;
+  text-align: left;
+  width: 10%;
+}
+
+
 
 .content_actions
 {
@@ -707,9 +773,10 @@ main.tournament_bracket
 .tournament_bracket li.game span
 {
   float:right;
-  padding: 0 10px;
   background: #66686f;
   color: #2b2b2b;
+  min-width: 30px;
+  text-align: center;
 }
 
 .tournament_bracket li.game-top

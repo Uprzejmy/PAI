@@ -125,7 +125,7 @@ class TournamentController extends BaseController
     ]);
   }
 
-  public function showTournamentAdminSettingsAction($parameters)
+  public function showTournamentAdminAction($parameters)
   {
     /** @var UserSession $session */
     $session = $parameters['session'];
@@ -139,12 +139,15 @@ class TournamentController extends BaseController
       $this->redirect("/not_found");
     }
 
+    $matchesToReport = $tournamentModel->getDetailedBracketMatchesAwaitingForScore($tournamentId);
+
     $tournamentView = new TournamentView();
 
-    $tournamentView->render('Settings', [
+    $tournamentView->render('Admin', [
       'session' => $session,
       'tournamentId' => $tournamentId,
       'tournament' => $tournament,
+      'matchesToReport' => $matchesToReport,
       'isUserAdmin' => $tournament->isAdmin($session->getUserId()),
       'isTournamentStarted' => $tournament->isStarted(),
     ]);
@@ -285,4 +288,31 @@ class TournamentController extends BaseController
     $this->redirect("/tournaments/$tournamentId");
   }
 
+  public function reportScoreAction($parameters)
+  {
+    /** @var UserSession $session */
+    $session = $parameters['session'];
+
+    if($_SERVER['REQUEST_METHOD'] !== 'POST')
+    {
+      $this->redirect("/homepage");
+    }
+
+    $matchId = $_POST['matchId'];
+    $tournamentId = $_POST['tournamentId'];
+
+    $tournamentModel = new TournamentModel();
+
+    if(!$tournamentModel->isUserAdminInTournament($tournamentId, $session->getUserId()))
+    {
+      $this->redirect("/homepage");
+    }
+
+    $leftScore = $_POST['leftScore'];
+    $rightScore = $_POST['rightScore'];
+
+    $tournamentModel->reportScore($matchId, $leftScore, $rightScore);
+
+    $this->redirect("/tournaments/admin/$tournamentId");
+  }
 }

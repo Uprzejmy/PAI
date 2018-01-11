@@ -9,7 +9,7 @@ class Match
   private $matchDate;
   private $order;
 
-  private $tournament;
+  private $tournament_id;
 
   /**
    * @return mixed
@@ -52,19 +52,19 @@ class Match
   }
 
   /**
-   * @return Tournament
+   * @return mixed
    */
-  public function getTournament() : Tournament
+  public function getTournamentId()
   {
-    return $this->tournament;
+    return $this->tournament_id;
   }
 
   /**
-   * @param Tournament $tournament
+   * @param $tournamentId
    */
-  public function setTournament(Tournament $tournament)
+  public function setTournamentId($tournamentId)
   {
-    $this->$tournament = $tournament;
+    $this->tournament_id = $tournamentId;
   }
 
 }

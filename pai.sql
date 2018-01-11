@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 09, 2018 at 09:24 PM
+-- Generation Time: Jan 11, 2018 at 04:39 AM
 -- Server version: 5.7.20-0ubuntu0.16.04.1
 -- PHP Version: 7.0.22-0ubuntu0.16.04.1
 
@@ -72,7 +72,7 @@ CREATE TABLE `matches` (
   `id` int(11) NOT NULL,
   `tournament_id` int(11) NOT NULL,
   `match_order` int(11) NOT NULL,
-  `match_date` date DEFAULT NULL
+  `match_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- --------------------------------------------------------
@@ -211,6 +211,8 @@ CREATE TABLE `tournaments` (
   `name` varchar(127) COLLATE utf8_unicode_ci NOT NULL,
   `description` varchar(2000) COLLATE utf8_unicode_ci DEFAULT NULL,
   `started` int(11) NOT NULL DEFAULT '0',
+  `ended` int(11) NOT NULL DEFAULT '0',
+  `winner_id` int(11) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -320,7 +322,8 @@ ALTER TABLE `teams_tournaments`
 --
 ALTER TABLE `tournaments`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `tournaments_users_id` (`admin_id`);
+  ADD KEY `tournaments_users_id` (`admin_id`),
+  ADD KEY `tournaments_teams_id` (`winner_id`);
 
 --
 -- Indexes for table `users`
@@ -442,7 +445,8 @@ ALTER TABLE `teams_tournaments`
 -- Constraints for table `tournaments`
 --
 ALTER TABLE `tournaments`
-  ADD CONSTRAINT `tournaments_users_id` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`);
+  ADD CONSTRAINT `tournaments_users_id` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `tournaments_teams_id` FOREIGN KEY (`winner_id`) REFERENCES `teams` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

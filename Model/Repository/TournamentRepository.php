@@ -223,4 +223,13 @@ class TournamentRepository
     return $tournaments;
   }
 
+  public static function endTournament(mysqli $connection, $tournamentId, $winnerId)
+  {
+    $queryString = "UPDATE tournaments SET ended = 1, winner_id = ? WHERE tournaments.id = ?";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("ii",$winnerId, $tournamentId);
+    $query->execute();
+  }
+
 }
