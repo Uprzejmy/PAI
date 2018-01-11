@@ -797,21 +797,9 @@ main.tournament_bracket
   background: #4a4c52;
 }
 
-
-
-
-
-table {
-  border-collapse: collapse;
-}
-
-table, tr, td {
-  border: 1px solid black;
-}
-
-td {
-  width: 200px;
-  height:50px;
+h2.tournament_winner
+{
+  color: #FFFFFF;
 }
 
 .login { 

@@ -192,9 +192,18 @@ class TournamentModel
   {
     $tournament = $this->getTournamentById($tournamentId);
 
+    $html = "";
+
     if (!$tournament->isStarted())
     {
       return "<div><p>This tournament hasn't been started yet</p></div>";
+    }
+
+    if ($tournament->isEnded())
+    {
+      $winner = $this->getTournamentWinner($tournamentId);
+      $name = $winner->getName();
+      $html .= "<div><h2 class='tournament_winner'>1st place: $name</h2></div>";
     }
 
     $bracketMatches = $this->getDetailedBracketMatches($tournamentId);
@@ -203,20 +212,14 @@ class TournamentModel
     {
       foreach($bracketMatches as $bracketMatch)
       {
-        if($bracketMatch->leftTeamName === null || $bracketMatch->leftTeamScore === null)
+        if($bracketMatch->leftTeamName === null || $bracketMatch->rightTeamName === null || $bracketMatch->matchDate === null)
         {
-          $bracketMatch->leftTeamName = "";
-          $bracketMatch->leftTeamScore = 0;
-        }
-
-        if($bracketMatch->rightTeamName === null || $bracketMatch->rightTeamScore === null)
-        {
-          $bracketMatch->rightTeamName = "";
-          $bracketMatch->rightTeamScore = 0;
+          $bracketMatch->leftTeamScore = "-";
+          $bracketMatch->rightTeamScore = "-";
         }
       }
 
-      return BracketHelper::generateBracketHtmlView($bracketMatches);
+      return $html . BracketHelper::generateBracketHtmlView($bracketMatches);;
     }
 
     return "";
@@ -301,5 +304,21 @@ class TournamentModel
     }
 
     $connection->commit();
+  }
+
+  public function getTournamentWinner($tournamentId)
+  {
+    $connection = DbConnection::getInstance()->getConnection();
+
+    try
+    {
+      $team = TournamentRepository::getTournamentWinner($connection, $tournamentId);
+    }
+    catch(TypeError $t)
+    {
+      return array();
+    }
+
+    return $team;
   }
 }

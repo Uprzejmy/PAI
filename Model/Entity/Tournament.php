@@ -11,6 +11,7 @@ class Tournament
   private $name;
   private $description;
   private $started;
+  private $ended;
   private $created_at;
   private $admin_id;
 
@@ -81,6 +82,36 @@ class Tournament
   public function setStarted($started)
   {
     $this->started = $started;
+  }
+
+
+  /**
+   * @return mixed
+   */
+  public function getEnded ()
+  {
+    return $this->ended;
+  }
+
+  /**
+   * @return bool
+   */
+  public function isEnded()
+  {
+    if($this->ended === 1)
+    {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * @param mixed $ended
+   */
+  public function setEnded ($ended)
+  {
+    $this->ended = $ended;
   }
 
   /**

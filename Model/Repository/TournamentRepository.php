@@ -4,6 +4,7 @@
  */
 
 require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/Tournament.php";
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Model/Entity/Team.php";
 
 class TournamentRepository
 {
@@ -20,7 +21,7 @@ class TournamentRepository
 
   public static function getTournamentById(mysqli $connection, $id)
   {
-    $queryString = "SELECT tournaments.id, tournaments.name, tournaments.description, tournaments.started, tournaments.admin_id, tournaments.created_at FROM tournaments 
+    $queryString = "SELECT tournaments.id, tournaments.name, tournaments.description, tournaments.started, tournaments.ended, tournaments.admin_id, tournaments.created_at FROM tournaments 
                     WHERE tournaments.id = ?";
 
     $query = $connection->prepare($queryString);
@@ -232,4 +233,18 @@ class TournamentRepository
     $query->execute();
   }
 
+  public static function getTournamentWinner(mysqli $connection, $tournamentId)
+  {
+    $queryString = "SELECT teams.name FROM tournaments
+                    LEFT JOIN teams ON tournaments.winner_id = teams.id
+                    WHERE tournaments.id = ? AND tournaments.ended = 1";
+
+    $query = $connection->prepare($queryString);
+    $query->bind_param("i", $tournamentId);
+    $query->execute();
+
+    $result = $query->get_result();
+
+    return $result->fetch_object("Team");
+  }
 }

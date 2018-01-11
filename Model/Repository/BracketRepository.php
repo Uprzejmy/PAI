@@ -12,7 +12,7 @@ class BracketRepository
   {
     $bracketMatches = array();
 
-    $queryString = "SELECT matches.id as 'matchId', matches.match_order as 'matchOrder', 
+    $queryString = "SELECT matches.id as 'matchId', matches.match_order as 'matchOrder', match_date as 'matchDate',
                            tleft.name as 'leftTeamName', tmleft.scores as 'leftTeamScore', 
                            tright.name as 'rightTeamName', tmright.scores as 'rightTeamScore'
                     FROM matches

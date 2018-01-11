@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jan 11, 2018 at 04:39 AM
+-- Generation Time: Jan 11, 2018 at 05:12 AM
 -- Server version: 5.7.20-0ubuntu0.16.04.1
 -- PHP Version: 7.0.22-0ubuntu0.16.04.1
 
@@ -153,7 +153,7 @@ CREATE TABLE `teams_matches` (
   `id` int(11) NOT NULL,
   `match_id` int(11) NOT NULL,
   `team_id` int(11) NOT NULL,
-  `scores` int(11) DEFAULT '0',
+  `scores` int(11) DEFAULT NULL,
   `position` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
@@ -445,8 +445,8 @@ ALTER TABLE `teams_tournaments`
 -- Constraints for table `tournaments`
 --
 ALTER TABLE `tournaments`
-  ADD CONSTRAINT `tournaments_users_id` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `tournaments_teams_id` FOREIGN KEY (`winner_id`) REFERENCES `teams` (`id`);
+  ADD CONSTRAINT `tournaments_teams_id` FOREIGN KEY (`winner_id`) REFERENCES `teams` (`id`),
+  ADD CONSTRAINT `tournaments_users_id` FOREIGN KEY (`admin_id`) REFERENCES `users` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

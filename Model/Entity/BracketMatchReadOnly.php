@@ -9,10 +9,10 @@ class BracketMatchReadOnly
 {
   public $matchId = "";
   public $leftTeamName = "";
-  public $leftTeamScore = 0;
+  public $leftTeamScore = "-";
   public $leftTeamId;
   public $rightTeamName = "";
-  public $rightTeamScore = 0;
+  public $rightTeamScore = "-";
   public $rightTeamId;
   public $matchOrder = "";
   public $matchDate = "";

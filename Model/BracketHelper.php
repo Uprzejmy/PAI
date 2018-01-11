@@ -18,12 +18,6 @@ class BracketHelper
    */
   public static function generateBracketHtmlView($bracketMatchesRO)
   {
-    /*
-    echo "<pre>";
-    print_r($bracketMatchesRO);
-    echo "</pre>";
-    */
-
     $html = "";
     $html .= "<main class='tournament_bracket'>";
 
@@ -50,7 +44,6 @@ class BracketHelper
         $match = self::getBracketMatchByIndex($bracketMatchesRO, $lastPrintedMatchKey--);
 
         $html .= "<li class='game game-top'>$match->leftTeamName<span>$match->leftTeamScore</span></li>";
-        //$html .= "<li class='game game-spacer'>&nbsp;</li>";
         $html .= "<li class='game game-bottom'>$match->rightTeamName<span>$match->rightTeamScore</span></li>";
 
         $html .= "<li class='spacer'>&nbsp;</li>";
